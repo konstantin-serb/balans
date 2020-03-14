@@ -1,9 +1,10 @@
 <?php
-namespace frontend\models;
+
+namespace frontend\modules\user\models;
 
 use Yii;
 use yii\base\Model;
-use common\models\User;
+use frontend\models\User;
 
 /**
  * Signup form
@@ -13,6 +14,8 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $about;
+    public $nickname;
 
 
     /**
@@ -23,17 +26,22 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\frontend\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\frontend\models\User', 'message' => 'This email address has already been taken.'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+
+            [['about'], 'string', 'max'=>1000],
+
+            [['nickname'], 'string', 'min' => 5, 'max' => 20],
+            [['nickname'], 'unique', 'targetClass' => '\frontend\models\User', 'message' => 'Извините, но такой никнейм уже зарегистрироваан!']
         ];
     }
 
@@ -47,14 +55,18 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
-        
+
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
+        $user->nickname = $this->nickname;
+        $user->about = $this->about;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
-        return $user->save() && $this->sendEmail($user);
+        $user->save();
+        return $user;
+
 
     }
 

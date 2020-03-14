@@ -22,6 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
                 <?= $form->field($model, 'email') ?>
+                <?= $form->field($model, 'nickname')->label('Придумайте себе никнейм') ?>
+                <?= $form->field($model, 'about')->label('Напишите немного о себе')->textarea(['rows'=>10])?>
 
                 <?= $form->field($model, 'password')->passwordInput() ?>
 

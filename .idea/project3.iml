@@ -2,7 +2,14 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/insta/vendor/2amigos/yii2-file-upload-widget" />
+      <excludeFolder url="file://$MODULE_DIR$/insta/vendor/2amigos/yii2-gallery-widget" />
       <excludeFolder url="file://$MODULE_DIR$/insta/vendor/behat/gherkin" />
+      <excludeFolder url="file://$MODULE_DIR$/insta/vendor/bower-asset/blueimp-canvas-to-blob" />
+      <excludeFolder url="file://$MODULE_DIR$/insta/vendor/bower-asset/blueimp-file-upload" />
+      <excludeFolder url="file://$MODULE_DIR$/insta/vendor/bower-asset/blueimp-gallery" />
+      <excludeFolder url="file://$MODULE_DIR$/insta/vendor/bower-asset/blueimp-load-image" />
+      <excludeFolder url="file://$MODULE_DIR$/insta/vendor/bower-asset/blueimp-tmpl" />
       <excludeFolder url="file://$MODULE_DIR$/insta/vendor/bower-asset/bootstrap" />
       <excludeFolder url="file://$MODULE_DIR$/insta/vendor/bower-asset/inputmask" />
       <excludeFolder url="file://$MODULE_DIR$/insta/vendor/bower-asset/jquery" />
@@ -77,6 +84,7 @@
       <excludeFolder url="file://$MODULE_DIR$/insta/vendor/yiisoft/yii2-debug" />
       <excludeFolder url="file://$MODULE_DIR$/insta/vendor/yiisoft/yii2-faker" />
       <excludeFolder url="file://$MODULE_DIR$/insta/vendor/yiisoft/yii2-gii" />
+      <excludeFolder url="file://$MODULE_DIR$/insta/vendor/yiisoft/yii2-redis" />
       <excludeFolder url="file://$MODULE_DIR$/insta/vendor/yiisoft/yii2-swiftmailer" />
     </content>
     <orderEntry type="inheritedJdk" />

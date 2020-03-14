@@ -11,12 +11,17 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'user' => [
+            'class' => 'frontend\modules\user\Module',
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => 'frontend\models\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],
@@ -36,11 +41,16 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'storage' => [
+            'class' => 'frontend\components\Storage',
+        ],
 
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'profile/<nickname:\w+>' => 'user/profile/view',
+                'gen_user' => 'site/generate-user',
             ],
         ],
 

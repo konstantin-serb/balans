@@ -78,6 +78,14 @@
       <path value="$PROJECT_DIR$/insta/vendor/opis/closure" />
       <path value="$PROJECT_DIR$/insta/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/insta/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/insta/vendor/yiisoft/yii2-redis" />
+      <path value="$PROJECT_DIR$/insta/vendor/bower-asset/blueimp-canvas-to-blob" />
+      <path value="$PROJECT_DIR$/insta/vendor/bower-asset/blueimp-tmpl" />
+      <path value="$PROJECT_DIR$/insta/vendor/bower-asset/blueimp-file-upload" />
+      <path value="$PROJECT_DIR$/insta/vendor/bower-asset/blueimp-gallery" />
+      <path value="$PROJECT_DIR$/insta/vendor/bower-asset/blueimp-load-image" />
+      <path value="$PROJECT_DIR$/insta/vendor/2amigos/yii2-gallery-widget" />
+      <path value="$PROJECT_DIR$/insta/vendor/2amigos/yii2-file-upload-widget" />
     </include_path>
   </component>
 </project>

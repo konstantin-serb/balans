@@ -15,6 +15,9 @@ return [
         'user' => [
             'class' => 'frontend\modules\user\Module',
         ],
+        'post' => [
+            'class' => 'frontend\modules\post\Module',
+        ],
     ],
     'components' => [
         'request' => [
@@ -51,6 +54,7 @@ return [
             'rules' => [
                 'profile/<nickname:\w+>' => 'user/profile/view',
                 'gen_user' => 'site/generate-user',
+                'post/<id:\d+>' => 'post/default/view',
             ],
         ],
 

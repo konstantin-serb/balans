@@ -44,6 +44,7 @@ use dosamigos\fileupload\FileUpload;
 
 <h2><?= Html::encode($user->username) ?></h2>
 <p>Nickname: <b><?= Html::encode($user->nickname) ?></b></p>
+<p>Nickname: <b><?= Html::encode($user->email) ?></b></p>
 <p><b>Немного о себе:</b><br><span style="color:darkblue;"><?= HtmlPurifier::process($user->about) ?></span></p>
 <hr>
 

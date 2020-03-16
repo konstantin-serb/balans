@@ -2,50 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdef52fd-1ecc-45a5-a0ae-a151439a30db" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/insta/frontend/components/Storage.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/components/StorageInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/controllers/PyhaController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/models/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/models/forms/PictureForm.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/user/Module.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/user/controllers/DefaultController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/user/controllers/ProfileController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/default/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/views/pyha/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/project3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/project3.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/console/migrations/m200315_064313_create_post_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/frontend/models/Post.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/post/Module.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/post/controllers/DefaultController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/post/models/forms/PostForm.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/create.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/view.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin.insta/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/admin.insta/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/insta/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/common/config/bootstrap.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/common/config/bootstrap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/common/mail/emailVerify-html.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/common/mail/emailVerify-html.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/common/mail/emailVerify-text.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/common/mail/emailVerify-text.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/common/models/LoginForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/models/LoginForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/common/models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/common/models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/insta/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/insta/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/config/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/config/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/config/params.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/config/params.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/controllers/SiteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/models/ContactForm.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/models/PasswordResetRequestForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/models/PasswordResetRequestForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/models/ResendVerificationEmailForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/models/ResendVerificationEmailForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/models/ResetPasswordForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/models/ResetPasswordForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/models/SignupForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/models/SignupForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/models/VerifyEmailForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/models/VerifyEmailForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/layouts/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/about.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/contact.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/site/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/default/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/requestPasswordResetToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/default/requestPasswordResetToken.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/resendVerificationEmail.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/default/resendVerificationEmail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/resetPassword.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/default/resetPassword.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/signup.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/default/signup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/web/css/site.css" beforeDir="false" afterPath="$PROJECT_DIR$/insta/web/css/site.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/web/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/insta/web/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/web/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/web/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -206,6 +172,9 @@
       <workItem from="1583987874936" duration="2766000" />
       <workItem from="1584073810003" duration="6151000" />
       <workItem from="1584160023650" duration="1732000" />
+      <workItem from="1584181020881" duration="1325000" />
+      <workItem from="1584253485790" duration="9817000" />
+      <workItem from="1584332358809" duration="925000" />
     </task>
     <servers />
   </component>

@@ -4,6 +4,7 @@
  * @var $user \frontend\models\User
  * @var $currentUser \frontend\models\User
  * @var $modelPicture \frontend\models\forms\PictureForm
+ * @var $posts \frontend\models\Post
  */
 
 use yii\helpers\Html;
@@ -12,7 +13,7 @@ use yii\helpers\Url;
 use dosamigos\fileupload\FileUpload;
 
 ?>
-<img id="profile-picture" src="<?= $user->getPicture() ?>" style="width: 150px;">
+<img id="profile-picture" src="<?= $user->getPicture() ?>" style="width: 250px;">
 <br><br>
 <div class="alert alert-success display-none" id="profile-image-success">Profile image updated</div>
 <div class="alert alert-danger display-none" id="profile-image-fail"></div>
@@ -44,7 +45,7 @@ use dosamigos\fileupload\FileUpload;
 
 <h2><?= Html::encode($user->username) ?></h2>
 <p>Nickname: <b><?= Html::encode($user->nickname) ?></b></p>
-<p>Nickname: <b><?= Html::encode($user->email) ?></b></p>
+<p>Email: <b><?= Html::encode($user->email) ?></b></p>
 <p><b>Немного о себе:</b><br><span style="color:darkblue;"><?= HtmlPurifier::process($user->about) ?></span></p>
 <hr>
 
@@ -75,6 +76,32 @@ use dosamigos\fileupload\FileUpload;
     <a href="#" data-toggle="modal" data-target="#myModal3">Общие друзья (<?= $currentUser->countMutualFriends($user) ?>
         )</a>
 <?php endif; ?>
+<hr>
+
+<div class="row">
+<?php foreach($posts as $post):?>
+
+    <div class="col-md-4">
+        <?php if($post->user):?>
+            <p>
+                <a href="<?=\yii\helpers\Url::to(['/user/profile/view', 'nickname' => $user->getNickname()])?>">
+                    Avthor: <?=$post->user->username?>
+                </a>
+            </p>
+        <?php endif;?>
+        <a href="<?=Url::to(['/post/default/view', 'id' => $post->id])?>">
+            <img src="<?php echo Html::encode($post->getImage())?>">
+        </a>
+        <br><br>
+        <?php echo Html::encode($post->description)?>
+        <br>
+        Likes: <span id="count1" class="likes-count"><?php echo $post->countLikes(); ?></span>
+        <br>
+        <hr>
+    </div>
+<?php endforeach;?>
+</div>
+
 
 
 <!-- Modal -->

@@ -3,6 +3,7 @@
 
 namespace frontend\modules\user\controllers;
 
+use frontend\models\Post;
 use Yii;
 use frontend\models\User;
 use yii\web\Controller;
@@ -19,11 +20,13 @@ class ProfileController extends Controller
         $user = $this->findUser($nickname);
         $currentUser = Yii::$app->user->identity;
         $modelPicture = new PictureForm();
+        $posts = Post::find()->where(['user_id' => $user->getId()])->orderBy('id desc')->limit(10)->all();
 
         return $this->render('view', [
             'user' => $user,
             'currentUser' => $currentUser,
             'modelPicture' => $modelPicture,
+            'posts' => $posts,
         ]);
     }
 

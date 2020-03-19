@@ -32,6 +32,7 @@
       <excludeFolder url="file://$MODULE_DIR$/insta/vendor/ezyang/htmlpurifier" />
       <excludeFolder url="file://$MODULE_DIR$/insta/vendor/fzaninotto/faker" />
       <excludeFolder url="file://$MODULE_DIR$/insta/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/insta/vendor/intervention/image" />
       <excludeFolder url="file://$MODULE_DIR$/insta/vendor/myclabs/deep-copy" />
       <excludeFolder url="file://$MODULE_DIR$/insta/vendor/opis/closure" />
       <excludeFolder url="file://$MODULE_DIR$/insta/vendor/phar-io/manifest" />

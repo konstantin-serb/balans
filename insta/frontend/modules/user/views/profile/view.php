@@ -119,7 +119,7 @@ use dosamigos\fileupload\FileUpload;
                     <?php if ($user->getSubscriptions() != null): ?>
                         <?php foreach ($user->getSubscriptions() as $subscription): ?>
                             <a href="<?= Url::to(['/user/profile/view', 'nickname' => ($subscription['nickname']) ? $subscription['nickname'] : $subscription['id']]) ?>"><?= Html::encode($subscription['username']) ?>
-                                ,</a>
+                                </a>
                             <br>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -150,7 +150,7 @@ use dosamigos\fileupload\FileUpload;
                     <?php if ($user->getFollowers() != null): ?>
                         <?php foreach ($user->getFollowers() as $follower): ?>
                             <a href="<?= Url::to(['/user/profile/view', 'nickname' => ($follower['nickname']) ? $follower['nickname'] : $follower['id']]) ?>"><?= Html::encode($follower['username']) ?>
-                                ,</a>
+                                </a>
                             <br>
                         <?php endforeach; ?>
                     <?php else: ?>

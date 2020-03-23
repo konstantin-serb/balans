@@ -9,6 +9,7 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use frontend\models\Post;
 
 /**
  * User model
@@ -346,6 +347,20 @@ class User extends ActiveRecord implements IdentityInterface
 
     }
 
+    public function getSubscriptionsPosts($limit)
+    {
+        $subscriber = new Subscriptions();
+        if ($subscr = $subscriber->find()->where(['user_id' => $this->getId()])->one()) {
+            $arrayDown = $subscr->subscribe;
+            $array = unserialize($arrayDown);
+        } else {
+            $array = false;
+        }
+        $ids = $array;
+        return Post::find()->where(['user_id'=>$ids])->orderBy('created_at desc')->limit($limit)->all();
+
+    }
+
     public function getFollowers()
     {
 //        $redis = Yii::$app->redis;
@@ -445,6 +460,42 @@ class User extends ActiveRecord implements IdentityInterface
             return Yii::$app->storage->getFile($this->picture);
         }
         return self::DEFAULT_IMAGE;
+    }
+
+    public function getFeed($limit)
+    {
+        $order = ['post_created_at' => SORT_DESC];
+        return $this->hasMany(Feed::class, ['user_id' => 'id'])->orderBy($order)->limit($limit)->all();
+    }
+
+    public function isLikedBy(User $user)
+    {
+        $userId = $user->getId();
+        $postId = $this->id;
+        $likes = Likes::find()->where(['post_id' => $postId])->one();
+        if (!empty($likes)){
+            if (in_array($userId, unserialize($likes->likes)))
+            {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public function likesPost($postId)
+    {
+        $userId = $this->getId();
+
+        $likes = Likes::find()->where(['post_id' => $postId])->one();
+        if (!empty($likes)){
+            if (in_array($userId, unserialize($likes->likes)))
+            {
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 }
 

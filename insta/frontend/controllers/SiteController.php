@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Feed;
 use frontend\models\User;
 use Yii;
 use yii\web\Controller;
@@ -49,14 +50,46 @@ class SiteController extends Controller
      *
      * @return mixed
      */
+//    public function actionIndex()
+//    {
+//        if(Yii::$app->user->isGuest) {
+//            return $this->redirect(['/user/default/login']);
+//        }
+//
+//        $users = User::find()->orderBy('id desc')->all();
+//
+//        $currentUser = Yii::$app->user->identity;
+//        $limit = Yii::$app->params['feedPostLimit'];
+//        $postFeed = $currentUser->getFeed($limit);
+//
+//
+//
+//        return $this->render('index', [
+//            'feedItems' => $postFeed,
+//            'currentUser' => $currentUser,
+//            'users' => $users,
+//        ]);
+//    }
+
     public function actionIndex()
     {
-        $a = 'kjdfkgjd';
+        if(Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
+        }
+        $users = User::find()->orderBy('id desc')->all();
+        $currentUser = Yii::$app->user->identity;
+        $limit = Yii::$app->params['feedPostLimit'];
+        if ($currentUser) {
+            $posts = $currentUser->getSubscriptionsPosts($limit);
+        } else {
+            $posts = '';
+        }
 
-        $users = User::find()->all();
 
-        return $this->render('index', [
-            'users' => $users
+        return $this->render('alternative', [
+            'feedItems' => $posts,
+            'currentUser' => $currentUser,
+            'users' => $users,
         ]);
     }
 

@@ -162,6 +162,17 @@ class Post extends \yii\db\ActiveRecord
         }
         return false;
     }
+
+    public function authorName($id)
+    {
+        return \frontend\models\User::findOne($id)->username;
+
+    }
+
+    public function authorPhoto($id)
+    {
+        return \frontend\models\User::findOne($id)->getPicture();
+    }
 }
 
 

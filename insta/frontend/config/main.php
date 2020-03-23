@@ -47,6 +47,9 @@ return [
         'storage' => [
             'class' => 'frontend\components\Storage',
         ],
+        'feedService' => [
+            'class' => 'frontend\components\FeedService',
+        ],
 
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -55,6 +58,7 @@ return [
                 'profile/<nickname:\w+>' => 'user/profile/view',
                 'gen_user' => 'site/generate-user',
                 'post/<id:\d+>' => 'post/default/view',
+                'alternative' => 'site/alternative',
             ],
         ],
 

@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdef52fd-1ecc-45a5-a0ae-a151439a30db" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/insta/web/note.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/layouts/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/alternative.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/site/alternative.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/site/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/web/css/site.css" beforeDir="false" afterPath="$PROJECT_DIR$/insta/web/css/site.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -127,18 +130,20 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/insta/web" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/insta/frontend/views/site" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\web" />
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\user\models" />
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\models" />
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\user\views\default" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\views\site" />
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\web" />
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\common\models" />
     </key>
@@ -181,7 +186,10 @@
       <workItem from="1584332358809" duration="5159000" />
       <workItem from="1584420385398" duration="11752000" />
       <workItem from="1584508617281" duration="19581000" />
-      <workItem from="1584677910352" duration="6559000" />
+      <workItem from="1584677910352" duration="7200000" />
+      <workItem from="1584767605864" duration="4177000" />
+      <workItem from="1584853336825" duration="31564000" />
+      <workItem from="1585111005607" duration="11274000" />
     </task>
     <servers />
   </component>

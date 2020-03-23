@@ -4,6 +4,7 @@
 namespace frontend\controllers;
 
 
+use Yii;
 use yii\web\Controller;
 
 class PyhaController extends Controller
@@ -15,6 +16,12 @@ class PyhaController extends Controller
 
 
         return $this->render('index');
+    }
+
+    public function actionDirSize()
+    {
+            dumper(scandir(Yii::$app->params['storageUri']));
+        die;
     }
 
 

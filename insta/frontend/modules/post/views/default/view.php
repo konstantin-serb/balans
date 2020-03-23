@@ -2,6 +2,7 @@
 /**
  * @var $post \frontend\models\Post;
  * @var $currentUser \frontend\models\User
+
  */
 
 use yii\helpers\Html;
@@ -37,6 +38,8 @@ use yii\helpers\Html;
         </a>
     </div>
 </div>
+
+
 
 
 <?php

@@ -6,6 +6,8 @@
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
+if (!empty($color))
+    $this->color = $color;
 ?>
 
 <div class="post-default-index">

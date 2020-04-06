@@ -45,37 +45,26 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
-//    public function actionIndex()
-//    {
-//        if(Yii::$app->user->isGuest) {
-//            return $this->redirect(['/user/default/login']);
-//        }
-//
-//        $users = User::find()->orderBy('id desc')->all();
-//
-//        $currentUser = Yii::$app->user->identity;
-//        $limit = Yii::$app->params['feedPostLimit'];
-//        $postFeed = $currentUser->getFeed($limit);
-//
-//
-//
-//        return $this->render('index', [
-//            'feedItems' => $postFeed,
-//            'currentUser' => $currentUser,
-//            'users' => $users,
-//        ]);
-//    }
-
     public function actionIndex()
     {
-        if(Yii::$app->user->isGuest) {
+        $color = 'green';
+        $title = 'Balance | main';
+
+        return $this->render('index', [
+            'color' => $color,
+            'title' => $title,
+        ]);
+    }
+
+
+    public function actionNewsFeed()
+    {
+                if(Yii::$app->user->isGuest) {
             return $this->redirect(['/user/default/login']);
         }
+
+        $color = 'blue';
+
         $users = User::find()->orderBy('id desc')->all();
         $currentUser = Yii::$app->user->identity;
         $limit = Yii::$app->params['feedPostLimit'];
@@ -87,6 +76,7 @@ class SiteController extends Controller
 
 
         return $this->render('alternative', [
+            'color' => $color,
             'feedItems' => $posts,
             'currentUser' => $currentUser,
             'users' => $users,

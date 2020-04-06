@@ -4,38 +4,30 @@
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\modules\user\models\LoginForm */
 
+/* @var $color \frontend\modules\user\controllers\DefaultController */
+
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
+
+$this->color = $color;
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+<section class="login">
+    <h2>LOGIN</h2>
+    <h4>Войдите в свой аккаунт и жизнь заиграет красками</h4>
+    <div class="wrap">
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-                <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+        <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+        <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'password')->passwordInput() ?>
+        <?= $form->field($model, 'rememberMe')->checkbox() ?>
+        <?= Html::submitButton('LOGIN', ['class' => 'submit', 'name' => 'login-button']) ?>
 
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
+        <?php ActiveForm::end(); ?>
 
-                <div style="color:#999;margin:1em 0">
-                    If you forgot your password you can <?= Html::a('reset it', ['/user/default/request-password-reset']) ?>.
-                    <br>
-                    Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?>
-                </div>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
-
-            <?php ActiveForm::end(); ?>
-        </div>
     </div>
-</div>
+</section>

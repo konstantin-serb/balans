@@ -87,6 +87,7 @@
       <path value="$PROJECT_DIR$/insta/vendor/2amigos/yii2-gallery-widget" />
       <path value="$PROJECT_DIR$/insta/vendor/2amigos/yii2-file-upload-widget" />
       <path value="$PROJECT_DIR$/insta/vendor/intervention/image" />
+      <path value="$PROJECT_DIR$/insta/vendor/bower-asset/font-awesome" />
     </include_path>
   </component>
 </project>

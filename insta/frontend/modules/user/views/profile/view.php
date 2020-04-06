@@ -5,6 +5,9 @@
  * @var $currentUser \frontend\models\User
  * @var $modelPicture \frontend\models\forms\PictureForm
  * @var $posts \frontend\models\Post
+ * @var $post \frontend\models\Post
+ * @var $color \frontend\modules\user\controllers\ProfileController
+ * @var $title \frontend\modules\user\controllers\ProfileController
  */
 
 use yii\helpers\Html;
@@ -12,21 +15,63 @@ use yii\helpers\HtmlPurifier;
 use yii\helpers\Url;
 use dosamigos\fileupload\FileUpload;
 
-?>
-<img id="profile-picture" src="<?= $user->getPicture() ?>" style="width: 250px;">
-<br><br>
-<div class="alert alert-success display-none" id="profile-image-success">Profile image updated</div>
-<div class="alert alert-danger display-none" id="profile-image-fail"></div>
+$this->color = $color;
+$this->title = $title;
 
-<?php if($currentUser):?>
-<?php if($currentUser->equals($user)):?>
-<?= FileUpload::widget([
-    'model' => $modelPicture,
-    'attribute' => 'picture',
-    'url' => ['/user/profile/upload-picture'], // your url, this is just for demo purposes,
-    'options' => ['accept' => 'image/*'],
-    'clientEvents' => [
-        'fileuploaddone' => 'function(e, data) {                             
+$this->registerJsFile('@web/js/likes.js', [
+    'depends' => \yii\web\JqueryAsset::class,
+]);
+
+?>
+
+<section class="addPostButton">
+    <div class="addPostsWrap">
+        <h2>HELLO, <?= Html::encode($currentUser->username) ?>!</h2>
+        <h3>Не хотите ли добавить новый пост?</h3>
+        <div class="wrap-button">
+            <div class="button button-round">
+                <a class="<?= $color; ?>" href="create.html">ADD POST</a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="about">
+    <div class="aboutWrap">
+        <div class="top">
+            <div class="left">
+                <div class="photo">
+                    <img id="profile-picture" src="<?= Html::encode($currentUser->getPicture()) ?>">
+                </div>
+                <div class="info">
+                    <div class="name"><b>Name:</b> <?= Html::encode($currentUser->username) ?></div>
+                    <div class="nickname"><b>nickname:</b> <?= Html::encode($currentUser->nickname) ?></div>
+                    <div class="infoTime"><b>на сайте
+                            с:</b> <?= Html::encode(Yii::$app->formatter->asDate($currentUser->created_at)) ?></div>
+                    <div class="counts"><b>16 постов |
+                            <a href="#" data-toggle="modal" data-target="#myModal2">
+                                <?= $user->countFollowers() ?> подписчиков
+                            </a>
+                            |
+                            <a href="#" data-toggle="modal" data-target="#myModal">
+                            на <?= $user->countSubscribers() ?> подписан
+                            </a>
+                        </b></div>
+                </div>
+            </div>
+            <div class="right">
+<!--                <h3>Изменить фото</h3>-->
+                <div class="rectangularButton button">
+
+                    <a class="<?= $color; ?>" href="#">
+
+                        <?= FileUpload::widget([
+                            'model' => $modelPicture,
+                            'attribute' => 'picture',
+
+                            'url' => ['/user/profile/upload-picture'], // your url, this is just for demo purposes,
+                            'options' => ['accept' => 'image/*'],
+                            'clientEvents' => [
+                                'fileuploaddone' => 'function(e, data) {                             
               if(data.result.success) {
                   $("#profile-image-success").show();
                   $("#profile-image-fail").hide();
@@ -37,72 +82,109 @@ use dosamigos\fileupload\FileUpload;
               }
         }',
 
-    ],
-]); ?>
-
-<?php endif;?>
-<?php endif;?>
-
-<h2><?= Html::encode($user->username) ?></h2>
-<p>Nickname: <b><?= Html::encode($user->nickname) ?></b></p>
-<p>Email: <b><?= Html::encode($user->email) ?></b></p>
-<p><b>Немного о себе:</b><br><span style="color:darkblue;"><?= HtmlPurifier::process($user->about) ?></span></p>
-<hr>
-
-
-    <?php if ($currentUser): ?>
-        <?php if(!$currentUser->equals($user)):?>
-
-        <?php if ($currentUser->isFollowers($user)) : ?>
-            <a href="<?= Url::to(['/user/profile/unsubscribe', 'id' => $user->getId()]) ?>" class="btn btn-danger">Отписаться</a>
-        <?php else: ?>
-            <a href="<?= Url::to(['/user/profile/subscrire', 'id' => $user->getId()]) ?>" class="btn btn-primary">Подписаться</a>
-        <?php endif; ?>
-        <br><br>
-    <?php endif; ?>
-<?php endif;?>
-
-
-<?php
-//if ($currentUser) {
-//    dumper($currentUser->isFollowers($user));
-//}
-?>
-
-
-<a href="#" data-toggle="modal" data-target="#myModal">Subscriptions (<?= $user->countSubscribers() ?>)</a>
-<a href="#" data-toggle="modal" data-target="#myModal2">Followers (<?= $user->countFollowers() ?>)</a>
-<?php if ($currentUser && $currentUser->getMutualSubscriptionsTo($user) != null): ?>
-    <a href="#" data-toggle="modal" data-target="#myModal3">Общие друзья (<?= $currentUser->countMutualFriends($user) ?>
-        )</a>
-<?php endif; ?>
-<hr>
-
-<div class="row">
-<?php foreach($posts as $post):?>
-
-    <div class="col-md-4">
-        <?php if($post->user):?>
-            <p>
-                <a href="<?=\yii\helpers\Url::to(['/user/profile/view', 'nickname' => $user->getNickname()])?>">
-                    Avthor: <?=$post->user->username?>
-                </a>
-            </p>
-        <?php endif;?>
-        <a href="<?=Url::to(['/post/default/view', 'id' => $post->id])?>">
-            <img src="<?php echo Html::encode($post->getImage())?>">
-        </a>
-        <br><br>
-        <?php echo Html::encode($post->description)?>
-        <br>
-        Likes: <span id="count1" class="likes-count"><?php echo $post->countLikes(); ?></span>
-        <br>
-        <hr>
+                            ],
+                        ]); ?>
+                    </a>
+                </div>
+                <div class="rectangularButton button">
+                    <a class="<?= $color; ?>" href="#">Изменить данные</a>
+                </div>
+            </div>
+        </div>
+        <div class="text">
+            <p><b>Информация обо мне:</b> <?= Html::encode($currentUser->about) ?></p>
+        </div>
     </div>
-<?php endforeach;?>
-</div>
+</section>
+<section class="blurbHoriz">
+    <div class="blurb horizontal">
+        <h4>Здесь может быть ваша реклама</h4>
+    </div>
+</section>
+<section class="newsFeed">
+    <div class="wrap">
+        <h2>MY POSTS</h2>
+        <br><br>
+        <!--        <h3>posts with the most likes:</h3>-->
+        <div class="posts">
+            <?php foreach ($posts as $post):?>
+            <div class="item-wrap">
+                <div class="item">
+                    <div class="top">
+
+                            <div class="authorPhoto">
+                                <img class="autPhoto" src="<?=$post->user->getPicture()?>">
+                            </div>
+                            <span class="autopName">&nbsp;&nbsp;<?= $post->user->username ?></span>
+
+                        <div class="tools">
+                            <a href="update.html" title="update"><i class="fas fa-wrench"></i></a>
+                            <a href="#" title="delete"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="photo">
+                        <a href="<?= Url::to(['/post/default/view', 'id' => $post->id]) ?>">
+                            <div class="pictureWrap">
+                                <img class="contentPhoto" src="<?=Html::encode($post->getImage())?>" alt=""
+                                     title="posts Picture">
+                            </div>
+                        </a>
+                        <p>
+                            <?php Html::encode($post->description)?>
+                        </p>
+                    </div>
+                    <hr>
+                    <div class="bottom">
+                        <div class="likes">
+                            <a href="#"
+                               class="button-like <?php echo ($currentUser->likesPost($post->id)) ? "display-none" : ""; ?>"
+                               data-id="<?php echo $post->id; ?>" data-id="<?php echo $post->id ?>">
+                                <i class="far fa-heart"></i>&nbsp;
+                            </a>
+                            <a href="#"
+                               class="button-unlike <?php echo ($currentUser->likesPost($post->id)) ? "" : "display-none"; ?>"
+                               data-id="<?= $post->id ?>">
+                                <i class="fas fa-heart"></i>&nbsp;
+                            </a>
 
 
+                            <span id="count1" class="likes-count"                                                                                    data-id="<?php echo $post->id; ?>">
+                                            <?= $post->countLikes() ?>
+                                        </span>
+                        </div>
+                        <div class="comments">
+                            <i class="far fa-comment-alt"></i> 0
+                        </div>
+                        <div class="date">
+                            <?=Yii::$app->formatter->asDate($post->created_at)?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?endforeach;?>
+        </div>
+        <div class="pagination">
+            <div class="paginationWrap">
+                <a href="#" class="<?= $color; ?>">
+                    <div class="box left">&lt;</div>
+                </a>
+                <a href="#" class="<?= $color; ?>">
+                    <div class="box pageNumber">1</div>
+                </a>
+                <a href="#" class="<?= $color; ?>">
+                    <div class="box active pageNumber">2</div>
+                </a>
+                <a href="#" class="<?= $color; ?>">
+                    <div class="box pageNumber">3</div>
+                </a>
+                <a href="#" class="<?= $color; ?>">
+                    <div class="box right">&gt;</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -119,7 +201,7 @@ use dosamigos\fileupload\FileUpload;
                     <?php if ($user->getSubscriptions() != null): ?>
                         <?php foreach ($user->getSubscriptions() as $subscription): ?>
                             <a href="<?= Url::to(['/user/profile/view', 'nickname' => ($subscription['nickname']) ? $subscription['nickname'] : $subscription['id']]) ?>"><?= Html::encode($subscription['username']) ?>
-                                </a>
+                            </a>
                             <br>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -150,7 +232,7 @@ use dosamigos\fileupload\FileUpload;
                     <?php if ($user->getFollowers() != null): ?>
                         <?php foreach ($user->getFollowers() as $follower): ?>
                             <a href="<?= Url::to(['/user/profile/view', 'nickname' => ($follower['nickname']) ? $follower['nickname'] : $follower['id']]) ?>"><?= Html::encode($follower['username']) ?>
-                                </a>
+                            </a>
                             <br>
                         <?php endforeach; ?>
                     <?php else: ?>

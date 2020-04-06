@@ -17,12 +17,41 @@ class ProfileController extends Controller
 
     public function actionView($nickname)
     {
+        $color = 'lightBlue';
+
+
         $user = $this->findUser($nickname);
+
+        $title = $user->username.' page';
+        $currentUser = Yii::$app->user->identity;
+        $modelPicture = new PictureForm();
+        $posts = Post::find()->where(['user_id' => $user->getId()])->orderBy('id desc')->limit(10)->all();
+
+        return $this->render('userprofile', [
+            'color' => $color,
+            'title' => $title,
+            'user' => $user,
+            'currentUser' => $currentUser,
+            'modelPicture' => $modelPicture,
+            'posts' => $posts,
+        ]);
+    }
+
+    public function actionMyPage($nickname)
+    {
+        $color = 'brown';
+
+
+        $user = $this->findUser($nickname);
+
+        $title = $user->username.' page';
         $currentUser = Yii::$app->user->identity;
         $modelPicture = new PictureForm();
         $posts = Post::find()->where(['user_id' => $user->getId()])->orderBy('id desc')->limit(10)->all();
 
         return $this->render('view', [
+            'color' => $color,
+            'title' => $title,
             'user' => $user,
             'currentUser' => $currentUser,
             'modelPicture' => $modelPicture,

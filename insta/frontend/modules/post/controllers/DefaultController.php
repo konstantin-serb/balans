@@ -17,6 +17,7 @@ class DefaultController extends Controller
 {
     public function actionCreate()
     {
+        $color = 'shockinBlue';
         if (Yii::$app->user->isGuest) {
             return $this->redirect('/user/default/login');
         }
@@ -32,14 +33,17 @@ class DefaultController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'color' => $color,
         ]);
     }
 
     public function actionView($id)
     {
+        $color = 'yellow';
         $currentUser = Yii::$app->user->identity;
 
         return $this->render('view', [
+            'color' => $color,
             'post' => $this->findPost($id),
             'currentUser' => $currentUser,
         ]);

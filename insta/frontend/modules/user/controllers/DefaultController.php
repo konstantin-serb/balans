@@ -57,6 +57,7 @@ class DefaultController extends Controller
      */
     public function actionLogin()
     {
+        $color = 'grey';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -68,6 +69,7 @@ class DefaultController extends Controller
             $model->password = '';
 
             return $this->render('login', [
+                'color' => $color,
                 'model' => $model,
             ]);
         }

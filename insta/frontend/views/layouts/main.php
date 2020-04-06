@@ -1,16 +1,25 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
+
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
+use yii\helpers\Url;
 use frontend\assets\AppAsset;
+use frontend\assets\FontAwesomeAsset;
 use common\widgets\Alert;
 
+FontAwesomeAsset::register($this);
 AppAsset::register($this);
+
+if (!empty($this->color)) {
+    $color = $this->color;
+} else {
+    $color = 'red';
+}
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -18,8 +27,11 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css?ver=1.5.1' type='text/css' media='all' />
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Rancho&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rancho|Roboto&display=swap" rel="stylesheet">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -27,62 +39,94 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-<div class="wrap main">
-    <?php
-    Yii::$app->name = 'КостинГрам';
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/user/default/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/user/default/login']];
-    } else {
-        $menuItems[] = ['label' => 'My profile', 'url' => ['/user/profile/view', 'nickname' => Yii::$app->user->identity->getNickname()]];
-        $menuItems[] = ['label' => 'Create post', 'url' => ['/post/default/create']];
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/user/default/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
 
+<body class="<?= $color ?>">
 
-        <div class="container-fluid">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?= Alert::widget() ?>
-            <?= $content ?>
+<section class="logo">
+    <div class="wrap">
+        <div class="logoType">
+            <a href="<?= Url::to(['/site/index']) ?>">
+                <img src="/img/logo.png">
+            </a>
+            <h1 class="<?= $color ?>">BalancE</h1>
         </div>
-
-
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
-<!--        <p class="pull-right">--><?//= Yii::powered() ?><!--</p>-->
     </div>
+    <p class="slogan">Снимай и выкладывай!</p>
+    <hr class="hruka">
+</section>
+<section class="main-menu">
+    <div class="wrap-menu <?= $color ?>">
+        <menu>
+            <ul>
+                <a class="<?= $color ?> active" href="<?= Url::to(['/site/index']) ?>">
+                    <li>HOME</li>
+                </a>
+                <a class="<?= $color ?>" href="<?= Url::to(['/site/news-feed']) ?>">
+                    <li>NEWS FEED</li>
+                </a>
+
+                <?php if (Yii::$app->user->isGuest): ?>
+                    <a class="<?= $color ?>" href="<?= Url::to(['/user/default/signup']) ?>">
+                        <li>SIGNUP</li>
+                    </a>
+                    <a class="<?= $color ?>" href="<?= Url::to(['/user/default/login']) ?>">
+                        <li>LOGIN</li>
+                    </a>
+                <?php else: ?>
+                    <a class="<?= $color ?>" href="<?=Url::to(['/user/profile/my-page','nickname' => Yii::$app->user->identity->getNickname()])?>">
+                        <li>MY PAGE</li>
+                    </a>
+                    <li>
+                        <?php echo Html::beginForm(['/user/default/logout'], 'post') ?>
+                        <?= Html::submitButton('LOGOUT (' . Yii::$app->user->identity->username . ')', ['class' =>  $color . ' logout' ]) ?>
+                        <?php echo Html::endForm(); ?>
+                    </li>
+                <?php endif; ?>
+
+            </ul>
+        </menu>
+    </div>
+    <hr class="hruka">
+</section>
+
+<? //= Alert::widget() ?>
+<?= $content ?>
+
+<footer class="<?= $color ?>">
+    <section>
+        <div class="left inner-wrap">
+            <p><a href="#">О ПРОЕКТЕ</a></p>
+            <p><a href="#">ПРАВИЛА ИСПОЛЬЗОВАНИЯ</a></p>
+            <p><a href="#">КОНТАКТЫ</a></p>
+        </div>
+        <div class="center inner-wrap">
+            <p><a href="#">i-des.net</a></p>
+            <p><a href="#">konstant.s18@gmail.com</a></p>
+            <p><a href="#">ТБИЛИСИ 2020г.</a></p>
+        </div>
+        <div class="right inner-wrap">
+            <p><a href="#">РЕКЛАМА НА САЙТЕ</a></p>
+            <p><a href="#">СОТРУДНИЧЕСТВО</a></p>
+            <p><a href="#">НАШИ ДРУГИЕ ПРОЕКТЫ</a></p>
+        </div>
+    </section>
 </footer>
+
 
 <?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

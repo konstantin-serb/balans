@@ -18,6 +18,9 @@ return [
         'post' => [
             'class' => 'frontend\modules\post\Module',
         ],
+        'testi' => [
+            'class' => 'frontend\modules\testi\Module',
+        ],
     ],
     'components' => [
         'request' => [
@@ -47,6 +50,9 @@ return [
         'storage' => [
             'class' => 'frontend\components\Storage',
         ],
+        'storagePostPicture' => [
+            'class' => 'frontend\components\StoragePostPicture',
+        ],
         'feedService' => [
             'class' => 'frontend\components\FeedService',
         ],
@@ -58,7 +64,6 @@ return [
                 'profile/<nickname:\w+>' => 'user/profile/view',
                 'gen_user' => 'site/generate-user',
                 'post/<id:\d+>' => 'post/default/view',
-                'alternative' => 'site/alternative',
             ],
         ],
 

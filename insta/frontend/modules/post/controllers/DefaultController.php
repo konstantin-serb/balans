@@ -17,7 +17,7 @@ class DefaultController extends Controller
 {
     public function actionCreate()
     {
-        $color = 'shockinBlue';
+        $color = 'red';
         if (Yii::$app->user->isGuest) {
             return $this->redirect('/user/default/login');
         }
@@ -27,7 +27,7 @@ class DefaultController extends Controller
 
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Post created!');
-                return $this->goHome();
+                return $this->redirect(['/user/profile/my-page', 'nickname' => Yii::$app->user->identity->getNickname()]);
             }
         }
 

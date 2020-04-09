@@ -63,7 +63,7 @@ class PostForm extends Model
             $post = new Post();
             $post->description = $this->description;
             $post->created_at = time();
-            $post->filename = Yii::$app->storage->saveUploadedFile($this->picture);
+            $post->filename = Yii::$app->storagePostPicture->saveUploadedFile($this->picture);
             $post->user_id = $this->user->getId();
             if ($post->save(false)) {
                 $event = new PostCreatedEvent();

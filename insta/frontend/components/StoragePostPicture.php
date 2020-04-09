@@ -8,7 +8,7 @@ use yii\base\Component;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
 
-class Storage extends Component implements StorageInterface
+class StoragePostPicture extends Component implements StorageInterface
 {
     private $filename;
 

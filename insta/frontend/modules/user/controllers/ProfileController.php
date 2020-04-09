@@ -19,10 +19,9 @@ class ProfileController extends Controller
     {
         $color = 'lightBlue';
 
-
         $user = $this->findUser($nickname);
-
         $title = $user->username.' page';
+
         $currentUser = Yii::$app->user->identity;
         $modelPicture = new PictureForm();
         $posts = Post::find()->where(['user_id' => $user->getId()])->orderBy('id desc')->limit(10)->all();

@@ -30,7 +30,7 @@ $this->registerJsFile('@web/js/likes.js', [
         <h3>Не хотите ли добавить новый пост?</h3>
         <div class="wrap-button">
             <div class="button button-round">
-                <a class="<?= $color; ?>" href="create.html">ADD POST</a>
+                <a class="<?= $color; ?>" href="<?=Url::to(['/post/default/create'])?>">ADD POST</a>
             </div>
         </div>
     </div>

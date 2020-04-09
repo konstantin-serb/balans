@@ -7,8 +7,15 @@ a {
     display: inline-block;
 }
 
+a:hover{
+    text-decoration: none;
+    color: #666;
+    transition: all 1s;
+}
+
 .hruka {
     display: none;
+
 }
 
 .display-none {
@@ -302,9 +309,42 @@ footer.lightBlue {
     margin-top: -12px;
 }
 
+.signup .form-group{
+    display: flex;
+    flex-direction: column;
+    text-align:center;
+}
 
+.signup input {
+    width:100%;
+    height:60px;
+    padding:0 15px;
+    font-size: 19px;
+    text-align: center;
+    margin:10px 0 25px;
+    color:#666;
+}
 
+.signup textarea {
+    padding:15px;
+    font-size: 19px;
+    margin:10px 0 25px;
+    color:#666;
+}
 
+.signup label{
+    font-size:18px;
+    text-transform:uppercase;
+    font-weight:bold;
+}
+
+.signup button {
+    font-size:20px;
+    padding:17px 110px;
+    text-transform: uppercase;
+    color:#fff;
+    background-color: #A8A8A8;
+}
 
 /*-----------------------BUTTONS---------------------------*/
 .button {
@@ -877,6 +917,47 @@ section.newsFeed h2{
 }
 
 /*-----------------------CREATE----------------------------------*/
+.addPost .form-group {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.addPost textarea {
+    width: 700px;
+    margin:0 auto;
+}
+
+.addPost .wrap-button button{
+    font-size:20px;
+    text-transform:uppercase;
+    padding:10px 110px;
+    border:2px solid #7A391D;
+    cursor:pointer;
+    color:#FF7B00;
+}
+
+.addPost #postform-picture {
+    display: none;
+}
+
+
+
+.addPost .control-label {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform:uppercase;
+    cursor:pointer;
+    padding:0 110px;
+}
+
+.addPost #postform-description{
+    height: 150px;
+    margin-top:25px;
+}
+
+
 .addPost .addWrap {
     margin-bottom: 30px;
 }

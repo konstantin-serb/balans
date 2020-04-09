@@ -94,6 +94,7 @@ class DefaultController extends Controller
      */
     public function actionSignup()
     {
+        $color = "grey";
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $user = $model->signup()) {
             Yii::$app->user->login($user);
@@ -101,6 +102,7 @@ class DefaultController extends Controller
         }
 
         return $this->render('signup', [
+            'color' => $color,
             'model' => $model,
         ]);
     }

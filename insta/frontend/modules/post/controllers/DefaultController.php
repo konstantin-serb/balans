@@ -2,6 +2,7 @@
 
 namespace frontend\modules\post\controllers;
 
+
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -9,6 +10,8 @@ use yii\web\Response;
 use yii\web\UploadedFile;
 use frontend\modules\post\models\forms\PostForm;
 use frontend\models\Post;
+use frontend\modules\post\models\forms\PostEditForm;
+use frontend\modules\post\models\forms\ImageEditForm;
 
 /**
  * Default controller for the `post` module
@@ -34,6 +37,76 @@ class DefaultController extends Controller
         return $this->render('create', [
             'model' => $model,
             'color' => $color,
+        ]);
+    }
+
+    public function actionUpdate($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect('/user/default/login');
+        }
+        $color = 'magenta';
+//        $color = 'black';
+
+
+        $model = $this->findPost($id);
+        if ($model->user_id == Yii::$app->user->identity->getId()) {
+            if ($model->load(Yii::$app->request->post())) {
+                $editForm = new PostEditForm();
+
+                $editForm->description = $model->description;
+                if ($editForm->save($id)) {
+                    Yii::$app->session->setFlash('success', 'Post created!');
+                    return $this->redirect(['/user/profile/my-page', 'nickname' => Yii::$app->user->identity->getNickname()]);
+                }
+
+            }
+        } else {
+            return $this->redirect(['/error']);
+        }
+        return $this->render('update', [
+            'id' => $id,
+            'color' => $color,
+            'model' => $model,
+        ]);
+    }
+
+    public function actionPhotoUpdate($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect('/user/default/login');
+        }
+
+        $color = 'black';
+        $imageModel = new ImageEditForm();
+        $model = $this->findPost($id);
+        $currentImage = $model->getImage();
+        $linkCurrentImage = substr($currentImage, 1);
+
+        if ($model->user_id == Yii::$app->user->identity->getId()) {
+            if ($imageModel->load(Yii::$app->request->post())) {
+                $picture = UploadedFile::getInstance($imageModel, 'picture');
+                if (!empty($picture->name)){
+                    if (file_exists($linkCurrentImage)) {
+                        unlink($linkCurrentImage);
+                    }
+                    $imageModel->picture = Yii::$app->storagePostPicture->saveUploadedFile($picture);
+                    if ($imageModel->save($id)) {
+                        return $this->redirect(['/post/default/update', 'id' => $id]);
+                    }
+                } else {
+                    return $this->redirect(['/post/default/update', 'id' => $id]);
+                }
+            }
+        } else {
+            return $this->redirect(['/error']);
+        }
+
+        return $this->render('photo-update', [
+            'imageModel' => $imageModel,
+            'color' => $color,
+            'id' => $id,
+            'currentImage' => $currentImage,
         ]);
     }
 
@@ -72,7 +145,7 @@ class DefaultController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['/user/default/login']);
         }
-        Yii::$app->response->format =  Response::FORMAT_JSON;
+        Yii::$app->response->format = Response::FORMAT_JSON;
         $id = Yii::$app->request->post('id');
         $currentUser = Yii::$app->user->identity;
         $post = $this->findPost($id);

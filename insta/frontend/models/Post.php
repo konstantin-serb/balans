@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use frontend\models\events\PostCreatedEvent;
 use Yii;
 use frontend\models\User;
 
@@ -24,6 +25,13 @@ class Post extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'post';
+    }
+
+    public function rules()
+    {
+        return [
+            [['description'], 'safe'],
+        ];
     }
 
 
@@ -50,6 +58,7 @@ class Post extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+
 
     public function like(User $currentUser)
     {

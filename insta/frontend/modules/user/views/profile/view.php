@@ -118,7 +118,7 @@ $this->registerJsFile('@web/js/likes.js', [
                             <span class="autopName">&nbsp;&nbsp;<?= $post->user->username ?></span>
 
                         <div class="tools">
-                            <a href="update.html" title="update"><i class="fas fa-wrench"></i></a>
+                            <a href="<?=Url::to(['/post/default/update', 'id'=>$post->id])?>" title="update"><i class="fas fa-wrench"></i></a>
                             <a href="#" title="delete"><i class="fas fa-trash-alt"></i></a>
                         </div>
                     </div>
@@ -131,7 +131,7 @@ $this->registerJsFile('@web/js/likes.js', [
                             </div>
                         </a>
                         <p>
-                            <?php Html::encode($post->description)?>
+                            <?=Html::encode($post->description)?>
                         </p>
                     </div>
                     <hr>

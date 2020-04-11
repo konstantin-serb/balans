@@ -66,14 +66,33 @@ class PostForm extends Model
             $post->filename = Yii::$app->storagePostPicture->saveUploadedFile($this->picture);
             $post->user_id = $this->user->getId();
             if ($post->save(false)) {
-                $event = new PostCreatedEvent();
-                $event->user = $this->user;
-                $event->post = $post;
-                $this->trigger(self::EVENT_POST_CREATED, $event);
+
                 return true;
             }
         }
         return false;
+    }
+
+    public function postUpdate($id)
+    {
+
+        if ($this->validate()) {
+            $post = Post::find()->where(['id'=>$id])->one();
+
+            $post->description = $this->description;
+            $post->created_at = time();
+            $post->filename = Yii::$app->storagePostPicture->saveUploadedFile($this->picture);
+            $post->user_id = $this->user->getId();
+            if ($post->save(false)) {
+                $event = new PostCreatedEvent();
+                $event->user = $this->user;
+                $event->post = $post;
+//                $this->trigger(self::EVENT_POST_CREATED, $event);
+                return true;
+            }
+        }
+        return false;
+
     }
 
     private function getMaxFileSize()

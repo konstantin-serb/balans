@@ -47,7 +47,7 @@ $this->registerJsFile('@web/js/likes.js', [
                     <div class="nickname"><b>nickname:</b> <?= Html::encode($currentUser->nickname) ?></div>
                     <div class="infoTime"><b>на сайте
                             с:</b> <?= Html::encode(Yii::$app->formatter->asDate($currentUser->created_at)) ?></div>
-                    <div class="counts"><b>16 постов |
+                    <div class="counts"><b><?=$currentUser->rating?> постов |
                             <a href="#" data-toggle="modal" data-target="#myModal2">
                                 <?= $user->countFollowers() ?> подписчиков
                             </a>
@@ -101,7 +101,7 @@ $this->registerJsFile('@web/js/likes.js', [
         <h4>Здесь может быть ваша реклама</h4>
     </div>
 </section>
-<section class="newsFeed">
+<section class="newsFeed myPage">
     <div class="wrap">
         <h2>MY POSTS</h2>
         <br><br>
@@ -111,13 +111,15 @@ $this->registerJsFile('@web/js/likes.js', [
             <div class="item-wrap">
                 <div class="item">
                     <div class="top">
-
-                            <div class="authorPhoto">
-                                <img class="autPhoto" src="<?=$post->user->getPicture()?>">
-                            </div>
-                            <span class="autopName">&nbsp;&nbsp;<?= $post->user->username ?></span>
-
                         <div class="tools">
+                            <?php if($post->status == 1):?>
+                            <a><i class="fas fa-globe-africa" style="color:mediumseagreen"></i></a>
+                            <?php elseif($post->status == 2): ?>
+                            <i class="fas fa-user-friends" style="color:deepskyblue"></i>
+                            <?php elseif($post->status == 3):?>
+                            <i class="fas fa-lock" style="color:orangered"></i>
+                            <?php endif;?>
+                            
                             <a href="<?=Url::to(['/post/default/update', 'id'=>$post->id])?>" title="update"><i class="fas fa-wrench"></i></a>
                             <a href="#" title="delete"><i class="fas fa-trash-alt"></i></a>
                         </div>

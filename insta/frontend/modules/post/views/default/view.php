@@ -5,6 +5,7 @@
  * @var $color \frontend\modules\post\controllers\DefaultController
  */
 
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -60,14 +61,19 @@ $this->registerJsFile('@web/js/likes.js', [
             <hr>
             <div class="postInfo">
                 <div class="item likes">
-                    <a href="#"><i class="fas fa-heart"></i></a> <a href="#">25</a>
+                    <a href="#"><i class="fas fa-heart"></i></a> <?=(!empty($post->postLikes->count1)) ? $post->postLikes->count1 : 0?><a href="#"></a>
                 </div>
                 <div class="item comments">
                     <a href="#"><i class="fas fa-comment-alt"></i></a> 15
                 </div>
                 <div class="item date">
-                    2020y. 15 marta 22:48
+                    <b>create:</b> <?=Html::encode(Yii::$app->formatter->asDatetime($post->created_at))?>
                 </div>
+                <?php if(!empty($post->updated_at)):?>
+                <div class="item date">
+                    <b>update:</b> <?=Html::encode(Yii::$app->formatter->asDatetime($post->updated_at))?>
+                </div>
+                <?php endif;?>
             </div>
             <hr>
         </div>

@@ -40,26 +40,11 @@ if (!empty($color))
             <div class="textArea">
                 <?=$form->field($model, 'description')->textarea()?>
             </div>
+        <div class="r-button">
+            <?php $model->status = 1;?>
+            <?=$form->field($model, 'status')->radioList([1 => 'all', 2=> 'only friends', 3=>'only me'])?>
+        </div>
 
-<!--            <h3>Пост будут видеть:</h3>-->
-<!--            <div class="visible">-->
-<!--                <div class="r-button">-->
-<!--                    <input style="width:22px; height:22px;" class="rbtn" type="radio" name="option" id="radio1" />-->
-<!--                    <label for="radio1">All</label>-->
-<!--                </div>-->
-<!--                <div class="r-button">-->
-<!--                    <input style="width:22px; height:22px;" class="rbtn" type="radio" name="option" id="radio2" />-->
-<!--                    <label for="radio2">Friends</label>-->
-<!--                </div>-->
-<!--                <div class="r-button">-->
-<!--                    <input style="width:22px; height:22px;" class="rbtn" type="radio" name="option" id="radio3" />-->
-<!--                    <label for="radio3">Only dier friends</label>-->
-<!--                </div>-->
-<!--                <div class="r-button">-->
-<!--                    <input style="width:22px; height:22px;" class="rbtn" type="radio" name="option" id="radio4" checked />-->
-<!--                    <label for="radio4">Only I</label>-->
-<!--                </div>-->
-<!--            </div>-->
             <div class="wrap-button">
 
                     <a class="red" ><?=Html::submitButton('Create')?></a>

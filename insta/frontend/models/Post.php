@@ -14,6 +14,8 @@ use frontend\models\User;
  * @property string $filename
  * @property string|null $description
  * @property int $created_at
+ * @property int $updated_at
+ * @property int status
  *
  * @property User $user
  */
@@ -182,6 +184,19 @@ class Post extends \yii\db\ActiveRecord
     {
         return \frontend\models\User::findOne($id)->getPicture();
     }
+
+    public function getPostLikes()
+    {
+        return $this->hasOne(Likes::class, ['post_id' => 'id']);
+    }
+
+    public static function getBestPosts()
+    {
+        $sql = "SELECT post.id, post.user_id, post.filename, post.created_at, post.status, post.description, likes.count1 FROM likes LEFT JOIN  post ON likes.post_id = post.id WHERE status = 1 ORDER BY count1 DESC LIMIT 8";
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+
 }
 
 

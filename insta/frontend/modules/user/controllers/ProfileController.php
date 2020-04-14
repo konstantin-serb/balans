@@ -21,10 +21,33 @@ class ProfileController extends Controller
 
         $user = $this->findUser($nickname);
         $title = $user->username.' page';
-
         $currentUser = Yii::$app->user->identity;
+        if ($user->getId() == $currentUser->getId()) {
+            return $this->redirect(['my-page', 'nickname' => $currentUser->getNickname()]);
+        }
+
         $modelPicture = new PictureForm();
-        $posts = Post::find()->where(['user_id' => $user->getId()])->orderBy('id desc')->limit(10)->all();
+
+        if ($currentUser->isUserYourSubscriber($user)) {
+            $posts = Post::find()
+                ->where(['user_id' => $user->getId()])
+                ->andWhere(['status' => [
+                    1,2,
+                ]])
+                ->orderBy('id desc')
+                ->limit(10)
+                ->all();
+        } else {
+            $posts = Post::find()
+                ->where(['user_id' => $user->getId()])
+                ->andWhere(['status' => [
+                    1,
+                ]])
+                ->orderBy('id desc')
+                ->limit(10)
+                ->all();
+        }
+
 
         return $this->render('userprofile', [
             'color' => $color,

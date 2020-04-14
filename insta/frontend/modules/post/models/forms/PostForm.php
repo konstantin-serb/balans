@@ -19,6 +19,7 @@ class PostForm extends Model
 
     public $picture;
     public $description;
+    public $status;
 
     private $user;
 
@@ -31,6 +32,7 @@ class PostForm extends Model
                 'checkExtensionByMimeType' => true,
                 'maxSize' => $this->getMaxFileSize()],
             [['description'], 'string', 'max' => self::MAX_DESCRIPTIONS_LENGHT],
+            [['status'], 'integer'],
         ];
     }
 
@@ -62,13 +64,19 @@ class PostForm extends Model
         if ($this->validate()) {
             $post = new Post();
             $post->description = $this->description;
+            $post->status = $this->status;
             $post->created_at = time();
             $post->filename = Yii::$app->storagePostPicture->saveUploadedFile($this->picture);
             $post->user_id = $this->user->getId();
-            if ($post->save(false)) {
 
+            if ($post->save(false)) {
+                $rating = Post::find()->where(['user_id' => $this->user->getId()])->andWhere(['status' => 1])->count();
+                $curUser = User::findOne($this->user->getId());
+                $curUser->rating = $rating;
+                $curUser->save();
                 return true;
             }
+            return false;
         }
         return false;
     }

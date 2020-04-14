@@ -48,13 +48,10 @@ class DefaultController extends Controller
         $color = 'magenta';
 //        $color = 'black';
 
-
         $model = $this->findPost($id);
+        $editForm = new PostEditForm(Yii::$app->user->identity);
         if ($model->user_id == Yii::$app->user->identity->getId()) {
-            if ($model->load(Yii::$app->request->post())) {
-                $editForm = new PostEditForm();
-
-                $editForm->description = $model->description;
+            if ($editForm->load(Yii::$app->request->post())) {                  
                 if ($editForm->save($id)) {
                     Yii::$app->session->setFlash('success', 'Post created!');
                     return $this->redirect(['/user/profile/my-page', 'nickname' => Yii::$app->user->identity->getNickname()]);
@@ -68,6 +65,7 @@ class DefaultController extends Controller
             'id' => $id,
             'color' => $color,
             'model' => $model,
+            'editForm' => $editForm,
         ]);
     }
 
@@ -114,10 +112,12 @@ class DefaultController extends Controller
     {
         $color = 'yellow';
         $currentUser = Yii::$app->user->identity;
+        $post = $this->findPost($id);
+
 
         return $this->render('view', [
             'color' => $color,
-            'post' => $this->findPost($id),
+            'post' => $post,
             'currentUser' => $currentUser,
         ]);
     }

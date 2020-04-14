@@ -2,9 +2,10 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Feed;
+
 use frontend\models\User;
 use Yii;
+use frontend\models\Post;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use Faker\Factory;
@@ -49,10 +50,20 @@ class SiteController extends Controller
     {
         $color = 'green';
         $title = 'Balance | main';
+        $bestPosts = Post::getBestPosts();
+
+        $bestAuthors = User::find()->where(['status' => 10])->orderBy('rating desc')->limit(8)->all();
+        $newbiesAuthors = User::find()->where(['status' => 10])
+            ->andWhere(['>', 'rating', 0])
+            ->andWhere(['!=', 'picture', 'null'])
+            ->orderBy('created_at desc')->limit(8)->all();
 
         return $this->render('index', [
             'color' => $color,
             'title' => $title,
+            'bestPosts' => $bestPosts,
+            'bestAuthors' => $bestAuthors,
+            'newbiesAuthors' => $newbiesAuthors,
         ]);
     }
 

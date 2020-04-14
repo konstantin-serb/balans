@@ -2,9 +2,14 @@
 /**
  * @var $color \frontend\controllers\SiteController
  * @var $title \frontend\controllers\SiteController
+ * @var $bestAuthors User
+ * @var $bestAuthor User
+ * @var $newbiesAuthors User
+ * @var $newbiesAuthor User
  */
 
 
+use frontend\models\User;
 use yii\helpers\Url;
 
 $this->color = $color;
@@ -170,32 +175,39 @@ $this->title = $title;
         <h2>MOST POPULAR</h2>
         <h3>posts with the most likes:</h3>
         <div class="posts">
+            <?php foreach($bestPosts as $post):?>
             <div class="item-wrap">
                 <div class="item">
                     <div class="top">
-                        <a href="userpage.html">
+                        <a href="<?=Url::to(['/user/profile/view', 'nickname' => $post['user_id']])?>">
                             <div class="authorPhoto">
-                                <img class="autPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg">
+                                <img class="autPhoto" src="
+                                <?php
+                                if (!empty(User::getUserPhoto($post['user_id']))) {
+                                    echo '/uploads/'.User::getUserPhoto($post['user_id']);
+                                } else {
+                                    echo '/img/profile_default_image.jpg';
+                                }
+                                ?>">
                             </div>
-                            <span class="autopName">&nbsp;&nbsp;Author Name</span>
+                            <span class="autopName">&nbsp;&nbsp;<?=User::getUserName($post['user_id'])?></span>
                         </a>
                     </div>
                     <div class="photo">
-                        <a href="view.html" title="Подробнее...">
+                        <a href="<?=Url::to(['/post/default/view', 'id' => $post['id']])?>" title="Подробнее...">
                             <div class="pictureWrap">
-                                <img class="contentPhoto" src="/img/293e3936d0bd3adccb1e0f491716d6dcf122.jpg" alt=""
+                                <img class="contentPhoto" src="/uploads/<?=$post['filename']?>" alt=""
                                      title="">
                             </div>
                         </a>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
+                            <?=$post['description']?>
                         </p>
                     </div>
                     <hr>
                     <div class="bottom">
                         <div class="likes">
-                            <i class="far fa-heart"></i> 0
+                            <i class="far fa-heart"></i> <?=$post['count1']?>
                         </div>
                         <div class="comments">
                             <i class="far fa-comment-alt"></i> 0
@@ -206,251 +218,7 @@ $this->title = $title;
                     </div>
                 </div>
             </div>
-            <div class="item-wrap">
-                <div class="item">
-                    <div class="top">
-                        <a href="#">
-                            <img class="authorPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg">
-                            <span class="autopName">&nbsp;&nbsp;Author Name</span>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <a href="view.html" title="Подробнее...">
-                            <div class="pictureWrap">
-                                <img class="contentPhoto" src="/img/0a0d78848bc9feae4e97cd395b5787e08dc5.jpg" alt=""
-                                     title="">
-                            </div>
-                        </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="likes">
-                            <i class="fas fa-heart"></i> 3
-                        </div>
-                        <div class="comments">
-                            <i class="far fa-comment-alt"></i> 20
-                        </div>
-                        <div class="date">
-                            2020 15mart
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="item">
-                    <div class="top">
-                        <a href="#">
-                            <img class="authorPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg">
-                            <span class="autopName">&nbsp;&nbsp;Author Name</span>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <a href="view.html" title="Подробнее...">
-                            <div class="pictureWrap">
-                                <img class="contentPhoto" src="/img/4c5f57df1c0d0b1106277096fb5040288ab6.jpg" alt=""
-                                     title="">
-                            </div>
-                        </a>
-                        <p>
-
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="likes">
-                            3 likes
-                        </div>
-                        <div class="comments">
-                            com:20
-                        </div>
-                        <div class="date">
-                            2020 15mart
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="item">
-                    <div class="top">
-                        <a href="#">
-                            <div class="authorPhoto">
-                                <img class="autPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg">
-                            </div>
-                            <span class="autopName">&nbsp;&nbsp;Author Name</span>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <a href="view.html" title="Подробнее...">
-                            <div class="pictureWrap">
-                                <img class="contentPhoto" src="/img/293e3936d0bd3adccb1e0f491716d6dcf122.jpg" alt=""
-                                     title="">
-                            </div>
-                        </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="likes">
-                            <i class="far fa-heart"></i> 0
-                        </div>
-                        <div class="comments">
-                            <i class="far fa-comment-alt"></i> 0
-                        </div>
-                        <div class="date">
-                            2020 15mart
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="item">
-                    <div class="top">
-                        <a href="#">
-                            <img class="authorPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg">
-                            <span class="autopName">&nbsp;&nbsp;Author Name</span>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <a href="view.html" title="Подробнее...">
-                            <div class="pictureWrap">
-                                <img class="contentPhoto" src="/img/0a0d78848bc9feae4e97cd395b5787e08dc5.jpg" alt=""
-                                     title="">
-                            </div>
-                        </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="likes">
-                            <i class="fas fa-heart"></i> 3
-                        </div>
-                        <div class="comments">
-                            <i class="far fa-comment-alt"></i> 20
-                        </div>
-                        <div class="date">
-                            2020 15mart
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="item">
-                    <div class="top">
-                        <a href="#">
-                            <div class="authorPhoto">
-                                <img class="autPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg">
-                            </div>
-                            <span class="autopName">&nbsp;&nbsp;Author Name</span>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <a href="view.html" title="Подробнее...">
-                            <div class="pictureWrap">
-                                <img class="contentPhoto" src="/img/293e3936d0bd3adccb1e0f491716d6dcf122.jpg" alt=""
-                                     title="">
-                            </div>
-                        </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="likes">
-                            <i class="far fa-heart"></i> 0
-                        </div>
-                        <div class="comments">
-                            <i class="far fa-comment-alt"></i> 0
-                        </div>
-                        <div class="date">
-                            2020 15mart
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="item">
-                    <div class="top">
-                        <a href="#">
-                            <img class="authorPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg">
-                            <span class="autopName">&nbsp;&nbsp;Author Name</span>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <a href="view.html" title="Подробнее...">
-                            <div class="pictureWrap">
-                                <img class="contentPhoto" src="/img/0a0d78848bc9feae4e97cd395b5787e08dc5.jpg" alt=""
-                                     title="">
-                            </div>
-                        </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="likes">
-                            <i class="fas fa-heart"></i> 3
-                        </div>
-                        <div class="comments">
-                            <i class="far fa-comment-alt"></i> 20
-                        </div>
-                        <div class="date">
-                            2020 15mart
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="item">
-                    <div class="top">
-                        <a href="#">
-                            <img class="authorPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg">
-                            <span class="autopName">&nbsp;&nbsp;Author Name</span>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <a href="view.html" title="Подробнее...">
-                            <div class="pictureWrap">
-                                <img class="contentPhoto" src="/img/4c5f57df1c0d0b1106277096fb5040288ab6.jpg" alt=""
-                                     title="">
-                            </div>
-                        </a>
-                        <p>
-
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="likes">
-                            3 likes
-                        </div>
-                        <div class="comments">
-                            com:20
-                        </div>
-                        <div class="date">
-                            2020 15mart
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <?php endforeach;?>
         </div>
     </div>
 </section>
@@ -459,239 +227,38 @@ $this->title = $title;
         <h2>HALL OF FAME</h2>
         <h3 class="white">The users who created the most posts:</h3>
         <div class="posts">
+            <?php foreach($bestAuthors as $bestAuthor): ?>
             <div class="item-wrap">
                 <div class="itemUser">
                     <div class="nameAutor">
-                        <a href="#">
-                            <h3>Author Name</h3>
+                        <a href="<?=Url::to(['/user/profile/view', 'nickname' => $bestAuthor->getNickname()])?>">
+                            <h3><?=$bestAuthor->username?></h3>
                         </a>
                     </div>
                     <div class="photo">
                         <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
+                            <a href="<?=Url::to(['/user/profile/view', 'nickname' => $bestAuthor->getNickname()])?>" title="<?=$bestAuthor->username?>"><img class="contentPhoto" src="<?=$bestAuthor->getPicture()?>" alt=""
                                                                 title=""></a>
                         </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
+                        <div class="about-text">
+                            <p>
+                                <?=$bestAuthor->about?>
+                            </p>
+                        </div>
                     </div>
                     <hr>
                     <div class="bottom">
                         <div class="countPosts">
-                            Posts: 25
+                            Posts: <?=$bestAuthor->rating?>
                         </div>
                         <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
+<!--                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>-->
                         </div>
 
                     </div>
                 </div>
             </div>
-            <div class="item-wrap">
-                <div class="itemUser">
-                    <div class="nameAutor">
-                        <a href="#">
-                            <h3>Author Name</h3>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
-                                                                title=""></a>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="countPosts">
-                            Posts: 25
-                        </div>
-                        <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="itemUser">
-                    <div class="nameAutor">
-                        <a href="#">
-                            <h3>Author Name</h3>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
-                                                                title=""></a>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="countPosts">
-                            Posts: 25
-                        </div>
-                        <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="itemUser">
-                    <div class="nameAutor">
-                        <a href="#">
-                            <h3>Author Name</h3>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
-                                                                title=""></a>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="countPosts">
-                            Posts: 25
-                        </div>
-                        <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="itemUser">
-                    <div class="nameAutor">
-                        <a href="#">
-                            <h3>Author Name</h3>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
-                                                                title=""></a>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="countPosts">
-                            Posts: 25
-                        </div>
-                        <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="itemUser">
-                    <div class="nameAutor">
-                        <a href="#">
-                            <h3>Author Name</h3>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
-                                                                title=""></a>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="countPosts">
-                            Posts: 25
-                        </div>
-                        <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="itemUser">
-                    <div class="nameAutor">
-                        <a href="#">
-                            <h3>Author Name</h3>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
-                                                                title=""></a>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="countPosts">
-                            Posts: 25
-                        </div>
-                        <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="itemUser">
-                    <div class="nameAutor">
-                        <a href="#">
-                            <h3>Author Name</h3>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
-                                                                title=""></a>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="countPosts">
-                            Posts: 25
-                        </div>
-                        <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
+            <?php endforeach;?>
         </div>
     </div>
     <!-- ----------------Modal--------------------->
@@ -711,238 +278,39 @@ $this->title = $title;
         <h2>NEWBIES</h2>
         <h3>Last join us:</h3>
         <div class="posts">
+            <?php foreach($newbiesAuthors as $newbiesAuthor):?>
             <div class="item-wrap">
                 <div class="itemUser">
                     <div class="nameAutor">
-                        <a href="userpage.html">
-                            <h3>Author Name</h3>
+                        <a href="<?=Url::to(['/user/profile/view', 'nickname' => $newbiesAuthor->getNickname()])?>">
+                            <h3><?=$newbiesAuthor->username?></h3>
                         </a>
                     </div>
                     <div class="photo">
                         <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
+                            <a href="<?=Url::to(['/user/profile/view', 'nickname' => $newbiesAuthor->getNickname()])?>" title=""><img class="contentPhoto" src="<?=$newbiesAuthor->getPicture()?>" alt=""
                                                                 title=""></a>
                         </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
+                        <div class="about-text">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
+                                error eum eveniet hic, id porro quas rem....
+                            </p>
+                        </div>
                     </div>
                     <hr>
                     <div class="bottom">
                         <div class="countPosts">
-                            Posts: 25
+                            Posts: <?=$newbiesAuthor->rating?>
                         </div>
                         <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
+<!--                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>-->
                         </div>
 
                     </div>
                 </div>
             </div>
-            <div class="item-wrap">
-                <div class="itemUser">
-                    <div class="nameAutor">
-                        <a href="userpage.html">
-                            <h3>Author Name</h3>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
-                                                                title=""></a>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="countPosts">
-                            Posts: 25
-                        </div>
-                        <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="itemUser">
-                    <div class="nameAutor">
-                        <a href="#">
-                            <h3>Author Name</h3>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
-                                                                title=""></a>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="countPosts">
-                            Posts: 25
-                        </div>
-                        <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="itemUser">
-                    <div class="nameAutor">
-                        <a href="#">
-                            <h3>Author Name</h3>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
-                                                                title=""></a>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="countPosts">
-                            Posts: 25
-                        </div>
-                        <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="itemUser">
-                    <div class="nameAutor">
-                        <a href="#">
-                            <h3>Author Name</h3>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
-                                                                title=""></a>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="countPosts">
-                            Posts: 25
-                        </div>
-                        <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="itemUser">
-                    <div class="nameAutor">
-                        <a href="#">
-                            <h3>Author Name</h3>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
-                                                                title=""></a>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="countPosts">
-                            Posts: 25
-                        </div>
-                        <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="itemUser">
-                    <div class="nameAutor">
-                        <a href="#">
-                            <h3>Author Name</h3>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
-                                                                title=""></a>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="countPosts">
-                            Posts: 25
-                        </div>
-                        <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap">
-                <div class="itemUser">
-                    <div class="nameAutor">
-                        <a href="#">
-                            <h3>Author Name</h3>
-                        </a>
-                    </div>
-                    <div class="photo">
-                        <div class="pictureWrap">
-                            <a href="#" title="authorName"><img class="contentPhoto" src="/img/ac7879c11181eee3a7f530b61ce619db5b73.jpg" alt=""
-                                                                title=""></a>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis dolore ea
-                            error eum eveniet hic, id porro quas rem....
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="bottom">
-                        <div class="countPosts">
-                            Posts: 25
-                        </div>
-                        <div class="likes">
-                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            <?php endforeach;?>
         </div>
     </div>
 </section>

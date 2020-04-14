@@ -2,6 +2,7 @@
 
 namespace frontend\modules\user\controllers;
 
+use frontend\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -98,6 +99,9 @@ class DefaultController extends Controller
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $user = $model->signup()) {
             Yii::$app->user->login($user);
+
+            $userId = Yii::$app->user->identity->getId();
+            User::addSubscribe($userId);
             return $this->goHome();
         }
 

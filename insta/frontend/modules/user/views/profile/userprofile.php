@@ -37,8 +37,8 @@ $this->registerJsFile('@web/js/script.js', [
                 <div class="info">
                     <div class="name"><b>Name:</b> <?= Html::encode($user->username) ?></div>
                     <div class="nickname"><b>nickname:</b> <?= Html::encode($user->nickname) ?></div>
-                    <div class="infoTime"><b>на сайте с:</b> 2020 15 mart.</div>
-                    <div class="counts"><b>x постов |
+                    <div class="infoTime"><b>на сайте с:</b> <?=Yii::$app->formatter->asDate($user->created_at)?></div>
+                    <div class="counts"><b><?=$user->rating?> постов |
                             <a href="#" data-toggle="modal" data-target="#myModal2">
                                 <?= $user->countFollowers() ?> подписчиков
                             </a>
@@ -162,7 +162,6 @@ $this->registerJsFile('@web/js/script.js', [
     </div>
 </section>
 
-<!--<p>Email: <b>--><? //= Html::encode($user->email) ?><!--</b></p>-->
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">

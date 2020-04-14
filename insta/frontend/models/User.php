@@ -4,12 +4,13 @@ namespace frontend\models;
 
 use app\models\Subscriptions;
 use app\models\Followers;
+use frontend\models\Post;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-use frontend\models\Post;
+
 
 /**
  * User model
@@ -29,6 +30,7 @@ use frontend\models\Post;
  * @property string $nickname
  * @property string $picture
  * @property string $likes
+ * @property string $rating
  * @property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -227,6 +229,20 @@ class User extends ActiveRecord implements IdentityInterface
         return ($this->nickname) ? $this->nickname : $this->getId();
     }
 
+
+    public static function addSubscribe($userId)
+    {
+        $subscribe = new Subscriptions();
+        $subscribe->user_id = $userId;
+        $subscribe->subscribe = serialize([$userId]);
+        $subscribe->save();
+
+        $follower = new Followers();
+        $follower->user_id = $userId;
+        $follower->followers = serialize([$userId]);
+        $follower->save();
+    }
+
     public function followUser(User $user)
     {
 //        $redis = Yii::$app->redis;
@@ -347,19 +363,55 @@ class User extends ActiveRecord implements IdentityInterface
 
     }
 
+
     public function getSubscriptionsPosts($limit)
     {
-        $subscriber = new Subscriptions();
-        if ($subscr = $subscriber->find()->where(['user_id' => $this->getId()])->one()) {
+        $oneUserPostsLimit = 10;
+        if ($subscr = Subscriptions::find()->where(['user_id' => $this->getId()])->one()) {
             $arrayDown = $subscr->subscribe;
             $array = unserialize($arrayDown);
         } else {
             $array = false;
         }
         $ids = $array;
-        return Post::find()->where(['user_id'=>$ids])->orderBy('created_at desc')->limit($limit)->all();
+        $postArray = [];
+        foreach($ids as $key => $id){
+            $userSubscr = Subscriptions::find()->where(['user_id' => $id])->one();
+            if (!empty($userSubscr->subscribe)) {
+                $arraySubscribe = unserialize($userSubscr->subscribe);
+                if (in_array($this->getId(), $arraySubscribe)){
+                    $posts = Post::find()->where(['user_id'=>$id])->andWhere(['status'=>[1,2]])
+                        ->orderBy('created_at')->limit($oneUserPostsLimit)->all();
+                    foreach ($posts as $post){
+                        array_push($postArray,$post);
+                    }
+                } else {
+                    $posts = Post::find()->where(['user_id'=>$id])->andWhere(['status'=>[1]])
+                        ->orderBy('created_at')->limit($oneUserPostsLimit)->all();
+                    foreach ($posts as $post){
+                        array_push($postArray,$post);
+                    }
+                }
+            }
+        }
+
+        //Сортировка объектов в массиве, по оределенному свойству
+        usort($postArray, array($this, "cmp"));
+
+        $postArray = array_slice($postArray, 0, 200);
+
+
+
+//        dumper($postArray);die;
+        return $postArray;
 
     }
+
+    public function cmp($a, $b)
+    {
+        return strcmp($b->created_at, $a->created_at);
+    }
+
 
     public function getFollowers()
     {
@@ -437,6 +489,21 @@ class User extends ActiveRecord implements IdentityInterface
         return false;
     }
 
+    public function isUserYourSubscriber($user){
+        $youId = $this->getId();
+        $userId = $user->id;
+        $userSubscribe = Subscriptions::find()->where(['user_id' => $userId])->one();
+        if ($userSubscribe) {
+            $asArray = unserialize($userSubscribe->subscribe);
+            if (in_array($youId, $asArray)){
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+
     public function countMutualFriends($user)
     {
         $currentUserId = $this->getId();
@@ -497,6 +564,20 @@ class User extends ActiveRecord implements IdentityInterface
         }
         return false;
     }
+
+    public static function getUserName($id)
+    {
+        $user = User::findOne($id);
+        return $user->username;
+    }
+
+    public static function getUserPhoto($id)
+    {
+        $user = User::findOne($id);
+        return $user->picture;
+    }
+
+
 }
 
 

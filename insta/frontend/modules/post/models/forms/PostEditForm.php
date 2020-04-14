@@ -19,22 +19,23 @@ class PostEditForm extends Model
 
     public $picture;
     public $description;
+    public $status;
 
     private $user;
+    private $updated_at;
 
     public function rules()
     {
         return [
             [['description'], 'string', 'max' => self::MAX_DESCRIPTIONS_LENGHT],
+            [['status'], 'safe'],
         ];
     }
 
-//    public function __construct(User $user)
-//    {
-//        $this->user = $user;
-//        //$this->on(self::EVENT_AFTER_VALIDATE, [$this, 'resizePicture']);
-//        $this->on(self::EVENT_POST_CREATED, [Yii::$app->feedService, 'addToFeeds']);
-//    }
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
 
 
 
@@ -43,12 +44,20 @@ class PostEditForm extends Model
         if ($this->validate()) {
             $post = Post::findOne($id);
             $post->description = $this->description;
-            if ($post->save()) {
+            $post->status = $this->status;
+            $post->updated_at = time();
+            if ($post->save(false)) {
+                $rating = Post::find()->where(['user_id' => $this->user->getId()])->andWhere(['status' => 1])->count();
+                $curUser = User::findOne($this->user->getId());
+                $curUser->rating = $rating;
+                $curUser->save();
                 return true;
             }
             return false;
         }
+        return false;
     }
+
 
 
 

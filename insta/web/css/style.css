@@ -357,8 +357,8 @@ footer.black {
 
 .signup label{
     font-size:18px;
-    text-transform:uppercase;
-    font-weight:bold;
+    /*text-transform:uppercase;*/
+    /*font-weight:bold;*/
 }
 
 .signup button {
@@ -611,11 +611,6 @@ menu a {
     background-color: #F0F0F0;
 }
 
-
-.main-content h2 {
-    margin-top: 53px;
-}
-
 .posts .item. a {
     color: #6B6B6B;
 }
@@ -671,18 +666,21 @@ menu a {
 
 .autopName {
     position: absolute;
-    top: 36%;
+    top: 33%;
     bottom: 0;
     left: 80px;
     color: #6B6B6B;
     font-weight: bold;
 }
 
+.myPage .autopName {
+    top: 16%;
+}
+
 .tools {
-    position:absolute;
-    top:36%;
-    bottom:0;
-    right: 0;
+    text-align: center;
+    border:1px solid #ba8b00;
+    padding:5px;
 }
 
 .tools a{
@@ -697,12 +695,10 @@ menu a {
     overflow: hidden;
 }
 
-.contentPhoto {
-
-}
-
 .item .photo {
     padding-top: 15px;
+    height:301px;
+    overflow: hidden;
 }
 
 .bottom {
@@ -891,6 +887,11 @@ section.newsFeed h2{
     margin-bottom: -15px;
 }
 
+.about-text {
+    height:50px;
+    overflow: hidden;
+}
+
 
 /*------------------------my Page-------------------------*/
 
@@ -1019,17 +1020,19 @@ section.newsFeed h2{
     display: flex;
     flex-direction:column;
     margin:30px;
-    width:100px;
+
 }
 
 .addPost .r-button label {
     text-align:center;
-    font-size:20px;
+    font-size:22px;
     cursor:pointer;
+    margin:0 25px;
 }
 
 .addPost .r-button input {
     margin:15px auto;
+
 }
 
 .rbtn {
@@ -1044,6 +1047,14 @@ section.newsFeed h2{
 
 .pictureUpdate img {
     width:700px;
+}
+
+.updatePost img {
+    max-width:500px;
+}
+
+.aWrap{    
+    text-align:center;
 }
 
 /*------------------------ONE POST PAGE----------------------------*/

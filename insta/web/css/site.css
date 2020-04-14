@@ -1,13 +1,29 @@
 html,
 body {
     height: 100%;
+    background-color: #F3F3F3;
+}
+img {
+    max-width:100%;
+}
+
+/*.main-page{*/
+/*    padding: 0 50px;*/
+/*}*/
+
+.main{
+    background-color: #F3F3F3;
+}
+
+.wrap > .container-fluid {
+    padding: 70px 15px 20px;
 }
 
 .wrap {
     min-height: 100%;
     height: auto;
     margin: 0 auto -60px;
-    padding: 0 0 60px;
+    padding: 0;
 }
 
 .wrap > .container {
@@ -117,4 +133,52 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+
+.display-none {
+    display:none;
+}
+
+/*//-----------------------------------//*/
+
+
+.imageBlock {
+    padding: 30px; /* Ширина паспарту */
+    background: #FFF; /* Цвет фона  паспарту */
+    /*border: 2px solid #666; !* Параметры рамки *!*/
+    border-radius:10px;
+    margin-bottom:23px;
+    transition: all 1s;
+}
+
+.imageBlock:hover{
+    box-shadow: 0 0 25px rgba(122,122,122,0.5);
+    transition: all 1s;
+}
+
+.avtorPicture{
+    border-radius:1000px;
+}
+
+.topBlock a{
+    font-size: 14px;
+    color:#2F2F2F;
+    text-decoration: none;
+}
+
+a.button-like{
+    text-decoration:none;
+    color:#2F2F2F;
+}
+
+a.button-unlike{
+    text-decoration:none;
+    color:red;
+    transition:all 1s;
+}
+
+.bottomBlock{
+    border-top:1px solid #CDCDCD;
+    padding-top:10px;
+    padding-bottom:-10px;
 }

@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdef52fd-1ecc-45a5-a0ae-a151439a30db" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/post/models/forms/ImageEditForm.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/post/models/forms/PostEditForm.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/photo-update.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/update.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/components/Storage.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/components/Storage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/controllers/SiteController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/models/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/models/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/post/controllers/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/post/controllers/DefaultController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/post/models/forms/PostForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/post/models/forms/PostForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/site/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/insta/web/css/style.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -201,7 +195,7 @@
       <workItem from="1584767605864" duration="4177000" />
       <workItem from="1584853336825" duration="31564000" />
       <workItem from="1585111005607" duration="16364000" />
-      <workItem from="1586069955218" duration="87702000" />
+      <workItem from="1586069955218" duration="136572000" />
     </task>
     <servers />
   </component>

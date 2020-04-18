@@ -130,7 +130,7 @@ $this->registerJsFile('@web/js/script.js', [
                                         </span>
                             </div>
                             <div class="comments">
-                                <i class="far fa-comment-alt"></i> 0
+                                <i class="far fa-comment-alt"></i> <?=$post->countComments?>
                             </div>
                             <div class="date">
                                 2020 15mart

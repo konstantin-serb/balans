@@ -460,7 +460,7 @@ footer.black {
 .pagination .box{
     border:1px solid;
     border-radius: 30px;
-    padding:5px 13px;
+    padding:5px 11px;
     transition: all 1s;
     margin:3px;
 }

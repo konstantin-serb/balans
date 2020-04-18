@@ -54,9 +54,6 @@ $this->color = $color;
                                 <hr>
                                 <div class="bottom">
                                     <div class="likes">
-
-
-
                                         <a href="#"
                                            class="button-like <?php echo ($currentUser->likesPost($feedItem->id)) ? "display-none" : ""; ?>"
                                            data-id="<?php echo $feedItem->id; ?>" data-id="<?php echo $feedItem->id ?>">
@@ -74,7 +71,7 @@ $this->color = $color;
                                         </span>
                                     </div>
                                     <div class="comments">
-                                        <i class="far fa-comment-alt"></i> 0
+                                        <i class="far fa-comment-alt"></i> <?=$feedItem->countComments?>
                                     </div>
                                     <div class="date">
                                         <?= Yii::$app->formatter->asDate($feedItem->created_at) ?>

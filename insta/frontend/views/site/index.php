@@ -2,6 +2,8 @@
 /**
  * @var $color \frontend\controllers\SiteController
  * @var $title \frontend\controllers\SiteController
+ * @var $bestPosts \frontend\models\Post
+ * @var $post \frontend\models\Post
  * @var $bestAuthors User
  * @var $bestAuthor User
  * @var $newbiesAuthors User
@@ -179,41 +181,34 @@ $this->title = $title;
             <div class="item-wrap">
                 <div class="item">
                     <div class="top">
-                        <a href="<?=Url::to(['/user/profile/view', 'nickname' => $post['user_id']])?>">
+                        <a href="<?=Url::to(['/user/profile/view','nickname'=>$post->user_id])?>">
                             <div class="authorPhoto">
-                                <img class="autPhoto" src="
-                                <?php
-                                if (!empty(User::getUserPhoto($post['user_id']))) {
-                                    echo '/uploads/'.User::getUserPhoto($post['user_id']);
-                                } else {
-                                    echo '/img/profile_default_image.jpg';
-                                }
-                                ?>">
+                                <img class="autPhoto" src="<?=$post->authorPhoto($post->user_id)?>">
                             </div>
-                            <span class="autopName">&nbsp;&nbsp;<?=User::getUserName($post['user_id'])?></span>
+                            <span class="autopName">&nbsp;&nbsp;<?=$post->authorName($post->user_id)?></span>
                         </a>
                     </div>
                     <div class="photo">
-                        <a href="<?=Url::to(['/post/default/view', 'id' => $post['id']])?>" title="Подробнее...">
+                        <a href="<?=Url::to(['/post/default/view', 'id'=>$post->id])?>" title="Подробнее...">
                             <div class="pictureWrap">
-                                <img class="contentPhoto" src="/uploads/<?=$post['filename']?>" alt=""
+                                <img class="contentPhoto" src="<?=$post->getImage()?>" alt=""
                                      title="">
                             </div>
                         </a>
                         <p>
-                            <?=$post['description']?>
+                            <?=$post->description?>
                         </p>
                     </div>
                     <hr>
                     <div class="bottom">
                         <div class="likes">
-                            <i class="far fa-heart"></i> <?=$post['count1']?>
+                            <i class="far fa-heart"></i> <?=$post->countLikes()?>
                         </div>
                         <div class="comments">
-                            <i class="far fa-comment-alt"></i> 0
+                            <i class="far fa-comment-alt"></i> <?=$post->getCountComments()?>
                         </div>
                         <div class="date">
-                            2020 15mart
+                            <?=Yii::$app->formatter->asDate($post->created_at)?>
                         </div>
                     </div>
                 </div>

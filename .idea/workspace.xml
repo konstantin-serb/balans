@@ -2,10 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdef52fd-1ecc-45a5-a0ae-a151439a30db" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/insta/backend/models/LoginForm.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/backend/web/css/media.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/backend/web/css/site.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/backend/web/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/controllers/SiteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/models/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/models/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/site/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/backend/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/controllers/SiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/backend/views/site/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/views/site/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/userprofile.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/userprofile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/web/css/media.css" beforeDir="false" afterPath="$PROJECT_DIR$/insta/web/css/media.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/insta/web/css/style.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -131,7 +137,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/insta/frontend/modules/post/views/default" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/insta/backend/web" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -139,18 +145,18 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\post\views\default" />
-      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\post\models\forms" />
-      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\components" />
-      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\testi\views" />
-      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\user\views\profile" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\web" />
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\user\models" />
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\models" />
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\user\views\default" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\backend\web" />
+      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\backend\models" />
+      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\post\views\default" />
+      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\post\models\forms" />
+      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\components" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -195,7 +201,9 @@
       <workItem from="1584767605864" duration="4177000" />
       <workItem from="1584853336825" duration="31564000" />
       <workItem from="1585111005607" duration="16364000" />
-      <workItem from="1586069955218" duration="136572000" />
+      <workItem from="1586069955218" duration="144619000" />
+      <workItem from="1587102853415" duration="12084000" />
+      <workItem from="1587187935020" duration="7055000" />
     </task>
     <servers />
   </component>

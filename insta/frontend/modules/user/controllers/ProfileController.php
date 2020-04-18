@@ -48,7 +48,6 @@ class ProfileController extends Controller
                 ->all();
         }
 
-
         return $this->render('userprofile', [
             'color' => $color,
             'title' => $title,

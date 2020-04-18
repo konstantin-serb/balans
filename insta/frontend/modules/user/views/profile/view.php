@@ -62,7 +62,7 @@ $this->registerJsFile('@web/js/likes.js', [
 <!--                <h3>Изменить фото</h3>-->
                 <div class="rectangularButton button">
 
-                    <a class="<?= $color; ?>" href="#">
+                    <a class="<?= $color; ?> addUserPhoto" >
 
                         <?= FileUpload::widget([
                             'model' => $modelPicture,
@@ -84,6 +84,8 @@ $this->registerJsFile('@web/js/likes.js', [
 
                             ],
                         ]); ?>
+
+                        Изменить фото профиля
                     </a>
                 </div>
                 <div class="rectangularButton button">
@@ -156,7 +158,7 @@ $this->registerJsFile('@web/js/likes.js', [
                                         </span>
                         </div>
                         <div class="comments">
-                            <i class="far fa-comment-alt"></i> 0
+                            <i class="far fa-comment-alt"></i> <?=$post->countComments?>
                         </div>
                         <div class="date">
                             <?=Yii::$app->formatter->asDate($post->created_at)?>

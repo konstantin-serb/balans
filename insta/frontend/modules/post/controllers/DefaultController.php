@@ -3,6 +3,7 @@
 namespace frontend\modules\post\controllers;
 
 
+use frontend\models\Comment;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -12,6 +13,7 @@ use frontend\modules\post\models\forms\PostForm;
 use frontend\models\Post;
 use frontend\modules\post\models\forms\PostEditForm;
 use frontend\modules\post\models\forms\ImageEditForm;
+use frontend\models\forms\CommentAddForm;
 
 /**
  * Default controller for the `post` module
@@ -113,12 +115,28 @@ class DefaultController extends Controller
         $color = 'yellow';
         $currentUser = Yii::$app->user->identity;
         $post = $this->findPost($id);
+        $comments = Comment::find()->where(['post_id' => $id])->andWhere(['status' => 10])
+            ->orderBy('created_at desc')->all();
+        $commentsCount = Comment::find()->where(['post_id' => $id])->andWhere(['status' => 10])
+            ->orderBy('created_at desc')->count();
 
+        $commentModel = new CommentAddForm();
+        if ($commentModel->load(Yii::$app->request->post()))
+        {
+            $commentModel->user_id = $currentUser->getId();
+            $commentModel->post_id = $id;
+            if($commentModel->save()) {
+                return $this->refresh();
+            }
+        }
 
         return $this->render('view', [
             'color' => $color,
             'post' => $post,
             'currentUser' => $currentUser,
+            'commentModel' => $commentModel,
+            'comments' => $comments,
+            'commentsCount' => $commentsCount,
         ]);
     }
 

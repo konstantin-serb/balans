@@ -14,7 +14,9 @@ AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+<html lang="<?= Yii::$app->language
+
+?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,6 +30,7 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    Yii::$app->name = 'Balance';
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
@@ -41,6 +44,9 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'Articles', 'url' => ['/articles/index']];
+        $menuItems[] = ['label' => 'Complaints', 'url' => ['/complaints/manage/index']];
+        $menuItems[] = ['label' => 'Blog', 'url' => ['/gucul/blog/index']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

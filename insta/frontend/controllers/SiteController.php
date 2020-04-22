@@ -9,6 +9,7 @@ use frontend\models\Post;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use Faker\Factory;
+use frontend\models\Articles;
 
 /**
  * Site controller
@@ -51,6 +52,9 @@ class SiteController extends Controller
         $color = 'green';
         $title = 'Balance | main';
         $bestPosts = Post::getBestPosts();
+        $articles = Articles::find()->where('status = 1')->orderBy('id desc')->limit(4)->all();
+        $articleFirst = Articles::find()->where('status = 1')->orderBy('id desc')->limit(1)->one();
+
 
         $bestAuthors = User::find()->where(['status' => 10])->orderBy('rating desc')->limit(8)->all();
         $newbiesAuthors = User::find()->where(['status' => 10])
@@ -61,9 +65,11 @@ class SiteController extends Controller
         return $this->render('index', [
             'color' => $color,
             'title' => $title,
+            'articles' => $articles,
             'bestPosts' => $bestPosts,
             'bestAuthors' => $bestAuthors,
             'newbiesAuthors' => $newbiesAuthors,
+            'articleFirst' => $articleFirst,
         ]);
     }
 

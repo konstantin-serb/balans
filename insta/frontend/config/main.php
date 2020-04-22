@@ -47,12 +47,7 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'storage' => [
-            'class' => 'frontend\components\Storage',
-        ],
-        'storagePostPicture' => [
-            'class' => 'frontend\components\StoragePostPicture',
-        ],
+
         'feedService' => [
             'class' => 'frontend\components\FeedService',
         ],

@@ -611,7 +611,7 @@ menu a {
     background-color: #F0F0F0;
 }
 
-.posts .item. a {
+.posts .item.a {
     color: #6B6B6B;
 }
 
@@ -734,6 +734,30 @@ section.newsFeed h2{
     display: flex;
 }
 
+.newsBlock .firstArticlePhoto {
+    min-width:100%;
+    max-height: 500px;
+    overflow:hidden;
+}
+
+.newsBlock .leftBlock p{
+    max-height: 201px;
+    overflow: hidden;
+}
+
+.blogsItem .innerText {
+    max-height: 148px;
+    overflow:hidden;
+}
+
+.newsBlock .firstArticlePhoto a{
+    display: block;
+}
+
+.newsBlock .firstArticlePhoto img {
+    width:100%;
+}
+
 .news h3,
 .news h4{
     text-align:center;
@@ -818,6 +842,7 @@ section.newsFeed h2{
 .innerPhoto {
     flex:1;
     max-height:150px;
+    overflow: hidden;
     margin-right: 5px;
 }
 
@@ -845,7 +870,7 @@ section.newsFeed h2{
     margin:0 6px 12px 6px;
 }
 
-.posts .itemUser. a {
+.posts .itemUser.a {
     color: #6B6B6B;
 }
 
@@ -1062,6 +1087,10 @@ section.newsFeed h2{
     margin:30px 0;
 }
 
+.postInfo .likes {
+    min-width:25px;
+} 
+
 .authorInfo a{
     color:#6B6B6B;
 }
@@ -1114,6 +1143,7 @@ section.newsFeed h2{
 
 .onePost .postInfo {
     display: flex;
+    flex-wrap:wrap;
     justify-content: center;
     margin:20px auto;
     font-size:18px;
@@ -1121,6 +1151,7 @@ section.newsFeed h2{
 
 .onePost .postInfo .item {
     margin:0 20px;
+    text-align:center;
 }
 
 .postInfo a {

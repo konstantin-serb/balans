@@ -28,7 +28,9 @@ class DefaultController extends Controller
         }
         $model = new PostForm(Yii::$app->user->identity);
         if ($model->load(Yii::$app->request->post())) {
+
             $model->picture = UploadedFile::getInstance($model, 'picture');
+
 
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Post created!');
@@ -53,7 +55,7 @@ class DefaultController extends Controller
         $model = $this->findPost($id);
         $editForm = new PostEditForm(Yii::$app->user->identity);
         if ($model->user_id == Yii::$app->user->identity->getId()) {
-            if ($editForm->load(Yii::$app->request->post())) {                  
+            if ($editForm->load(Yii::$app->request->post())) {
                 if ($editForm->save($id)) {
                     Yii::$app->session->setFlash('success', 'Post created!');
                     return $this->redirect(['/user/profile/my-page', 'nickname' => Yii::$app->user->identity->getNickname()]);
@@ -86,7 +88,7 @@ class DefaultController extends Controller
         if ($model->user_id == Yii::$app->user->identity->getId()) {
             if ($imageModel->load(Yii::$app->request->post())) {
                 $picture = UploadedFile::getInstance($imageModel, 'picture');
-                if (!empty($picture->name)){
+                if (!empty($picture->name)) {
                     if (file_exists($linkCurrentImage)) {
                         unlink($linkCurrentImage);
                     }
@@ -121,11 +123,10 @@ class DefaultController extends Controller
             ->orderBy('created_at desc')->count();
 
         $commentModel = new CommentAddForm();
-        if ($commentModel->load(Yii::$app->request->post()))
-        {
+        if ($commentModel->load(Yii::$app->request->post())) {
             $commentModel->user_id = $currentUser->getId();
             $commentModel->post_id = $id;
-            if($commentModel->save()) {
+            if ($commentModel->save()) {
                 return $this->refresh();
             }
         }
@@ -138,6 +139,24 @@ class DefaultController extends Controller
             'comments' => $comments,
             'commentsCount' => $commentsCount,
         ]);
+    }
+
+    public function actionComplain()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
+        }
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $id = Yii::$app->request->post('id');
+        $currentUser = Yii::$app->user->identity;
+        $post = $this->findPost($id);
+        if ($post->complain($currentUser)) {
+            return [
+                'success' => 'true',
+                'text' => 'Post reported',
+            ];
+        }
+
     }
 
     public function actionLike()

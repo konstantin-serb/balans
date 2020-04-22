@@ -16,6 +16,8 @@ use frontend\models\User;
  * @property int $created_at
  * @property int $updated_at
  * @property int status
+ * @property string complaints
+ * @property int complaints_count
  *
  * @property User $user
  */
@@ -213,6 +215,45 @@ class Post extends \yii\db\ActiveRecord
         $postId = $this->id;
         $count = Comment::find()->where(['post_id'=>$postId])->count();
         return $count;
+    }
+
+    public function complain(User $user)
+    {
+        $userId = $user->getId();
+        $array = unserialize($this->complaints);
+
+        if (empty($array)){
+            $complain = serialize([$userId]);
+            $count = 1;
+        } else {
+            if (!in_array($userId, $array)) {
+                array_push($array, $userId);
+                $complain = serialize($array);
+                $count = count($array);
+            } else {
+                return true;
+            }
+        }
+
+        $this->complaints = $complain;
+        $this->complaints_count = $count;
+        if ($this->save(false, ['complaints','complaints_count'])){
+            return true;
+        }
+
+    }
+
+    public function isReported(User $user)
+    {
+        $userId = $user->getId();
+        $array = unserialize($this->complaints);
+        if(!empty($array)){
+            if(in_array($userId,$array)){
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
 

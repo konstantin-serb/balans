@@ -76,6 +76,20 @@ $this->registerJsFile('@web/js/likes.js', [
                 <div class="item date">
                     <b>create:</b> <?= Html::encode(Yii::$app->formatter->asDatetime($post->created_at)) ?>
                 </div>
+
+                <?php if(Yii::$app->user->identity->getId() != $post->user_id):?>
+                <div class="reportPost">
+                    <?php if(!$post->isReported(Yii::$app->user->identity)):?>
+                    <a class="btn btn-danger button-complain" 
+                       data-id="<?=$post->id?>" href="#">Report post
+                        <i class="fas fa-redo-alt icon-preloader" style="display:none;"></i>
+                    </a>
+                    <?php else:?>
+                    <span>Post has been reported</span>
+                    <?php endif;?>
+                </div>
+                <?php endif;?>
+
                 <?php if (!empty($post->updated_at)): ?>
                     <div class="item date">
                         <b>update:</b> <?= Html::encode(Yii::$app->formatter->asDatetime($post->updated_at)) ?>
@@ -199,3 +213,7 @@ $this->registerJsFile('@web/js/likes.js', [
 
 
 <?php
+$this->registerJsFile('@web/js/complain.js', [
+    'depends' => \yii\web\JqueryAsset::class,
+]);
+

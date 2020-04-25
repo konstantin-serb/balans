@@ -26,10 +26,18 @@ $this->registerJsFile('@web/js/likes.js', [
     'depends' => \yii\web\JqueryAsset::class,
 ]);
 
+$this->registerJsFile('@web/js/modal.js', [
+    'depends' => \yii\web\JqueryAsset::class,
+]);
+
+$this->registerJsFile('@web/js/postComments.js', [
+    'depends' => \yii\web\JqueryAsset::class,
+]);
+
 ?>
 
     <section class="onePost">
-        <div class="wrapPost">
+        <div class="wrapPost" id="photoView">
             <div class="wrap-button">
                 <div class="button button-round cancel yellow">
                     <a href="javascript:history.back()">BACK</a>
@@ -104,12 +112,41 @@ $this->registerJsFile('@web/js/likes.js', [
             <h4>Здесь может быть ваша реклама</h4>
         </div>
     </section>
-    <section class="postComments">
-        <div class="cancel wrap-button">
-            <div class="button button-round cancel yellow">
-                <a href="javascript:history.back()">BACK</a>
+    <section class="addComment">
+        <div class="addCommentWrap">
+            <div class="cancel wrap-button">
+                <div class="button button-round cancel yellow">
+                    <a id="buttonComment">ADD COMMENT</a>
+                </div>
             </div>
         </div>
+    </section>
+    <!---------------------------------modal1--------------------------------------->
+    <div class="modalWindow">
+        <div class="modalWrapper">
+            <div class="modalHeader">
+                <span class="closeBtn">&times;</span>
+                <h3>Add new comment</h3>
+            </div>
+            <div class="modalBody">
+                <?php $form = ActiveForm::begin()?>
+                <div class="textArea">
+                    <?=$form->field($commentModel, 'comment')->textarea(['autofocus'])?>
+                </div>
+            </div>
+            <div class="modalFooter">
+                <div class="wrap-button">
+                    <div class="button">
+                        <a id="addCommentsButton" class="yellow" data-id="<?=$post->id?>" user-id="<?=Yii::$app->user->identity->getId()?>">ADD COMMENT</a>
+                    </div>
+                </div>
+                <?php ActiveForm::end()?>
+            </div>
+        </div>
+    </div>
+    <!--------------------------------endModal1------------------------------------->
+    <section class="postComments">
+
         <?php if (empty($comments)):?>
             <h2>NO COMMENTS</h2>
         <hr>
@@ -117,98 +154,84 @@ $this->registerJsFile('@web/js/likes.js', [
 
         <h2>COMMENTS:</h2>
 
-        <?php foreach($comments as $comment):?>
-        <div class="comment">
-            <div class="commentInfo">
-                <div class="userPhoto">
-                    <a href="<?=Url::to(['/user/profile/view',
-                        'nickname' => $comment->user->getNickname()])?>">
-                        <img src="<?=$comment->user->getPicture()?>" style="text-align: center;
+        <div id="comments">
+            <?php foreach($comments as $comment):?>
+                <div class="comment">
+                    <div class="commentInfo">
+                        <div class="userPhoto">
+                            <a href="<?=Url::to(['/user/profile/view',
+                                'nickname' => $comment->user->getNickname()])?>">
+                                <img src="<?=$comment->user->getPicture()?>" style="text-align: center;
     display: block;
     height: 100%;
     max-width: unset;
     margin: 0 auto;">
-                    </a>
-                </div>
-                <div class="dataBlock">
-                    <div class="name-info">
-                        <div class="name"><a class="" <?php
-                            if($comment->user->id == $post->user->id){
-                                echo 'style="color:#FF7B00;"';
-                            }
-                            ?> href="<?=Url::to(['/user/profile/view',
-                                'nickname' => $comment->user->getNickname()])?>">
-                                <?=$comment->user->username?>:</a></div>
-                        <div class="info">
-                            <div class="posts"><?=$comment->user->rating?> постов</div>
-                            <div class="followers"><a href="#"><?=$comment->user->countFollowers()?> подписчиков</a></div>
-                            <div class="subscriber"><a href="#">на <?=$comment->user->countSubscribers()?> подписан</a></div>
-<!--                            <div class="friends"><a href="#"> общих друзей</a></div>-->
+                            </a>
+                        </div>
+                        <div class="dataBlock">
+                            <div class="name-info">
+                                <div class="name"><a class="" <?php
+                                    if($comment->user->id == $post->user->id){
+                                        echo 'style="color:#FF7B00;"';
+                                    }
+                                    ?> href="<?=Url::to(['/user/profile/view',
+                                        'nickname' => $comment->user->getNickname()])?>">
+                                        <?=Html::encode($comment->user->username)?>:</a></div>
+                                <div class="info">
+                                    <div class="posts"><?=$comment->user->rating?> постов</div>
+                                    <div class="followers"><a href="#"><?=$comment->user->countFollowers()?> подписчиков</a></div>
+                                    <div class="subscriber"><a href="#">на <?=$comment->user->countSubscribers()?> подписан</a></div>
+                                    <!--                            <div class="friends"><a href="#"> общих друзей</a></div>-->
+                                </div>
+                            </div>
+                            <div class="nickname">
+                                <b>nickname:</b> <?=Html::encode(($comment->user->nickname) ? $comment->user->nickname : 'No nickname')?>
+                            </div>
+                            <div class="userDate">
+                                <b>Комментарий оставлен:</b> <?=Yii::$app->formatter->asDatetime($comment->created_at)?>
+                            </div>
                         </div>
                     </div>
-                    <div class="nickname">
-                        <b>nickname:</b> <?=($comment->user->nickname) ? $comment->user->nickname : 'No nickname'?>
+                    <!--            <hr>-->
+                    <div class="commentText">
+                        <p <?php
+                        if($comment->user->id == $post->user->id){
+                            echo 'style="color:#FF7B00;"';
+                        }
+                        ?>
+                            <?php if($comment->user->id == $currentUser->id){
+                                echo 'style="color:red; font-weight:bold;"';
+                            }?>
+                        >
+                            <i>
+                                <?=Html::encode($comment->comment)?></i>
+                        </p>
                     </div>
-                    <div class="userDate">
-                        <b>Комментарий оставлен:</b> <?=Yii::$app->formatter->asDatetime($comment->created_at)?>
-                    </div>
+                    <hr>
                 </div>
-            </div>
-<!--            <hr>-->
-            <div class="commentText">
-                <p <?php
-                if($comment->user->id == $post->user->id){
-                    echo 'style="color:#FF7B00;"';
-                }
-                ?>
-                <?php if($comment->user->id == $currentUser->id){
-                    echo 'style="color:red; font-weight:bold;"';
-                }?>
-                >
-                    <i>
-                        <?=$comment->comment?></i>
-                </p>
-            </div>
-            <hr>
-        </div>
-        <?php endforeach;?>
-        <div class="pagination">
-            <div class="paginationWrap">
-                <a href="#" class="yellow">
-                    <div class="box left">&lt;</div>
-                </a>
-                <a href="#" class="yellow">
-                    <div class="box pageNumber">1</div>
-                </a>
-                <a href="#" class="yellow">
-                    <div class="box active pageNumber">2</div>
-                </a>
-                <a href="#" class="yellow">
-                    <div class="box pageNumber">3</div>
-                </a>
-                <a href="#" class="yellow">
-                    <div class="box right">&gt;</div>
-                </a>
-            </div>
+            <?php endforeach;?>
+<!--            <div class="pagination">-->
+<!--                <div class="paginationWrap">-->
+<!--                    <a href="#" class="yellow">-->
+<!--                        <div class="box left">&lt;</div>-->
+<!--                    </a>-->
+<!--                    <a href="#" class="yellow">-->
+<!--                        <div class="box pageNumber">1</div>-->
+<!--                    </a>-->
+<!--                    <a href="#" class="yellow">-->
+<!--                        <div class="box active pageNumber">2</div>-->
+<!--                    </a>-->
+<!--                    <a href="#" class="yellow">-->
+<!--                        <div class="box pageNumber">3</div>-->
+<!--                    </a>-->
+<!--                    <a href="#" class="yellow">-->
+<!--                        <div class="box right">&gt;</div>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
         <?php endif;?>
     </section>
-    <section class="addComment">
-        <div class="addCommentWrap">
-            <h2>ADD COMMENT:</h2>
-            <?php $form = ActiveForm::begin()?>
-            <div class="textArea">
-                <?=$form->field($commentModel, 'comment')->textarea()?>
-            </div>
-            <div class="wrap-button">
-                <div class="button">
-                    <button class="yellow" href="#">ADD COMMENT</button>
-                </div>
-            </div>
-            <?php ActiveForm::end()?>
-        </div>
-    </section>
-
 
 
 
@@ -216,4 +239,6 @@ $this->registerJsFile('@web/js/likes.js', [
 $this->registerJsFile('@web/js/complain.js', [
     'depends' => \yii\web\JqueryAsset::class,
 ]);
+
+
 

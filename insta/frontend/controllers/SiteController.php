@@ -3,6 +3,8 @@
 namespace frontend\controllers;
 
 
+use frontend\models\Comment;
+use frontend\models\CommentReport;
 use frontend\models\User;
 use Yii;
 use frontend\models\Post;
@@ -54,6 +56,9 @@ class SiteController extends Controller
         $bestPosts = Post::getBestPosts();
         $articles = Articles::find()->where('status = 1')->orderBy('id desc')->limit(4)->all();
         $articleFirst = Articles::find()->where('status = 1')->orderBy('id desc')->limit(1)->one();
+        if (!Yii::$app->user->isGuest) {
+            $this->view->params['countMessage'] = CommentReport::countReports(Yii::$app->user->identity->getId());
+        }
 
 
         $bestAuthors = User::find()->where(['status' => 10])->orderBy('rating desc')->limit(8)->all();
@@ -76,9 +81,10 @@ class SiteController extends Controller
 
     public function actionNewsFeed()
     {
-                if(Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             return $this->redirect(['/user/default/login']);
         }
+        $this->view->params['countMessage'] = CommentReport::countReports(Yii::$app->user->identity->getId());
 
         $color = 'blue';
 
@@ -109,7 +115,7 @@ class SiteController extends Controller
             $user = new User([
                 'username' => $facker->name,
                 'email' => $facker->email,
-                'about' => $facker->text( 1000),
+                'about' => $facker->text(1000),
                 'nickname' => $facker->regexify('[A-Za-z0-9_]{5,15}'),
                 'password_hash' => Yii::$app->security->generatePasswordHash('123123'),
                 'created_at' => $time = time(),

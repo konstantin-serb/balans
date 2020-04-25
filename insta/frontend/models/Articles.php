@@ -45,7 +45,8 @@ class Articles extends \yii\db\ActiveRecord
 
     public function getImage()
     {
-        return 'http://admin.insta.com/uploads/'.$this->image;
+        return ($this->image) ? Yii::$app->params['adminWeb'] . 'uploads/'
+            . $this->image : Yii::$app->params['adminWeb'] . '/no-image.jpg';
     }
 
 }

@@ -40,10 +40,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::img($article->getImage());
                 },
             ],
-            'date',
+            'date:datetime',
 //            'likes:ntext',
 //            'likes_count',
-            'status',
+            //'status',
+            [
+                    'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($model) {
+                if($model->status == 0) {
+                    return 'Не видно на сайте';
+                } else if($model->status == 1) {
+                    return 'Видно на сайте';
+                }
+
+                }
+            ],
         ],
     ]) ?>
 

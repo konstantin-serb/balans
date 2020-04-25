@@ -3,6 +3,8 @@
 
 namespace frontend\modules\user\controllers;
 
+use frontend\models\CommentReport;
+use frontend\models\forms\MessagesReportView;
 use frontend\models\Post;
 use Yii;
 use frontend\models\User;
@@ -22,6 +24,7 @@ class ProfileController extends Controller
         $user = $this->findUser($nickname);
         $title = $user->username.' page';
         $currentUser = Yii::$app->user->identity;
+        $this->view->params['countMessage'] = CommentReport::countReports(Yii::$app->user->identity->getId());
         if ($user->getId() == $currentUser->getId()) {
             return $this->redirect(['my-page', 'nickname' => $currentUser->getNickname()]);
         }
@@ -62,7 +65,7 @@ class ProfileController extends Controller
     {
         $color = 'brown';
 
-
+        $this->view->params['countMessage'] = $message = CommentReport::countReports(Yii::$app->user->identity->getId());
         $user = $this->findUser($nickname);
 
         $title = $user->username.' page';
@@ -77,7 +80,51 @@ class ProfileController extends Controller
             'currentUser' => $currentUser,
             'modelPicture' => $modelPicture,
             'posts' => $posts,
+            'message' => $message,
         ]);
+    }
+
+    public function actionMyMessages($id)
+    {
+        if ($id != Yii::$app->user->identity->getId())
+        {
+            return $this->redirect(['/user/profile/my-messages/', 'id' => Yii::$app->user->identity->getId()]);
+        }
+        $color = 'brown';
+        $currentUser = Yii::$app->user->identity->getId();
+        $this->view->params['countMessage'] = CommentReport::countReports(Yii::$app->user->identity->getId());
+        $messages = CommentReport::find()->where(['recipient' => $currentUser])->orderBy('created_at desc')->all();
+
+
+        return $this->render('my-message', [
+            'color' => $color,
+            'messages' => $messages,
+        ]);
+    }
+
+    public function actionDeleteMessage()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $id = intval($_POST['params']['id']);
+        $commentReport = CommentReport::findOne($id);
+        if ($commentReport->delete()) {
+            return [
+                'success' => true,
+            ];
+        }
+        return false;
+    }
+
+    public function actionMessageView()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $currentUserId = Yii::$app->user->identity->getId();
+        $messReport = new MessagesReportView();
+        $messReport->userId = $currentUserId;
+
+        return [
+            'html' => $messReport->view(),
+        ];
     }
 
     private function findUser($nickname)

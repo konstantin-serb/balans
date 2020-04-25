@@ -20,6 +20,10 @@ if (!empty($this->color)) {
     $color = 'red';
 }
 
+if (empty($this->params['countMessage'])) {
+    $this->params['countMessage'] = '';
+}
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -51,7 +55,20 @@ if (!empty($this->color)) {
             <h1 class="<?= $color ?>">BalancE</h1>
         </div>
     </div>
-    <p class="slogan">Снимай и выкладывай!</p>
+    <div class="slovo">
+        <p class="slogan">Снимай и выкладывай!</p>
+        <div class="forma">
+            <?= Html::beginForm(['/site/language']) ?>
+            <?= Html::dropDownList('language', Yii::$app->language, [
+                'en-US' => 'English',
+                'ru-RU' => 'Русский',
+            ]) ?>
+            <?= Html::submitButton('Change') ?>
+            <?= Html::endForm() ?>
+        </div>
+    </div>
+
+
     <hr class="hruka">
 </section>
 <section class="main-menu">
@@ -62,7 +79,7 @@ if (!empty($this->color)) {
                     <li>HOME</li>
                 </a>
                 <a class="<?= $color ?>" href="<?= Url::to(['/site/news-feed']) ?>">
-                    <li>NEWS FEED</li>
+                    <li><?= Yii::t('menu', 'NEWS FEED') ?></li>
                 </a>
 
                 <?php if (Yii::$app->user->isGuest): ?>
@@ -73,12 +90,28 @@ if (!empty($this->color)) {
                         <li>LOGIN</li>
                     </a>
                 <?php else: ?>
-                    <a class="<?= $color ?>" href="<?=Url::to(['/user/profile/my-page','nickname' => Yii::$app->user->identity->getNickname()])?>">
-                        <li>MY PAGE</li>
-                    </a>
+                    <li>
+                        <div class="">
+                            <a class="<?= $color ?>"
+                               href="<?= Url::to(['/user/profile/my-page', 'nickname' => Yii::$app->user->identity->getNickname()]) ?>">
+                                <div class="myPageLabel">MY PAGE
+                                    <?php if ($this->params['countMessage']): ?>
+                                        <div class="countReport">
+                                            <?= $this->params['countMessage'] ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+
+                            </a>
+
+                        </div>
+                    </li>
                     <li>
                         <?php echo Html::beginForm(['/user/default/logout'], 'post') ?>
-                        <?= Html::submitButton('LOGOUT (' . Yii::$app->user->identity->username . ')', ['class' =>  $color . ' logout' ]) ?>
+                        <?= Html::submitButton(
+                            Yii::t('menu', 'LOGOUT ({username})', [
+                                'username' => Yii::$app->user->identity->username,
+                            ]), ['class' => $color . ' logout']) ?>
                         <?php echo Html::endForm(); ?>
                     </li>
                 <?php endif; ?>

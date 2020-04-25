@@ -28,19 +28,41 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
-            'text:ntext',
+//            'text:ntext',
+            [
+                'attribute' => 'text',
+                'format' => 'raw',
+                'value' => function($article) {
+                    if (strlen($article->text) > 251) {
+                        $points = '...';
+                    } else {
+                        $points = '';
+                    }
+                    return Yii::$app->stringHelper->getShort($article->text, 250) . $points;
+                },
+            ],
             //            'image',
             [
                 'attribute' => 'image',
                 'format' => 'raw',
                 'value' => function ($article) {
-                    return Html::img($article->getImage(),['width' => '150px']);
+                    return Html::img($article->getImage(), ['width' => '150px']);
                 },
             ],
-            'date',
+            'date:datetime',
             //'likes:ntext',
             //'likes_count',
             //'status',
+            [
+                    'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($article) {
+                    if ($article->status == 0) {
+                        return Html::tag('span', 'Не видно на сайте', ['style' => 'color:red;']);
+                    }
+                    return Html::tag('span', 'Видно на сайте', ['style' => 'color:blue;']);
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

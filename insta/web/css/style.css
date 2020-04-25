@@ -511,6 +511,23 @@ footer.black {
 }
 /*---------------------------end Modal style---------------------------------*/
 
+.myPageLabel{
+    position:relative;
+}
+
+.myPageLabel .countReport {
+    position: absolute;
+    top: -12px;
+    right: -27px;
+    width: 25px;
+    height: 25px;
+    background-color: #FF5F00;
+    color: #fff;
+    text-align: center;
+    border-radius: 50px;
+    padding-top: 5px;
+    font-size: 12px;
+}
 
 .wrap-menu {
     border: 2px solid;
@@ -566,6 +583,7 @@ section {
     letter-spacing: 0.455em;
     text-align: center;
     margin-top: 0;
+
 }
 
 menu {
@@ -743,6 +761,7 @@ section.newsFeed h2{
 .newsBlock .leftBlock p{
     max-height: 201px;
     overflow: hidden;
+    padding-top: 9px;
 }
 
 .blogsItem .innerText {
@@ -919,7 +938,20 @@ section.newsFeed h2{
 
 
 /*------------------------my Page-------------------------*/
+.message {
+    text-align:center;
+}
 
+.message a {
+    color:#7A391D;
+    font-size:20px;
+}
+
+.message a.active {
+    color:#FF5F00;
+    font-size:20px;
+    font-weight:bold;
+}
 
 .addPostButton h3{
     margin-bottom: 0;
@@ -1141,6 +1173,25 @@ section.newsFeed h2{
     font-size: 20px;
 }
 
+.commentMessages .dell {
+    font-size: 30px;
+    padding-right: 15px;
+    color:red;
+}
+
+.deleteMessage {
+    font-size: 30px;
+    color:red;
+    padding-right:10px;
+    padding-top: 10px;
+}
+
+.commentMessages .glyphicon-ok:before {
+    content: "\e013";
+    position: absolute;
+    top: -19px;
+}
+
 .onePost .postInfo {
     display: flex;
     flex-wrap:wrap;
@@ -1216,6 +1267,14 @@ section.newsFeed h2{
 .commentInfo .dataBlock .name-info {
     display: flex;
     color:#2E2929;
+}
+
+.commentInfo img {
+    text-align: center;
+    display: block;
+    height: 100%;
+    max-width: unset;
+    margin: 0 auto;
 }
 
 .commentInfo .dataBlock .name-info .name{

@@ -8,6 +8,7 @@
  * @var $post \frontend\models\Post
  * @var $color \frontend\modules\user\controllers\ProfileController
  * @var $title \frontend\modules\user\controllers\ProfileController
+ * @var $message \frontend\models\CommentReport
  */
 
 use yii\helpers\Html;
@@ -26,13 +27,21 @@ $this->registerJsFile('@web/js/likes.js', [
 
 <section class="addPostButton">
     <div class="addPostsWrap">
-        <h2>HELLO, <?= Html::encode($currentUser->username) ?>!</h2>
-        <h3>Не хотите ли добавить новый пост?</h3>
-        <div class="wrap-button">
-            <div class="button button-round">
-                <a class="<?= $color; ?>" href="<?=Url::to(['/post/default/create'])?>">ADD POST</a>
-            </div>
+        <h2><?=Yii::t('my page', 'HELLO')?>, <?= Html::encode($currentUser->username) ?>!</h2>
+        <div class="message">
+            <?php if($message):?>
+            <a class="button-message active" href="<?=Url::to(['/user/profile/my-messages/', 'id' => Yii::$app->user->identity->getId()])?>">
+                У вас есть новые сообщения
+            </a>
+            <?php else:?>
+                <a class="button-message" href="<?=Url::to(['/user/profile/my-messages/', 'id' => Yii::$app->user->identity->getId()])?>">
+                    У вас нет новых сообщений
+                </a>
+            <?php endif;?>
         </div>
+        <br>
+
+
     </div>
 </section>
 <section class="about">
@@ -104,6 +113,14 @@ $this->registerJsFile('@web/js/likes.js', [
     </div>
 </section>
 <section class="newsFeed myPage">
+    <h3>Не хотите ли добавить новый пост?</h3>
+    <div class="wrap-button">
+        <div class="button button-round">
+            <a class="<?= $color; ?>" href="<?=Url::to(['/post/default/create'])?>">ADD POST</a>
+        </div>
+    </div>
+    <br>
+    <hr>
     <div class="wrap">
         <h2>MY POSTS</h2>
         <br><br>

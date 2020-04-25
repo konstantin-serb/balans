@@ -6,7 +6,7 @@ use Yii;
 use yii\base\Model;
 use backend\models\Articles;
 
-class ArticlesForm extends Model
+class ArticlesUpdateForm extends Model
 {
     public $id;
     public $title;
@@ -35,19 +35,15 @@ class ArticlesForm extends Model
 
     public function save()
     {
-        $article = new Articles();
+        $article = Articles::findOne($this->id);
         $article->title = $this->title;
         $article->text = $this->text;
         if (!empty($this->picture)) {
             $article->image = Yii::$app->storagePostPicture->saveUploadedFile($this->picture);
         }
-        $article->status = 0;
-        $article->date = time();
-
+        $article->status = $this->status;
         if ($article->save()) {
-            $article = Articles::find()->orderBy('id desc')->one();
-            $id = $article->id;
-            return $id;
+            return true;
         }
         return false;
     }

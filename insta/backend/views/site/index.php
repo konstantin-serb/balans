@@ -9,6 +9,6 @@ $this->title = 'My Yii Application';
     <div class="jumbotron">
         <h1>Admin panel!</h1>
     </div>
-    <img src="<?=Yii::getAlias('@common')?>/img/photo.jpg">
+    <img src="/uploads/admin.jpeg">
 
 </div>

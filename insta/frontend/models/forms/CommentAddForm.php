@@ -3,6 +3,7 @@
 
 namespace frontend\models\forms;
 
+use frontend\models\Post;
 use yii\base\Model;
 use frontend\models\Comment;
 
@@ -11,6 +12,7 @@ class CommentAddForm extends Model
     public $comment;
     public $user_id;
     public $post_id;
+    public $postAuthorId;
 
     private $created_at;
     private $status;
@@ -20,7 +22,7 @@ class CommentAddForm extends Model
         return [
             [['comment'], 'required'],
             [['comment'], 'string', 'min' => 5, 'max' => 500],
-            [['user_id', 'post_id', 'created_at', 'status'], 'integer'],
+            [['user_id', 'post_id'], 'integer'],
         ];
     }
 
@@ -32,7 +34,16 @@ class CommentAddForm extends Model
         $newComment->comment = $this->comment;
         $newComment->created_at = time();
         $newComment->status = 10;
-        if($newComment->save()){
+        if($this->validate() && $newComment->save()){
+            if($newComment->user_id != $this->postAuthorId){
+                $report = new CommentReportForm();
+                $report->postId = $newComment->post_id;
+                $report->recipient = $this->postAuthorId;
+                $report->commentator = $newComment->user_id;
+                $report->comment = $newComment->comment;
+                $report->created_at = $newComment->created_at;
+                $report->save();
+            }
             return true;
         }
         return false;

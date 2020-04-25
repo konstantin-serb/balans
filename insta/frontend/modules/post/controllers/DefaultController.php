@@ -4,6 +4,8 @@ namespace frontend\modules\post\controllers;
 
 
 use frontend\models\Comment;
+use frontend\models\CommentReport;
+use frontend\models\forms\CommentViewForm;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -116,6 +118,7 @@ class DefaultController extends Controller
     {
         $color = 'yellow';
         $currentUser = Yii::$app->user->identity;
+        $this->view->params['countMessage'] = CommentReport::countReports(Yii::$app->user->identity->getId());
         $post = $this->findPost($id);
         $comments = Comment::find()->where(['post_id' => $id])->andWhere(['status' => 10])
             ->orderBy('created_at desc')->all();
@@ -123,13 +126,13 @@ class DefaultController extends Controller
             ->orderBy('created_at desc')->count();
 
         $commentModel = new CommentAddForm();
-        if ($commentModel->load(Yii::$app->request->post())) {
-            $commentModel->user_id = $currentUser->getId();
-            $commentModel->post_id = $id;
-            if ($commentModel->save()) {
-                return $this->refresh();
-            }
-        }
+//        if ($commentModel->load(Yii::$app->request->post())) {
+//            $commentModel->user_id = $currentUser->getId();
+//            $commentModel->post_id = $id;
+//            if ($commentModel->save()) {
+//                return $this->refresh('#buttonComment');
+//            }
+//        }
 
         return $this->render('view', [
             'color' => $color,
@@ -139,6 +142,37 @@ class DefaultController extends Controller
             'comments' => $comments,
             'commentsCount' => $commentsCount,
         ]);
+    }
+
+    public function actionAddComment()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $commentModel = new CommentAddForm();
+        $commentModel->comment = $_POST['params']['comment'];
+        $commentModel->user_id = intval($_POST['params']['userId']);
+        $commentModel->post_id = intval($_POST['params']['postId']);
+        $post = Post::findOne($commentModel->post_id);
+        $commentModel->postAuthorId = $post->user_id;
+        if ($commentModel->validate() && $commentModel->save()) {
+            return [
+                'success' => true,
+            ];
+        }
+    }
+
+    public function actionComment()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $comments = new CommentViewForm();
+        $comments->userId = $_POST['params']['userId'];
+        $comments->postId = $_POST['params']['postId'];
+        $comments->currentUser = Yii::$app->user->identity;
+        $value = $comments->view();
+
+        return [
+            'success' => true,
+            'html' => $value,
+        ];
     }
 
     public function actionComplain()

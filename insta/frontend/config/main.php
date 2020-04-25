@@ -10,6 +10,7 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'en-US',
     'controllerNamespace' => 'frontend\controllers',
     'modules' => [
         'user' => [
@@ -59,6 +60,13 @@ return [
                 'profile/<nickname:\w+>' => 'user/profile/view',
                 'gen_user' => 'site/generate-user',
                 'post/<id:\d+>' => 'post/default/view',
+            ],
+        ],
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                ],
             ],
         ],
 

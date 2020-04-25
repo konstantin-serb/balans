@@ -10,10 +10,13 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
         'storage' => [
-            'class' => 'frontend\components\Storage',
+            'class' => 'common\components\Storage',
         ],
         'storagePostPicture' => [
-            'class' => 'frontend\components\StoragePostPicture',
+            'class' => 'common\components\StoragePostPicture',
+        ],
+        'stringHelper' => [
+            'class' => 'common\components\StringHelper',
         ],
     ],
 ];

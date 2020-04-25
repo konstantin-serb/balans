@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 
+use backend\models\forms\ArticlesUpdateForm;
 use Yii;
 use backend\models\Articles;
 use backend\models\ArticlesSearch;
@@ -74,7 +75,6 @@ class ArticlesController extends Controller
             if ($id = $model->save() ) {
                 return $this->redirect(['view', 'id' => $id]);
             }
-
         }
 
         return $this->render('create', [
@@ -92,13 +92,20 @@ class ArticlesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelUpdate = new ArticlesUpdateForm();
+        $modelUpdate->id = $model->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($modelUpdate->load(Yii::$app->request->post())) {
+            $modelUpdate->picture = UploadedFile::getInstance($modelUpdate, 'picture');
+            if ( $modelUpdate->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelUpdate' => $modelUpdate
         ]);
     }
 

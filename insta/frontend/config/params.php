@@ -1,7 +1,6 @@
 <?php
 return [
     'adminEmail' => 'admin@example.com',
-
     'maxFileSize' => 1024 * 1024 *2,
 
     'storageUri' => '/uploads/',
@@ -11,4 +10,7 @@ return [
     ],
 
     'feedPostLimit' => 200,
+    'adminWeb' => 'http://admin.insta.com/',
+//    'adminWeb' => 'http://admin.insta.i-des.net/',
+
 ];

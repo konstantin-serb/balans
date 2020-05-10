@@ -1010,7 +1010,8 @@ section.newsFeed h2{
     margin:0 auto;
 }
 
-.addPost .wrap-button button{
+.addPost .wrap-button button,
+.delPost .wrap-button button{
     font-size:20px;
     text-transform:uppercase;
     padding:10px 110px;
@@ -1167,6 +1168,10 @@ section.newsFeed h2{
     position: absolute;
     left: 118px;
     top:30%;
+}
+
+.delPost p{
+    text-align:center;
 }
 
 .onePost .author {

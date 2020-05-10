@@ -56,7 +56,7 @@ if (empty($this->params['countMessage'])) {
         </div>
     </div>
     <div class="slovo">
-        <p class="slogan">Снимай и выкладывай!</p>
+        <p class="slogan"><?=Yii::t('menu', 'Photograph and lay out!')?></p>
         <div class="forma">
             <?= Html::beginForm(['/site/language']) ?>
             <?= Html::dropDownList('language', Yii::$app->language, [
@@ -76,7 +76,7 @@ if (empty($this->params['countMessage'])) {
         <menu>
             <ul>
                 <a class="<?= $color ?> active" href="<?= Url::to(['/site/index']) ?>">
-                    <li>HOME</li>
+                    <li><?=Yii::t('menu', 'HOME')?></li>
                 </a>
                 <a class="<?= $color ?>" href="<?= Url::to(['/site/news-feed']) ?>">
                     <li><?= Yii::t('menu', 'NEWS FEED') ?></li>
@@ -94,7 +94,7 @@ if (empty($this->params['countMessage'])) {
                         <div class="">
                             <a class="<?= $color ?>"
                                href="<?= Url::to(['/user/profile/my-page', 'nickname' => Yii::$app->user->identity->getNickname()]) ?>">
-                                <div class="myPageLabel">MY PAGE
+                                <div class="myPageLabel"><?=Yii::t('menu', 'MY PAGE')?>
                                     <?php if ($this->params['countMessage']): ?>
                                         <div class="countReport">
                                             <?= $this->params['countMessage'] ?>
@@ -128,19 +128,19 @@ if (empty($this->params['countMessage'])) {
 <footer class="<?= $color ?>">
     <section>
         <div class="left inner-wrap">
-            <p><a href="#">О ПРОЕКТЕ</a></p>
-            <p><a href="#">ПРАВИЛА ИСПОЛЬЗОВАНИЯ</a></p>
-            <p><a href="#">КОНТАКТЫ</a></p>
+            <p><a href="#"><?=Yii::t('menu', 'ABOUT THE PROJECT')?></a></p>
+            <p><a href="#"><?=Yii::t('menu', 'TERMS OF USE')?></a></p>
+            <p><a href="#"><?=Yii::t('menu', 'CONTACTS')?></a></p>
         </div>
         <div class="center inner-wrap">
             <p><a href="#">i-des.net</a></p>
             <p><a href="#">konstant.s18@gmail.com</a></p>
-            <p><a href="#">ТБИЛИСИ 2020г.</a></p>
+            <p><a href="#"><?=Yii::t('menu', 'TBILISI')?> 2020г.</a></p>
         </div>
         <div class="right inner-wrap">
-            <p><a href="#">РЕКЛАМА НА САЙТЕ</a></p>
-            <p><a href="#">СОТРУДНИЧЕСТВО</a></p>
-            <p><a href="#">НАШИ ДРУГИЕ ПРОЕКТЫ</a></p>
+            <p><a href="#"><?=Yii::t('menu', 'ADVERTISING ON THE WEBSITE')?></a></p>
+            <p><a href="#"><?=Yii::t('menu', 'COLLABORATION')?></a></p>
+            <p><a href="#"><?=Yii::t('menu', 'OUR OTHER PROJECTS')?></a></p>
         </div>
     </section>
 </footer>

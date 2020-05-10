@@ -29,7 +29,7 @@ $this->title = $title;
     <?php if(!empty($articles)):?>
     <section class="mainBlog">
         <div class="news">
-            <h2>NEWS</h2>
+            <h2><?=Yii::t('home', 'NEWS')?></h2>
             <div class="Blogwrap">
                 <div class="newsBlock">
                     <div class="leftBlock">
@@ -104,8 +104,8 @@ $this->title = $title;
 <?php if (!Yii::$app->user->isGuest): ?>
     <section class="newsFeed">
         <div class="wrap">
-            <h2>MOST POPULAR</h2>
-            <h3>posts with the most likes:</h3>
+            <h2><?=Yii::t('home', 'MOST POPULAR')?></h2>
+            <h3><?=Yii::t('home', 'posts with the most likes')?>:</h3>
             <div class="posts">
                 <?php foreach ($bestPosts as $post): ?>
                     <div class="item-wrap">
@@ -119,7 +119,7 @@ $this->title = $title;
                                 </a>
                             </div>
                             <div class="photo">
-                                <a href="<?= Url::to(['/post/default/view', 'id' => $post->id]) ?>"
+                                <a href="<?= Url::to(['/post/default/view', 'id' => $post->id, '#' => 'photoPost']) ?>"
                                    title="Подробнее...">
                                     <div class="pictureWrap">
                                         <img class="contentPhoto" src="<?= $post->getImage() ?>" alt=""
@@ -150,8 +150,8 @@ $this->title = $title;
     </section>
     <section class="hallOfFame">
         <div class="wrap">
-            <h2>HALL OF FAME</h2>
-            <h3 class="white">The users who created the most posts:</h3>
+            <h2><?=Yii::t('home', 'HALL OF FAME')?></h2>
+            <h3 class="white"><?=Yii::t('home', 'The users who created the most posts')?>:</h3>
             <div class="posts">
                 <?php foreach ($bestAuthors as $bestAuthor): ?>
                     <div class="item-wrap">
@@ -204,8 +204,8 @@ $this->title = $title;
 
     <section class="newBies">
         <div class="wrap">
-            <h2>NEWBIES</h2>
-            <h3>Last join us:</h3>
+            <h2><?=Yii::t('home', 'NEWBIES')?></h2>
+            <h3><?=Yii::t('home', 'Last join us')?>:</h3>
             <div class="posts">
                 <?php foreach ($newbiesAuthors as $newbiesAuthor): ?>
                     <div class="item-wrap">
@@ -224,16 +224,14 @@ $this->title = $title;
                                 </div>
                                 <div class="about-text">
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis
-                                        dolore ea
-                                        error eum eveniet hic, id porro quas rem....
+                                        <?=\yii\helpers\Html::encode($newbiesAuthor->about)?>
                                     </p>
                                 </div>
                             </div>
                             <hr>
                             <div class="bottom">
                                 <div class="countPosts">
-                                    Posts: <?= $newbiesAuthor->rating ?>
+                                    <?=Yii::t('home', 'Posts')?>: <?= $newbiesAuthor->rating ?>
                                 </div>
                                 <div class="likes">
                                     <!--                            <a href="#" title="subscribe"><i class="fas fa-heart active"></i></a> <a href="#" title="followers">30</a>-->
@@ -251,8 +249,8 @@ $this->title = $title;
 <?php if (Yii::$app->user->isGuest): ?>
     <section class="homeRegister">
         <div class="regWrap">
-            <h2>SIGNUP</h2>
-            <h3>For those who want to join!</h3>
+            <h2><?=Yii::t('home', 'SIGNUP')?></h2>
+            <h3><?=Yii::t('home', 'For those who want to join!')?></h3>
             <div class="wrap-button">
                 <div class="button button-round">
                     <a class="<?= $color ?>" href="<?= Url::to(['/user/default/signup']) ?>">SIGNUP</a>

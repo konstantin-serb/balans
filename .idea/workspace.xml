@@ -2,24 +2,50 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdef52fd-1ecc-45a5-a0ae-a151439a30db" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/insta/console/migrations/m200425_120708_create_comment_report_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/models/CommentReport.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/models/forms/CommentReportForm.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/models/forms/MessagesReportView.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/my-message.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/web/js/messagesControl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin.insta/img/profile_default_image.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/backend/models/User.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/common/components/Resize.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/frontend/components/LanguageSelector.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/frontend/messages/ru/home.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/frontend/messages/ru/newsFeed.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/frontend/messages/ru/post.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/delete.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/backend/config/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/config/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/backend/controllers/ArticlesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/controllers/ArticlesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/backend/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/controllers/SiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/backend/models/LoginForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/models/LoginForm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/backend/modules/complaints/controllers/ManageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/modules/complaints/controllers/ManageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/backend/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/views/layouts/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/backend/views/site/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/views/site/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/common/components/Storage.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/common/components/Storage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/common/components/StoragePostPicture.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/common/components/StoragePostPicture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/common/config/bootstrap.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/common/config/bootstrap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/common/config/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/common/config/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/config/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/config/main.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/config/params.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/config/params.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/controllers/SiteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/models/Articles.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/models/Articles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/models/forms/CommentAddForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/models/forms/CommentAddForm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/messages/ru/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/messages/ru/menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/messages/ru/my page.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/messages/ru/my page.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/models/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/models/Post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/models/forms/CommentViewForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/models/forms/CommentViewForm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/models/forms/PictureForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/models/forms/PictureForm.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/modules/post/controllers/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/post/controllers/DefaultController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/post/models/forms/PostEditForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/post/models/forms/PostEditForm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/post/models/forms/PostForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/post/models/forms/PostForm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/update.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/view.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/controllers/ProfileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/userprofile.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/userprofile.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/layouts/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/alternative.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/site/alternative.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/site/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/web/css/media.css" beforeDir="false" afterPath="$PROJECT_DIR$/insta/web/css/media.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/insta/web/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/web/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/web/index.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -144,7 +170,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/insta/frontend/modules/user/views/profile" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/insta/frontend/modules/post/views/default" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -153,11 +179,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\user\views\profile" />
+      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\post\views\default" />
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\messages\ru" />
-      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\admin.insta\uploads" />
-      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\backend\models\forms" />
-      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\backend\web" />
+      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\admin.insta\img" />
+      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\backend\models" />
+      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\user\views\profile" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\common\components" />
@@ -212,7 +238,9 @@
       <workItem from="1586069955218" duration="144619000" />
       <workItem from="1587102853415" duration="12084000" />
       <workItem from="1587187935020" duration="12502000" />
-      <workItem from="1587358882675" duration="116240000" />
+      <workItem from="1587358882675" duration="153047000" />
+      <workItem from="1588395732211" duration="8117000" />
+      <workItem from="1588828379569" duration="30232000" />
     </task>
     <servers />
   </component>

@@ -26,7 +26,7 @@ $this->color = $color;
     </section>
     <section class="main-content">
         <div class="wrap">
-            <h2>NEWS FEED</h2>
+            <h2><?=Yii::t('newsFeed', 'NEWS FEED')?></h2>
             <div class="posts">
                 <?php if ($feedItems): ?>
                     <?php foreach($feedItems as $feedItem):?>
@@ -41,7 +41,7 @@ $this->color = $color;
                                     </a>
                                 </div>
                                 <div class="photo">
-                                    <a href="<?= Url::to(['/post/default/view', 'id' => $feedItem->id]) ?>" title="Подробнее...">
+                                    <a href="<?= Url::to(['/post/default/view', 'id' => $feedItem->id,'#' => 'photoPost']) ?>" title="Подробнее...">
                                         <div class="pictureWrap">
                                             <img class="contentPhoto" src="/uploads/<?= $feedItem->filename ?>"
                                                  alt="" title="">

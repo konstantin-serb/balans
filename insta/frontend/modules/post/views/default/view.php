@@ -40,10 +40,10 @@ $this->registerJsFile('@web/js/postComments.js', [
         <div class="wrapPost" id="photoView">
             <div class="wrap-button">
                 <div class="button button-round cancel yellow">
-                    <a href="javascript:history.back()">BACK</a>
+                    <a href="javascript:history.back()"><?=Yii::t('post', 'BACK')?></a>
                 </div>
             </div>
-            <h2>POST VIEW</h2>
+            <h2><?=Yii::t('post', 'POST VIEW')?></h2>
             <div class="authorInfo">
                 <a href="<?= Url::to(['/user/profile/view', 'nickname' => ($post->user->getNickname())]) ?>" class="">
                     <div class="author">
@@ -52,7 +52,7 @@ $this->registerJsFile('@web/js/postComments.js', [
                         </div>
                         <div class="box">
                             <div class="authorN">
-                                <b>Author:</b>
+                                <b><?=Yii::t('post', 'Author')?>:</b>
                             </div>
                             <div class="name"><b><?= $post->user->username ?></b></div>
                         </div>
@@ -61,7 +61,7 @@ $this->registerJsFile('@web/js/postComments.js', [
 
             </div>
             <hr>
-            <div class="photo">
+            <div class="photo" id="photoPost">
                 <div class="postPhoto" name="postPhoto">
                     <img src="<?php echo Html::encode($post->getImage()) ?>">
                 </div>
@@ -82,25 +82,25 @@ $this->registerJsFile('@web/js/postComments.js', [
                     <a href="#"><i class="fas fa-comment-alt"></i></a> <?=$commentsCount?>
                 </div>
                 <div class="item date">
-                    <b>create:</b> <?= Html::encode(Yii::$app->formatter->asDatetime($post->created_at)) ?>
+                    <b><?=Yii::t('post',  'create')?>:</b> <?= Html::encode(Yii::$app->formatter->asDatetime($post->created_at)) ?>
                 </div>
 
                 <?php if(Yii::$app->user->identity->getId() != $post->user_id):?>
                 <div class="reportPost">
                     <?php if(!$post->isReported(Yii::$app->user->identity)):?>
                     <a class="btn btn-danger button-complain" 
-                       data-id="<?=$post->id?>" href="#">Report post
+                       data-id="<?=$post->id?>" href="#"><?=Yii::t('post', 'Report post')?>
                         <i class="fas fa-redo-alt icon-preloader" style="display:none;"></i>
                     </a>
                     <?php else:?>
-                    <span>Post has been reported</span>
+                    <span><?=Yii::t('post','Post has been reported')?></span>
                     <?php endif;?>
                 </div>
                 <?php endif;?>
 
                 <?php if (!empty($post->updated_at)): ?>
                     <div class="item date">
-                        <b>update:</b> <?= Html::encode(Yii::$app->formatter->asDatetime($post->updated_at)) ?>
+                        <b><?=Yii::t('post', 'update')?>:</b> <?= Html::encode(Yii::$app->formatter->asDatetime($post->updated_at)) ?>
                     </div>
                 <?php endif; ?>
             </div>
@@ -112,21 +112,13 @@ $this->registerJsFile('@web/js/postComments.js', [
             <h4>Здесь может быть ваша реклама</h4>
         </div>
     </section>
-    <section class="addComment">
-        <div class="addCommentWrap">
-            <div class="cancel wrap-button">
-                <div class="button button-round cancel yellow">
-                    <a id="buttonComment">ADD COMMENT</a>
-                </div>
-            </div>
-        </div>
-    </section>
+
     <!---------------------------------modal1--------------------------------------->
     <div class="modalWindow">
         <div class="modalWrapper">
             <div class="modalHeader">
                 <span class="closeBtn">&times;</span>
-                <h3>Add new comment</h3>
+                <h3><?=Yii::t('post', 'Add new comment')?></h3>
             </div>
             <div class="modalBody">
                 <?php $form = ActiveForm::begin()?>
@@ -137,7 +129,9 @@ $this->registerJsFile('@web/js/postComments.js', [
             <div class="modalFooter">
                 <div class="wrap-button">
                     <div class="button">
-                        <a id="addCommentsButton" class="yellow" data-id="<?=$post->id?>" user-id="<?=Yii::$app->user->identity->getId()?>">ADD COMMENT</a>
+                        <a id="addCommentsButton" class="yellow" data-id="<?=$post->id?>" user-id="<?=Yii::$app->user->identity->getId()?>">
+                            <?=Yii::t('post','ADD COMMENT')?>
+                        </a>
                     </div>
                 </div>
                 <?php ActiveForm::end()?>
@@ -147,12 +141,17 @@ $this->registerJsFile('@web/js/postComments.js', [
     <!--------------------------------endModal1------------------------------------->
     <section class="postComments">
 
-        <?php if (empty($comments)):?>
-            <h2>NO COMMENTS</h2>
-        <hr>
-        <?php else:?>
-
         <h2>COMMENTS:</h2>
+
+        <div class="addComment">
+            <div class="addCommentWrap">
+                <div class="cancel wrap-button">
+                    <div class="button button-round cancel yellow">
+                        <a id="buttonComment"><?=Yii::t('post', 'ADD COMMENT')?></a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div id="comments">
             <?php foreach($comments as $comment):?>
@@ -161,11 +160,8 @@ $this->registerJsFile('@web/js/postComments.js', [
                         <div class="userPhoto">
                             <a href="<?=Url::to(['/user/profile/view',
                                 'nickname' => $comment->user->getNickname()])?>">
-                                <img src="<?=$comment->user->getPicture()?>" style="text-align: center;
-    display: block;
-    height: 100%;
-    max-width: unset;
-    margin: 0 auto;">
+                                <img src="<?=$comment->user->getPicture()?>" style="text-align: center; display: block;
+    height: 100%; max-width: unset; margin: 0 auto;">
                             </a>
                         </div>
                         <div class="dataBlock">
@@ -178,17 +174,21 @@ $this->registerJsFile('@web/js/postComments.js', [
                                         'nickname' => $comment->user->getNickname()])?>">
                                         <?=Html::encode($comment->user->username)?>:</a></div>
                                 <div class="info">
-                                    <div class="posts"><?=$comment->user->rating?> постов</div>
-                                    <div class="followers"><a href="#"><?=$comment->user->countFollowers()?> подписчиков</a></div>
-                                    <div class="subscriber"><a href="#">на <?=$comment->user->countSubscribers()?> подписан</a></div>
+                                    <div class="posts"><?=$comment->user->rating?> <?=Yii::t('my page', 'posts')?></div>
+                                    <div class="followers"><a href="#"><?=$comment->user->countFollowers()?> <?=Yii::t('my page', 'subscribers')?></a></div>
+                                    <div class="subscriber"><a href="#">
+                                            <?=Yii::t('my page', 'subscribed to {followers} users',[
+                                                'followers' => $comment->user->countSubscribers()
+                                            ])?>
+                                        </a></div>
                                     <!--                            <div class="friends"><a href="#"> общих друзей</a></div>-->
                                 </div>
                             </div>
                             <div class="nickname">
-                                <b>nickname:</b> <?=Html::encode(($comment->user->nickname) ? $comment->user->nickname : 'No nickname')?>
+                                <b><?=Yii::t('post', 'nickname')?>:</b> <?=Html::encode(($comment->user->nickname) ? $comment->user->nickname : Yii::t('post', 'No nickname'))?>
                             </div>
                             <div class="userDate">
-                                <b>Комментарий оставлен:</b> <?=Yii::$app->formatter->asDatetime($comment->created_at)?>
+                                <b><?=Yii::t('post', 'Comment added')?>:</b> <?=Yii::$app->formatter->asDatetime($comment->created_at)?>
                             </div>
                         </div>
                     </div>
@@ -230,7 +230,7 @@ $this->registerJsFile('@web/js/postComments.js', [
 <!--                </div>-->
 <!--            </div>-->
         </div>
-        <?php endif;?>
+
     </section>
 
 

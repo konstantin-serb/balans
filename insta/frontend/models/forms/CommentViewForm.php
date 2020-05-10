@@ -55,17 +55,21 @@ class CommentViewForm
                     'nickname' => $comment->user->getNickname()]).'">
                             '.Html::encode($comment->user->username).':</a></div>
                     <div class="info">
-                        <div class="posts">'.$comment->user->rating.' постов</div>
-                        <div class="followers"><a href="#">'.$comment->user->countFollowers().' подписчиков</a></div>
-                        <div class="subscriber"><a href="#">на '.$comment->user->countSubscribers().' подписан</a></div>
+                        <div class="posts">'.$comment->user->rating.' '.Yii::t('my page', 'posts').'</div>
+                        <div class="followers"><a href="#">'.$comment->user->countFollowers() .' '.Yii::t('my page', 'subscribers').' </a></div>
+                        <div class="subscriber"><a href="#"> '.
+                Yii::t('my page', 'subscribed to {followers} users',[
+                        'followers' => $comment->user->countSubscribers()
+                    ])
+                .' </a></div>
                         
                     </div>
                 </div>
                 <div class="nickname">
-                    <b>nickname:</b> '.Html::encode(($comment->user->nickname) ? $comment->user->nickname : 'No nickname').'
+                    <b>'.Yii::t('post', 'nickname').':</b> '.Html::encode(($comment->user->nickname) ? $comment->user->nickname : Yii::t('post', 'No nickname')).'
                 </div>
                 <div class="userDate">
-                    <b>Комментарий оставлен:</b> '.Yii::$app->formatter->asDatetime($comment->created_at).'
+                    <b>'.Yii::t('post', 'Comment added').':</b> '.Yii::$app->formatter->asDatetime($comment->created_at).'
                 </div>
             </div>
         </div>

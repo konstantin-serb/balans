@@ -22,7 +22,8 @@ class ProfileController extends Controller
         $color = 'lightBlue';
 
         $user = $this->findUser($nickname);
-        $title = $user->username.' page';
+        $userId = $user->getId();
+        $title = $user->username . ' page';
         $currentUser = Yii::$app->user->identity;
         $this->view->params['countMessage'] = CommentReport::countReports(Yii::$app->user->identity->getId());
         if ($user->getId() == $currentUser->getId()) {
@@ -32,23 +33,11 @@ class ProfileController extends Controller
         $modelPicture = new PictureForm();
 
         if ($currentUser->isUserYourSubscriber($user)) {
-            $posts = Post::find()
-                ->where(['user_id' => $user->getId()])
-                ->andWhere(['status' => [
-                    1,2,
-                ]])
-                ->orderBy('id desc')
-                ->limit(10)
-                ->all();
+            $data = Post::getForFriends(50, $userId);
+
         } else {
-            $posts = Post::find()
-                ->where(['user_id' => $user->getId()])
-                ->andWhere(['status' => [
-                    1,
-                ]])
-                ->orderBy('id desc')
-                ->limit(10)
-                ->all();
+            $data = Post::getAll(50, $userId);
+
         }
 
         return $this->render('userprofile', [
@@ -57,7 +46,9 @@ class ProfileController extends Controller
             'user' => $user,
             'currentUser' => $currentUser,
             'modelPicture' => $modelPicture,
-            'posts' => $posts,
+//            'posts' => $posts,
+            'posts' => $data['posts'],
+            'pagination' => $data['pagination'],
         ]);
     }
 
@@ -68,10 +59,10 @@ class ProfileController extends Controller
         $this->view->params['countMessage'] = $message = CommentReport::countReports(Yii::$app->user->identity->getId());
         $user = $this->findUser($nickname);
 
-        $title = $user->username.' page';
+        $title = $user->username . Yii::t('my page', ' page');
         $currentUser = Yii::$app->user->identity;
         $modelPicture = new PictureForm();
-        $posts = Post::find()->where(['user_id' => $user->getId()])->andWhere('status < 4')->orderBy('id desc')->limit(10)->all();
+        $posts = Post::find()->where(['user_id' => $user->getId()])->andWhere('status < 4')->orderBy('id desc')->limit(50)->all();
 
         return $this->render('view', [
             'color' => $color,
@@ -86,8 +77,7 @@ class ProfileController extends Controller
 
     public function actionMyMessages($id)
     {
-        if ($id != Yii::$app->user->identity->getId())
-        {
+        if ($id != Yii::$app->user->identity->getId()) {
             return $this->redirect(['/user/profile/my-messages/', 'id' => Yii::$app->user->identity->getId()]);
         }
         $color = 'brown';
@@ -129,7 +119,7 @@ class ProfileController extends Controller
 
     private function findUser($nickname)
     {
-        $user = User::find()->where(['nickname'=>$nickname])->orWhere(['id' => $nickname])->one();
+        $user = User::find()->where(['nickname' => $nickname])->orWhere(['id' => $nickname])->one();
         if ($user) {
             return $user;
         }
@@ -139,7 +129,7 @@ class ProfileController extends Controller
 
     public function actionSubscrire($id)
     {
-        if(Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             return $this->redirect(['/user/default/login']);
         }
 
@@ -168,7 +158,7 @@ class ProfileController extends Controller
 
     private function findUserById($id)
     {
-        if($user = User::findOne($id)){
+        if ($user = User::findOne($id)) {
             return $user;
         }
         throw new NotFoundHttpException();
@@ -186,8 +176,7 @@ class ProfileController extends Controller
             //printer($user->picture);die;
             $user->picture = Yii::$app->storage->saveUploadedFile($model->picture);
 
-            if ($user->save(false, ['picture']))
-            {
+            if ($user->save(false, ['picture'])) {
                 return [
                     'success' => true,
                     'pictureUri' => Yii::$app->storage->getFile($user->picture),

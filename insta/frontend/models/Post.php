@@ -5,6 +5,7 @@ namespace frontend\models;
 use frontend\models\events\PostCreatedEvent;
 use Yii;
 use frontend\models\User;
+use yii\data\Pagination;
 
 /**
  * This is the model class for table "post".
@@ -114,10 +115,10 @@ class Post extends \yii\db\ActiveRecord
         $like = $likes->likes;
         $user = User::findOne($userId);
 
-        if(!empty($user)) {
+        if (!empty($user)) {
             $array = unserialize($user->likes);
-            if (in_array($postId, $array)){
-                foreach ($array as $key=>$item) {
+            if (in_array($postId, $array)) {
+                foreach ($array as $key => $item) {
                     if ($item == $postId) {
                         unset($array[$key]);
                     }
@@ -132,7 +133,7 @@ class Post extends \yii\db\ActiveRecord
             $likesArray = unserialize($like);
             if (in_array($userId, $likesArray)) {
                 foreach ($likesArray as $key => $item) {
-                    if($item == $userId) {
+                    if ($item == $userId) {
                         unset($likesArray[$key]);
                     }
                 }
@@ -156,7 +157,7 @@ class Post extends \yii\db\ActiveRecord
         $idPost = $this->id;
         $likes = Likes::find()->where(['post_id' => $idPost])->one();
         if (!empty($likes)) {
-            return  $likes->count1;
+            return $likes->count1;
         }
         return 0;
     }
@@ -166,9 +167,8 @@ class Post extends \yii\db\ActiveRecord
         $userId = $user->getId();
         $postId = $this->id;
         $likes = Likes::find()->where(['post_id' => $postId])->one();
-        if (!empty($likes)){
-            if (in_array($userId, unserialize($likes->likes)))
-            {
+        if (!empty($likes)) {
+            if (in_array($userId, unserialize($likes->likes))) {
                 return true;
             }
             return false;
@@ -197,7 +197,7 @@ class Post extends \yii\db\ActiveRecord
         $posts = Post::find()
             ->select('post.*')
             ->leftJoin('likes', '`likes`.`post_id` = `post`.`id`')
-            ->where(['status'=>1])
+            ->where(['status' => 1])
             ->orderBy('count1 desc')
             ->limit(8)
             ->all();
@@ -213,7 +213,7 @@ class Post extends \yii\db\ActiveRecord
     public function getCountComments()
     {
         $postId = $this->id;
-        $count = Comment::find()->where(['post_id'=>$postId])->count();
+        $count = Comment::find()->where(['post_id' => $postId])->count();
         return $count;
     }
 
@@ -222,7 +222,7 @@ class Post extends \yii\db\ActiveRecord
         $userId = $user->getId();
         $array = unserialize($this->complaints);
 
-        if (empty($array)){
+        if (empty($array)) {
             $complain = serialize([$userId]);
             $count = 1;
         } else {
@@ -237,7 +237,7 @@ class Post extends \yii\db\ActiveRecord
 
         $this->complaints = $complain;
         $this->complaints_count = $count;
-        if ($this->save(false, ['complaints','complaints_count'])){
+        if ($this->save(false, ['complaints', 'complaints_count'])) {
             return true;
         }
 
@@ -247,13 +247,51 @@ class Post extends \yii\db\ActiveRecord
     {
         $userId = $user->getId();
         $array = unserialize($this->complaints);
-        if(!empty($array)){
-            if(in_array($userId,$array)){
+        if (!empty($array)) {
+            if (in_array($userId, $array)) {
                 return true;
             }
             return false;
         }
         return false;
+    }
+
+    public static function getForFriends($pageSize, $userId)
+    {
+        $query = Post::find()
+            ->where(['user_id' => $userId])
+            ->andWhere(['status' => [
+                1, 2,
+            ]])
+            ->orderBy('id desc');
+
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => $pageSize]);
+        $posts = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+        $data['posts'] = $posts;
+        $data['pagination'] = $pagination;
+        return $data;
+    }
+
+    public static function getAll($pageSize, $userId)
+    {
+        $query = Post::find()
+            ->where(['user_id' => $userId])
+            ->andWhere(['status' => [
+                1,
+            ]])
+            ->orderBy('id desc');
+
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => $pageSize]);
+        $posts = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+        $data['posts'] = $posts;
+        $data['pagination'] = $pagination;
+        return $data;
     }
 
 

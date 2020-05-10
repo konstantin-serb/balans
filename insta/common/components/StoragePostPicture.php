@@ -7,6 +7,7 @@ use Yii;
 use yii\base\Component;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
+use common\components\Resize;
 
 class StoragePostPicture extends Component implements StorageInterface
 {
@@ -16,7 +17,17 @@ class StoragePostPicture extends Component implements StorageInterface
     {
         $path = $this->preparePath($file);
 
-        if ($path && $file->saveAs($path)) {
+        $resize = new Resize($file->tempName);
+        $size = getimagesize($file->tempName);
+
+        $resize->resize(600,500, 'width');
+
+        if ($path) {
+            if($size[0] > 600){
+                $resize->save($path, 85);
+            } else {
+                $file->saveAs($path);
+            }
             return $this->filename;
         }
     }
@@ -29,6 +40,7 @@ class StoragePostPicture extends Component implements StorageInterface
     protected function preparePath(UploadedFile $file)
     {
         $this->filename = $this->getFileName($file);
+
 
         $path = $this->getStoragePath() . $this->filename;
 
@@ -45,9 +57,12 @@ class StoragePostPicture extends Component implements StorageInterface
 
     protected function getFileName(UploadedFile $file)
     {
-        $hash = sha1_file($file->tempName);
+//        $hash = sha1_file($file->tempName);
+        $hash = md5(uniqid($file->tempName));
+
         $name = substr_replace($hash, '/', 2, 0);
         $name = substr_replace($name, '/', 5, 0);
+
         return $name . '.' . $file->extension;
     }
 

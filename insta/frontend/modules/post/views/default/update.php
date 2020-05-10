@@ -18,13 +18,13 @@ $this->registerJsFile('@web/js/script.js', [
 
 <section class="addPost">
     <div class="addWrap">
-        <h2>Update post #<?=$id;?></h2>
+        <h2><?=Yii::t('my page', 'Update post')?></h2>
         <div class="wrap-button">
             <div class="button button-round cancel magenta">
-                <a href="javascript:history.back()" class="" href="create.html">CANCEL</a>
+                <a href="javascript:history.back()" class="" href="create.html"><?=Yii::t('my page', 'CANCEL')?></a>
             </div>
         </div>
-        <div class="aWrap">
+        <div class="aWrap" id="UpdatePost">
             <a class="updatePost" href="<?=Url::to(['/post/default/photo-update', 'id' => $id])?>">
         <img class="" src="<?=$model->getImage()?>" >
     </a>
@@ -36,14 +36,17 @@ $this->registerJsFile('@web/js/script.js', [
             <?php $editForm->description = $model->description;
                     $editForm->status = $model->status;?>
         
-            <?=$form->field($editForm, 'description')->textarea(['rows'=>10])?>
+            <?=$form->field($editForm, 'description')->textarea(['rows'=>10])->label(Yii::t('my page', 'DESCRIPTION'))?>
         <div class="r-button">
-        <?=$form->field($editForm, 'status')
-            ->radioList([1 => 'all', 2=> 'only friends', 3=>'only me'])?>
+            <?= $form->field($editForm, 'status')->radioList([
+                1 => Yii::t('my page', 'All'),
+                2 => Yii::t('my page', 'Only friends'),
+                3 => Yii::t('my page', 'Only me')])
+                ->label(Yii::t('my page', 'Post will see:')) ?>
         </div>
     
  <div class="wrap-button">
-    <button>Update</button>
+    <button><?=Yii::t('my page', 'Update')?></button>
    
     </div>
 

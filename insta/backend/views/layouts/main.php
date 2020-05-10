@@ -45,8 +45,9 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
         $menuItems[] = ['label' => 'Articles', 'url' => ['/articles/index']];
+        $menuItems[] = ['label' => 'Users', 'url' => ['/user/manage/index']];
         $menuItems[] = ['label' => 'Complaints', 'url' => ['/complaints/manage/index']];
-        $menuItems[] = ['label' => 'Blog', 'url' => ['/gucul/blog/index']];
+//        $menuItems[] = ['label' => 'Blog', 'url' => ['/gucul/blog/index']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

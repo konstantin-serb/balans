@@ -10,52 +10,50 @@ if (!empty($color))
     $this->color = $color;
 ?>
 
-<?php $form = ActiveForm::begin();?>
-
-
-
-
-
+<?php $form = ActiveForm::begin(); ?>
 
 <section class="addPost">
     <div class="addWrap">
         <br><br>
         <div class="wrap-button">
             <div class="button button-round cancel red">
-                <a href="javascript:history.back()" class="" href="create.html">CANCEL</a>
+                <a href="javascript:history.back()" class="" href="create.html"><?= Yii::t('my page', 'CANCEL') ?></a>
             </div>
         </div>
         <br>
-        <h2>CREATE POST</h2>
+        <h2><?= Yii::t('my page', 'CREATE POST') ?></h2>
         <hr>
-            <h3> SELECT PICTURE</h3>
-            <div class="wrap-button">
-                <div class="button button-round">
-                    <?=$form->field($model, 'picture')->fileInput()?>
-                </div>
+        <h3><?= Yii::t('my page', 'SELECT PICTURE') ?></h3>
+        <div class="wrap-button">
+            <div class="button button-round">
+                <?= $form->field($model, 'picture')->fileInput() ?>
             </div>
-
-
-
-            <div class="textArea">
-                <?=$form->field($model, 'description')->textarea()?>
-            </div>
-        <div class="r-button">
-            <?php $model->status = 1;?>
-            <?=$form->field($model, 'status')->radioList([1 => 'all', 2=> 'only friends', 3=>'only me'])?>
         </div>
 
-            <div class="wrap-button">
 
-                    <a class="red" ><?=Html::submitButton('Create')?></a>
+        <div class="textArea">
+            <?= $form->field($model, 'description')->textarea()->label(Yii::t('my page', 'DESCRIPTION')) ?>
+        </div>
+        <div class="r-button">
+            <?php $model->status = 1; ?>
+            <?= $form->field($model, 'status')->radioList([
+                1 => Yii::t('my page', 'All'),
+                2 => Yii::t('my page', 'Only friends'),
+                3 => Yii::t('my page', 'Only me')])
+                ->label(Yii::t('my page', 'Post will see:')) ?>
+        </div>
 
-            </div>
-        <?php ActiveForm::end()?>
+        <div class="wrap-button">
+
+            <a class="red"><?= Html::submitButton(Yii::t('my page', 'Create')) ?></a>
+
+        </div>
+        <?php ActiveForm::end() ?>
         <hr>
         <br><br>
         <div class="wrap-button">
             <div class="button button-round cancel red">
-                <a href="javascript:history.back()" class="" href="create.html">CANCEL</a>
+                <a href="javascript:history.back()" class="" href="create.html"><?= Yii::t('my page', 'CANCEL') ?></a>
             </div>
         </div>
         <br>

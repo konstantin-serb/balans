@@ -5,6 +5,7 @@
  * @var $currentUser \frontend\models\User
  * @var $modelPicture \frontend\models\forms\PictureForm
  * @var $posts \frontend\models\Post
+ * @var $pagination \frontend\models\Post
  * @var $color \frontend\modules\user\controllers\ProfileController
  * @var $title \frontend\modules\user\controllers\ProfileController
  */
@@ -12,6 +13,7 @@
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Url;
+use yii\widgets\LinkPager;
 
 $this->color = $color;
 $this->title = $title;
@@ -100,7 +102,7 @@ $this->registerJsFile('@web/js/script.js', [
                             <span class="autopName">&nbsp;&nbsp;<?= $post->user->username ?></span>
                         </div>
                         <div class="photo">
-                            <a href="<?= Url::to(['/post/default/view', 'id' => $post->id]) ?>">
+                            <a href="<?= Url::to(['/post/default/view', 'id' => $post->id, '#' => 'photoPost']) ?>">
                                 <div class="pictureWrap">
                                     <img class="contentPhoto" src="<?php echo Html::encode($post->getImage()) ?>" alt=""
                                          title="">
@@ -140,24 +142,16 @@ $this->registerJsFile('@web/js/script.js', [
                 </div>
             <?php endforeach; ?>
         </div>
+
         <div class="pagination">
             <div class="paginationWrap">
-                <a href="#" class="<?= $color ?>">
-                    <div class="box left">&lt;</div>
-                </a>
-                <a href="#" class="<?= $color ?>">
-                    <div class="box pageNumber">1</div>
-                </a>
-                <a href="#" class="<?= $color ?>">
-                    <div class="box active pageNumber">2</div>
-                </a>
-                <a href="#" class="<?= $color ?>">
-                    <div class="box pageNumber">3</div>
-                </a>
-                <a href="#" class="<?= $color ?>">
-                    <div class="box right">&gt;</div>
-                </a>
+                <?php // display pagination
+                echo LinkPager::widget([
+                    'pagination' => $pagination,
+                ]);
+                ?>
             </div>
+
         </div>
     </div>
 </section>

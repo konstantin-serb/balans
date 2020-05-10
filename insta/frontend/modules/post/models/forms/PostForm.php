@@ -28,7 +28,7 @@ class PostForm extends Model
         return [
             [['picture'], 'file',
                 'skipOnEmpty' => false,
-                'extensions' => ['jpg', 'png'],
+                'extensions' => ['jpg', 'png', 'jpeg'],
                 'checkExtensionByMimeType' => true,
                 'maxSize' => $this->getMaxFileSize()],
             [['description'], 'string', 'max' => self::MAX_DESCRIPTIONS_LENGHT],

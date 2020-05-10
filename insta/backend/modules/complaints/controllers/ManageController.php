@@ -5,6 +5,7 @@ namespace backend\modules\complaints\controllers;
 use Yii;
 use backend\models\Post;
 use backend\models\PostSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,6 +26,17 @@ class ManageController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'delete', 'approve'],
+                        'roles' => ['admin', 'moderator'],
+                    ],
+                ],
+
             ],
         ];
     }

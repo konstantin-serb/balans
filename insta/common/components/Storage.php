@@ -15,8 +15,17 @@ class Storage extends Component implements StorageInterface
     public function saveUploadedFile(UploadedFile $file)
     {
         $path = $this->preparePath($file);
+        $resize = new Resize($file->tempName);
+        $size = getimagesize($file->tempName);
 
-        if ($path && $file->saveAs($path)) {
+        $resize->resize(400,400, 'crop');
+
+        if ($path) {
+            if($size[0] > 400){
+                $resize->save($path, 85);
+            } else {
+                $file->saveAs($path);
+            }
             return $this->filename;
         }
     }
@@ -45,7 +54,8 @@ class Storage extends Component implements StorageInterface
 
     protected function getFileName(UploadedFile $file)
     {
-        $hash = sha1_file($file->tempName);
+//        $hash = sha1_file($file->tempName);
+        $hash = md5(uniqid($file->tempName));
         $name = substr_replace($hash, '/', 2, 0);
         $name = substr_replace($name, '/', 5, 0);
         return $name . '.' . $file->extension;

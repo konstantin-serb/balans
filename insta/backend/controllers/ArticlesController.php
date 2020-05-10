@@ -8,6 +8,7 @@ use Yii;
 use backend\models\Articles;
 use backend\models\ArticlesSearch;
 use backend\models\forms\ArticlesForm;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -29,6 +30,17 @@ class ArticlesController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'roles' => ['admin', 'moderator'],
+                    ],
+                ],
+
             ],
         ];
     }

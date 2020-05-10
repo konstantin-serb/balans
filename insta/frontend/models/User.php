@@ -381,13 +381,13 @@ class User extends ActiveRecord implements IdentityInterface
                 $arraySubscribe = unserialize($userSubscr->subscribe);
                 if (in_array($this->getId(), $arraySubscribe)){
                     $posts = Post::find()->where(['user_id'=>$id])->andWhere(['status'=>[1,2]])
-                        ->orderBy('created_at')->limit($oneUserPostsLimit)->all();
+                        ->orderBy('created_at desc')->limit($oneUserPostsLimit)->all();
                     foreach ($posts as $post){
                         array_push($postArray,$post);
                     }
                 } else {
                     $posts = Post::find()->where(['user_id'=>$id])->andWhere(['status'=>[1]])
-                        ->orderBy('created_at')->limit($oneUserPostsLimit)->all();
+                        ->orderBy('created_at desc')->limit($oneUserPostsLimit)->all();
                     foreach ($posts as $post){
                         array_push($postArray,$post);
                     }
@@ -398,9 +398,7 @@ class User extends ActiveRecord implements IdentityInterface
         //Сортировка объектов в массиве, по оределенному свойству
         usort($postArray, array($this, "cmp"));
 
-        $postArray = array_slice($postArray, 0, 200);
-
-
+        $postArray = array_slice($postArray, 0, 500);
 
 //        dumper($postArray);die;
         return $postArray;

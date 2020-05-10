@@ -7,8 +7,6 @@ use Yii;
 use yii\base\Model;
 use frontend\models\Post;
 use frontend\models\User;
-use Intervention\Image\ImageManager;
-use frontend\models\events\PostCreatedEvent;
 
 
 class PostEditForm extends Model
@@ -45,6 +43,8 @@ class PostEditForm extends Model
             $post = Post::findOne($id);
             $post->description = $this->description;
             $post->status = $this->status;
+
+
             $post->updated_at = time();
             if ($post->save(false)) {
                 $rating = Post::find()->where(['user_id' => $this->user->getId()])->andWhere(['status' => 1])->count();

@@ -31,11 +31,11 @@ $this->registerJsFile('@web/js/likes.js', [
         <div class="message">
             <?php if($message):?>
             <a class="button-message active" href="<?=Url::to(['/user/profile/my-messages/', 'id' => Yii::$app->user->identity->getId()])?>">
-                У вас есть новые сообщения
+                <?=Yii::t('my page', 'You have new posts')?>
             </a>
             <?php else:?>
                 <a class="button-message" href="<?=Url::to(['/user/profile/my-messages/', 'id' => Yii::$app->user->identity->getId()])?>">
-                    У вас нет новых сообщений
+                    <?=Yii::t('my page', 'You have no new posts')?>
                 </a>
             <?php endif;?>
         </div>
@@ -52,17 +52,18 @@ $this->registerJsFile('@web/js/likes.js', [
                     <img id="profile-picture" src="<?= Html::encode($currentUser->getPicture()) ?>">
                 </div>
                 <div class="info">
-                    <div class="name"><b>Name:</b> <?= Html::encode($currentUser->username) ?></div>
+                    <div class="name"><b><?=Yii::t('my page', 'Name')?>:</b> <?= Html::encode($currentUser->username) ?></div>
                     <div class="nickname"><b>nickname:</b> <?= Html::encode($currentUser->nickname) ?></div>
-                    <div class="infoTime"><b>на сайте
-                            с:</b> <?= Html::encode(Yii::$app->formatter->asDate($currentUser->created_at)) ?></div>
-                    <div class="counts"><b><?=$currentUser->rating?> постов |
+                    <div class="infoTime"><b><?=Yii::t('my page', 'On site, with')?>:</b> <?= Html::encode(Yii::$app->formatter->asDate($currentUser->created_at)) ?></div>
+                    <div class="counts"><b><?=$currentUser->rating?> <?=Yii::t('my page', 'posts')?> |
                             <a href="#" data-toggle="modal" data-target="#myModal2">
-                                <?= $user->countFollowers() ?> подписчиков
+                                <?= $user->countFollowers() ?> <?=Yii::t('my page', 'subscribers')?>
                             </a>
                             |
                             <a href="#" data-toggle="modal" data-target="#myModal">
-                            на <?= $user->countSubscribers() ?> подписан
+                            <?=Yii::t('my page', 'subscribed to {followers} users',[
+                                    'followers' => $user->countSubscribers()
+                            ])?>
                             </a>
                         </b></div>
                 </div>
@@ -94,16 +95,16 @@ $this->registerJsFile('@web/js/likes.js', [
                             ],
                         ]); ?>
 
-                        Изменить фото профиля
+                        <?=Yii::t('my page', 'Change profile photo')?>
                     </a>
                 </div>
                 <div class="rectangularButton button">
-                    <a class="<?= $color; ?>" href="#">Изменить данные</a>
+                    <a class="<?= $color; ?>" href="#"><?=Yii::t('my page', 'To change the data')?></a>
                 </div>
             </div>
         </div>
         <div class="text">
-            <p><b>Информация обо мне:</b> <?= Html::encode($currentUser->about) ?></p>
+            <p><b><?=Yii::t('my page', 'Information about me')?>:</b> <?= Html::encode($currentUser->about) ?></p>
         </div>
     </div>
 </section>
@@ -113,19 +114,20 @@ $this->registerJsFile('@web/js/likes.js', [
     </div>
 </section>
 <section class="newsFeed myPage">
-    <h3>Не хотите ли добавить новый пост?</h3>
+    <h3><?=Yii::t('my page', 'Would you like to add a new post')?>?</h3>
     <div class="wrap-button">
         <div class="button button-round">
-            <a class="<?= $color; ?>" href="<?=Url::to(['/post/default/create'])?>">ADD POST</a>
+            <a class="<?= $color; ?>" href="<?=Url::to(['/post/default/create'])?>">
+                <?=Yii::t('my page', 'ADD POST')?></a>
         </div>
     </div>
     <br>
     <hr>
     <div class="wrap">
-        <h2>MY POSTS</h2>
+        <h2><?=Yii::t('my page', 'MY POSTS')?>:</h2>
         <br><br>
         <!--        <h3>posts with the most likes:</h3>-->
-        <div class="posts">
+        <div class="posts" id="currentUserPosts">
             <?php foreach ($posts as $post):?>
             <div class="item-wrap">
                 <div class="item">
@@ -139,13 +141,13 @@ $this->registerJsFile('@web/js/likes.js', [
                             <i class="fas fa-lock" style="color:orangered"></i>
                             <?php endif;?>
                             
-                            <a href="<?=Url::to(['/post/default/update', 'id'=>$post->id])?>" title="update"><i class="fas fa-wrench"></i></a>
-                            <a href="#" title="delete"><i class="fas fa-trash-alt"></i></a>
+                            <a href="<?=Url::to(['/post/default/update', 'id'=>$post->id, '#' => 'UpdatePost'])?>" title="update"><i class="fas fa-wrench"></i></a>
+                            <a href="<?=Url::to(['/post/default/delete', 'id' => $post->id, '#' => 'delPost'])?>" title="delete"><i class="fas fa-trash-alt"></i></a>
                         </div>
                     </div>
 
                     <div class="photo">
-                        <a href="<?= Url::to(['/post/default/view', 'id' => $post->id]) ?>">
+                        <a href="<?= Url::to(['/post/default/view', 'id' => $post->id, '#' => 'photoPost']) ?>">
                             <div class="pictureWrap">
                                 <img class="contentPhoto" src="<?=Html::encode($post->getImage())?>" alt=""
                                      title="posts Picture">

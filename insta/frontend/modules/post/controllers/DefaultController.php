@@ -17,6 +17,7 @@ use frontend\modules\post\models\forms\PostEditForm;
 use frontend\modules\post\models\forms\ImageEditForm;
 use frontend\models\forms\CommentAddForm;
 
+
 /**
  * Default controller for the `post` module
  */
@@ -32,7 +33,6 @@ class DefaultController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $model->picture = UploadedFile::getInstance($model, 'picture');
-
 
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Post created!');
@@ -58,9 +58,10 @@ class DefaultController extends Controller
         $editForm = new PostEditForm(Yii::$app->user->identity);
         if ($model->user_id == Yii::$app->user->identity->getId()) {
             if ($editForm->load(Yii::$app->request->post())) {
+
                 if ($editForm->save($id)) {
-                    Yii::$app->session->setFlash('success', 'Post created!');
-                    return $this->redirect(['/user/profile/my-page', 'nickname' => Yii::$app->user->identity->getNickname()]);
+                    return $this->redirect(['/user/profile/my-page', 'nickname' => Yii::$app->user->identity->getNickname(),
+                        '#' => 'currentUserPosts']);
                 }
 
             }
@@ -72,6 +73,33 @@ class DefaultController extends Controller
             'color' => $color,
             'model' => $model,
             'editForm' => $editForm,
+        ]);
+    }
+
+    public function actionDelete($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect('/user/default/login');
+        }
+        $color = 'red';
+        $model = $this->findPost($id);
+        if ($model->user_id == Yii::$app->user->identity->getId()) {
+            if(Yii::$app->request->isPost) {
+                $model->status = '6';
+                if ($model->save()){
+                    return $this->redirect(['/user/profile/my-page', 'nickname' => Yii::$app->user->identity->getNickname(),
+                        '#' => 'currentUserPosts']);
+                }
+            }
+
+        } else {
+            return $this->redirect(['/error']);
+        }
+
+
+        return $this->render('delete', [
+            'color' => $color,
+            'model' => $model,
         ]);
     }
 
@@ -120,6 +148,9 @@ class DefaultController extends Controller
         $currentUser = Yii::$app->user->identity;
         $this->view->params['countMessage'] = CommentReport::countReports(Yii::$app->user->identity->getId());
         $post = $this->findPost($id);
+        if($post->status == 6){
+            throw new NotFoundHttpException();
+        }
         $comments = Comment::find()->where(['post_id' => $id])->andWhere(['status' => 10])
             ->orderBy('created_at desc')->all();
         $commentsCount = Comment::find()->where(['post_id' => $id])->andWhere(['status' => 10])

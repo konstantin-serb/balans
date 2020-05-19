@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $title
  * @property string $text
+ * @property string $description
  * @property string|null $image
  * @property int|null $date
  * @property string|null $likes
@@ -35,6 +36,7 @@ class Articles extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Title',
             'text' => 'Text',
+            'description' => 'Description',
             'image' => 'Image',
             'date' => 'Date',
             'likes' => 'Likes',
@@ -47,6 +49,35 @@ class Articles extends \yii\db\ActiveRecord
     {
         return ($this->image) ? Yii::$app->params['adminWeb'] . 'uploads/'
             . $this->image : Yii::$app->params['adminWeb'] . '/no-image.jpg';
+    }
+
+    public function Like($userId)
+    {
+        if (!self::isLikesBy($userId)) {
+            $array = unserialize($this->likes);
+            if (empty($array)){
+                $array = [$userId];
+            } else {
+                array_push($array, $userId);
+            }
+            $this->likes = serialize($array);
+            $this->likes_count = count($array);
+            $this->save(false);
+            return $this->likes_count;
+        }
+
+    }
+
+
+    public function isLikesBy($userId)
+    {
+        if (!empty($this->likes)) {
+            if (in_array($userId, unserialize($this->likes))) {
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
 }

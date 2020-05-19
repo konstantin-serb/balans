@@ -27,6 +27,9 @@ return [
         'testi' => [
             'class' => 'frontend\modules\testi\Module',
         ],
+        'articles' => [
+            'class' => 'frontend\modules\articles\Module',
+        ],
     ],
     'components' => [
         'request' => [

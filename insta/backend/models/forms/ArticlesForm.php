@@ -12,6 +12,7 @@ class ArticlesForm extends Model
     public $title;
     public $picture;
     public $text;
+    public $description;
     public $status;
 
     private $date;
@@ -22,7 +23,8 @@ class ArticlesForm extends Model
         return [
             [['title', 'text', 'status'], 'required'],
             [['title'], 'string', 'min' => 3, 'max' => 255],
-            [['text'], 'string', 'min' => 25],
+            [['text'], 'string', 'min' => 10],
+            [['description'], 'string', 'min' => 10],
             [['status'], 'integer'],
             [['date'], 'integer'],
             [['picture'], 'file',
@@ -38,8 +40,11 @@ class ArticlesForm extends Model
         $article = new Articles();
         $article->title = $this->title;
         $article->text = $this->text;
+        $article->description = $this->description;
         if (!empty($this->picture)) {
-            $article->image = Yii::$app->storagePostPicture->saveUploadedFile($this->picture);
+
+            $params = self::getResizeParameters();
+            $article->image = Yii::$app->storagePostPicture->saveUploadedFile($this->picture, $params);
         }
         $article->status = 0;
         $article->date = time();
@@ -55,6 +60,11 @@ class ArticlesForm extends Model
     private function getMaxFileSize()
     {
         return Yii::$app->params['maxFileSize'];
+    }
+
+    private function getResizeParameters()
+    {
+        return Yii::$app->params['pictureParamsForArticles'];
     }
 
 }

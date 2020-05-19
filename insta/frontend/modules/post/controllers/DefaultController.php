@@ -26,6 +26,7 @@ class DefaultController extends Controller
     public function actionCreate()
     {
         $color = 'red';
+        $this->view->params['pageActive'] = 'myPage';
         if (Yii::$app->user->isGuest) {
             return $this->redirect('/user/default/login');
         }
@@ -48,6 +49,7 @@ class DefaultController extends Controller
 
     public function actionUpdate($id)
     {
+        $this->view->params['pageActive'] = 'myPage';
         if (Yii::$app->user->isGuest) {
             return $this->redirect('/user/default/login');
         }
@@ -78,6 +80,7 @@ class DefaultController extends Controller
 
     public function actionDelete($id)
     {
+        $this->view->params['pageActive'] = 'myPage';
         if (Yii::$app->user->isGuest) {
             return $this->redirect('/user/default/login');
         }
@@ -108,7 +111,7 @@ class DefaultController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect('/user/default/login');
         }
-
+        $this->view->params['pageActive'] = 'myPage';
         $color = 'black';
         $imageModel = new ImageEditForm();
         $model = $this->findPost($id);
@@ -122,7 +125,8 @@ class DefaultController extends Controller
                     if (file_exists($linkCurrentImage)) {
                         unlink($linkCurrentImage);
                     }
-                    $imageModel->picture = Yii::$app->storagePostPicture->saveUploadedFile($picture);
+                    $imageModel->picture = Yii::$app->storagePostPicture
+                        ->saveUploadedFile($picture, Yii::$app->params['paramsUploadPictureFromUserPosts']);
                     if ($imageModel->save($id)) {
                         return $this->redirect(['/post/default/update', 'id' => $id]);
                     }
@@ -144,6 +148,9 @@ class DefaultController extends Controller
 
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
+        }
         $color = 'yellow';
         $currentUser = Yii::$app->user->identity;
         $this->view->params['countMessage'] = CommentReport::countReports(Yii::$app->user->identity->getId());

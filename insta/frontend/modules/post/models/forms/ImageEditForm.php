@@ -6,10 +6,6 @@ namespace frontend\modules\post\models\forms;
 use Yii;
 use yii\base\Model;
 use frontend\models\Post;
-use frontend\models\User;
-use Intervention\Image\ImageManager;
-use frontend\models\events\PostCreatedEvent;
-
 
 class ImageEditForm extends Model
 {

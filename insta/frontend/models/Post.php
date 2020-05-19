@@ -294,6 +294,22 @@ class Post extends \yii\db\ActiveRecord
         return $data;
     }
 
+    public static function getMyPosts($pageSize,$userId)
+    {
+        $query = Post::find()
+            ->where(['user_id' => $userId])
+            ->andWhere('status < 4')
+            ->orderBy('id desc');
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => $pageSize]);
+        $posts = $query->offset($pagination->offset)
+        ->limit($pagination->limit)
+        ->all();
+        $data['posts'] = $posts;
+        $data['pagination'] = $pagination;
+        return $data;
+    }
+
 
 }
 

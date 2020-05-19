@@ -33,10 +33,10 @@ class ProfileController extends Controller
         $modelPicture = new PictureForm();
 
         if ($currentUser->isUserYourSubscriber($user)) {
-            $data = Post::getForFriends(50, $userId);
+            $data = Post::getForFriends(48, $userId);
 
         } else {
-            $data = Post::getAll(50, $userId);
+            $data = Post::getAll(48, $userId);
 
         }
 
@@ -46,7 +46,6 @@ class ProfileController extends Controller
             'user' => $user,
             'currentUser' => $currentUser,
             'modelPicture' => $modelPicture,
-//            'posts' => $posts,
             'posts' => $data['posts'],
             'pagination' => $data['pagination'],
         ]);
@@ -57,12 +56,16 @@ class ProfileController extends Controller
         $color = 'brown';
 
         $this->view->params['countMessage'] = $message = CommentReport::countReports(Yii::$app->user->identity->getId());
+        $this->view->params['pageActive'] = 'myPage';
         $user = $this->findUser($nickname);
 
         $title = $user->username . Yii::t('my page', ' page');
         $currentUser = Yii::$app->user->identity;
         $modelPicture = new PictureForm();
-        $posts = Post::find()->where(['user_id' => $user->getId()])->andWhere('status < 4')->orderBy('id desc')->limit(50)->all();
+
+        $userId = $currentUser->getId();
+        $data = Post::getMyPosts(48,$userId);
+//        $posts = Post::find()->where(['user_id' => $userId])->andWhere('status < 4')->orderBy('id desc')->all();
 
         return $this->render('view', [
             'color' => $color,
@@ -70,13 +73,15 @@ class ProfileController extends Controller
             'user' => $user,
             'currentUser' => $currentUser,
             'modelPicture' => $modelPicture,
-            'posts' => $posts,
+            'posts' => $data['posts'],
+            'pagination' => $data['pagination'],
             'message' => $message,
         ]);
     }
 
     public function actionMyMessages($id)
     {
+        $this->view->params['pageActive'] = 'myPage';
         if ($id != Yii::$app->user->identity->getId()) {
             return $this->redirect(['/user/profile/my-messages/', 'id' => Yii::$app->user->identity->getId()]);
         }
@@ -173,8 +178,9 @@ class ProfileController extends Controller
 
         if ($model->validate()) {
             $user = Yii::$app->user->identity;
-            //printer($user->picture);die;
-            $user->picture = Yii::$app->storage->saveUploadedFile($model->picture);
+
+            $params = self::getResizeParams();
+            $user->picture = Yii::$app->storagePostPicture->saveUploadedFile($model->picture, $params);
 
             if ($user->save(false, ['picture'])) {
                 return [
@@ -185,6 +191,11 @@ class ProfileController extends Controller
         }
         return ['success' => false, 'errors' => $model->getErrors()];
 
+    }
+
+    private function getResizeParams()
+    {
+        return Yii::$app->params['paramsUploadUserPhoto'];
     }
 }
 

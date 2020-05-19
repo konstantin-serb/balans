@@ -10,30 +10,30 @@ textarea.form-control {
     display: inline;
 }
 
-.commentMessages a{
-    color:#FF5F00;
-    cursor:pointer;
+.commentMessages a {
+    color: #FF5F00;
+    cursor: pointer;
 }
 
-.slovo{
-    position:relative;
+.slovo {
+    position: relative;
 }
 
-.forma{
-    position:absolute;
-    top:10px;
-    right:25px;
+.forma {
+    position: absolute;
+    top: 10px;
+    right: 25px;
 }
 
 .forma select {
     background-color: transparent;
-    border:1px solid #A6A6A6;
-    padding:3px;
+    border: 1px solid #A6A6A6;
+    padding: 3px;
 }
 
 .forma button {
-    border:none;
-    background-color: transparent ;
+    border: none;
+    background-color: transparent;
 }
 
 .btn-success {
@@ -81,54 +81,81 @@ a.addUserPhoto {
     display: block;
 }
 
-.reportPost{
-    padding-top:-7px;
+.reportPost {
+    padding-top: -7px;
 }
 
-.reportPost a{
-    color:#fff;
+.reportPost a {
+    color: #fff;
 }
+
 /*-------------------------------------modal-------------------------*/
+.modal .modal-body {
+    padding: 15px 0;
+}
+
+.articles .modal h2{
+    color:#78BF04;
+}
+
+.modal-content {
+
+    max-width: 600px;
+    max-height: none;
+    transition: all 1s;
+}
+
 #buttonComment {
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.closeBtn {
-    cursor:pointer;
-    float:right;
-    font-size:35px;
-    color:orangered;
+.closeBtn,
+.closeBtn2 {
+    cursor: pointer;
+    float: right;
+    font-size: 35px;
+    color: orangered;
 }
 
-.modalWindow {
-    background:rgba(0,0,0,.3);
-    position:fixed;
+.modalWindow,
+.modalWindow2 {
+    background: rgba(0, 0, 0, .3);
+    position: fixed;
     justify-content: center;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     perspective: 500px;
     display: none;
+    z-index: 2;
 }
 
 .modalWrapper {
-    width:50%;
-    max-width:800px;
-    top:15%;
+    width: 50%;
+    max-width: 800px;
+    top: 15%;
     background: whitesmoke;
-    position:absolute;
-    text-align:left;
-    box-shadow:0px 0px 12px 0px rgba(0,0,0,0.4);
-    transform:rotateX(0deg);
+    position: absolute;
+    text-align: left;
+    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.4);
+    transform: rotateX(0deg);
     animation-name: modalWindow;
     animation-duration: 0.5s;
-    padding:0 10px;
+    padding: 0 10px;
 }
 
-.modalFooter a{
-    cursor:pointer;
+.modalFooter a {
+    cursor: pointer;
 }
+
+.commentInfo .dataBlock .name-info .info div {
+    padding: 0 10px;
+    border-left: none;
+}
+
+
+
 
 
 /*---------------------------------PAGINATION--------------------------*/
@@ -139,9 +166,49 @@ a.addUserPhoto {
     color: #337ab7;
     text-decoration: none;
     background-color: #e5e5e5;
-    border: 1px solid #008080;
+    border: 1px solid #044080;
     border-radius: 55px;
     margin: 0 2px;
+}
+
+.myPageView .pagination > li > a, .pagination > li > span {
+
+    padding: 4px 12px;
+    line-height: 1.42857143;
+    color: #7A391D;
+    text-decoration: none;
+    background-color: #e5e5e5;
+    border: 1px solid #7A391D;
+    border-radius: 55px;
+    margin: 0 2px;
+}
+
+.mainPage .pagination > li > a, .pagination > li > span {
+
+    padding: 4px 12px;
+    line-height: 1.42857143;
+    color: #78BF04;
+    text-decoration: none;
+    background-color: #e5e5e5;
+    border: 1px solid #78BF04;
+    border-radius: 55px;
+    margin: 0 2px;
+}
+
+.myPageView .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #7A391D;
+    border-color: #7A391D;
+}
+
+.mainPage .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #78BF04;
+    border-color: #78BF04;
 }
 
 .pagination > li:first-child > a, .pagination > li:first-child > span {
@@ -158,11 +225,19 @@ a.addUserPhoto {
     border-color: #337ab7;
 }
 
+.mainPage .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #78BF04;
+    border-color: #78BF04;
+}
+
 .pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
     color: #777777;
     cursor: not-allowed;
-     background-color: transparent;
-     border-color: transparent;
+    background-color: transparent;
+    border-color: transparent;
 }
 
 .pagination > li:last-child > a, .pagination > li:last-child > span {
@@ -308,11 +383,18 @@ a.addUserPhoto {
         margin-top: 25px;
     }
 
-    .forma{
+    .forma {
 
-        top:0;
-        right:25px;
+        top: 0;
+        right: 25px;
     }
+
+    .item .photo {
+        padding-top: 15px;
+        height: 205px;
+        overflow: hidden;
+    }
+
 
 }
 
@@ -502,6 +584,12 @@ a.addUserPhoto {
     .modalWrapper {
         width: 98%;
     }
+
+    .single .content {
+
+        padding: 25px 0;
+        font-size: 17px;
+    }
 }
 
 /*--------------------------------------------------------*/
@@ -509,10 +597,26 @@ a.addUserPhoto {
     .item-wrap {
         width: 586px;
     }
-    
-    .commentInfo {    
-     border-radius: 2px; 
-}
+
+    .commentInfo {
+        border-radius: 2px;
+    }
+
+    .newsList .posts .top {
+        min-height: auto;
+    }
+
+    .item .photo {
+        height: auto;
+    }
+
+    .newsList .text {
+        min-height: auto;
+    }
+
+    .innerPhoto img {
+         max-height: 100%;
+    }
 }
 
 /*--------------------------------------------------------*/

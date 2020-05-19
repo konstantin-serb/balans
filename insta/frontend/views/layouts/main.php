@@ -24,6 +24,10 @@ if (empty($this->params['countMessage'])) {
     $this->params['countMessage'] = '';
 }
 
+if (empty($this->params['pageActive'])) {
+    $this->params['pageActive'] = '';
+}
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -56,7 +60,7 @@ if (empty($this->params['countMessage'])) {
         </div>
     </div>
     <div class="slovo">
-        <p class="slogan"><?=Yii::t('menu', 'Photograph and lay out!')?></p>
+        <p class="slogan"><?= Yii::t('menu', 'Photograph and lay out!') ?></p>
         <div class="forma">
             <?= Html::beginForm(['/site/language']) ?>
             <?= Html::dropDownList('language', Yii::$app->language, [
@@ -75,26 +79,47 @@ if (empty($this->params['countMessage'])) {
     <div class="wrap-menu <?= $color ?>">
         <menu>
             <ul>
-                <a class="<?= $color ?> active" href="<?= Url::to(['/site/index']) ?>">
-                    <li><?=Yii::t('menu', 'HOME')?></li>
+                <a class="<?= $color ?>
+                <?php if ($this->params['pageActive'] == 'home') {
+                    echo 'active';
+                } ?>
+" href="<?= Url::to(['/site/index']) ?>">
+                    <li><?= Yii::t('menu', 'HOME') ?></li>
                 </a>
-                <a class="<?= $color ?>" href="<?= Url::to(['/site/news-feed']) ?>">
+                <a class="<?= $color ?>
+                <?php if ($this->params['pageActive'] == 'newsFeed') {
+                    echo 'active';
+                } ?>
+" href="<?= Url::to(['/site/news-feed']) ?>">
                     <li><?= Yii::t('menu', 'NEWS FEED') ?></li>
                 </a>
 
                 <?php if (Yii::$app->user->isGuest): ?>
-                    <a class="<?= $color ?>" href="<?= Url::to(['/user/default/signup']) ?>">
+                    <a class="<?= $color ?>
+                    <?php if ($this->params['pageActive'] == 'signup') {
+                        echo 'active';
+                    } ?>
+" href="<?= Url::to(['/user/default/signup']) ?>">
                         <li>SIGNUP</li>
                     </a>
-                    <a class="<?= $color ?>" href="<?= Url::to(['/user/default/login']) ?>">
+                    <a class="<?= $color ?>
+                    <?php if ($this->params['pageActive'] == 'login') {
+                        echo 'active';
+                    } ?>
+" href="<?= Url::to(['/user/default/login']) ?>">
                         <li>LOGIN</li>
                     </a>
                 <?php else: ?>
                     <li>
                         <div class="">
-                            <a class="<?= $color ?>"
+                            <a class="<?= $color ?>
+ <?php if ($this->params['pageActive'] == 'myPage') {
+                                echo 'active';
+                            } ?>"
                                href="<?= Url::to(['/user/profile/my-page', 'nickname' => Yii::$app->user->identity->getNickname()]) ?>">
-                                <div class="myPageLabel"><?=Yii::t('menu', 'MY PAGE')?>
+                                <div class="myPageLabel
+
+"><?= Yii::t('menu', 'MY PAGE') ?>
                                     <?php if ($this->params['countMessage']): ?>
                                         <div class="countReport">
                                             <?= $this->params['countMessage'] ?>
@@ -128,19 +153,19 @@ if (empty($this->params['countMessage'])) {
 <footer class="<?= $color ?>">
     <section>
         <div class="left inner-wrap">
-            <p><a href="#"><?=Yii::t('menu', 'ABOUT THE PROJECT')?></a></p>
-            <p><a href="#"><?=Yii::t('menu', 'TERMS OF USE')?></a></p>
-            <p><a href="#"><?=Yii::t('menu', 'CONTACTS')?></a></p>
+            <p><a href="<?=Url::to(['/articles/news/footer-view', 'name' => 'about'])?>"><?= Yii::t('menu', 'ABOUT THE PROJECT') ?></a></p>
+            <p><a href="<?=Url::to(['/articles/news/footer-view', 'name' => 'terms'])?>"><?= Yii::t('menu', 'TERMS OF USE') ?></a></p>
+            <p><a href="<?=Url::to(['/articles/news/footer-view', 'name' => 'contacts'])?>"><?= Yii::t('menu', 'CONTACTS') ?></a></p>
         </div>
         <div class="center inner-wrap">
-            <p><a href="#">i-des.net</a></p>
-            <p><a href="#">konstant.s18@gmail.com</a></p>
-            <p><a href="#"><?=Yii::t('menu', 'TBILISI')?> 2020г.</a></p>
+            <p><a href="http://i-des.net" target="_blank">i-des.net</a></p>
+            <p><a >konstant.s18@gmail.com</a></p>
+            <p><a ><?= Yii::t('menu', 'TBILISI') ?> 2020г.</a></p>
         </div>
         <div class="right inner-wrap">
-            <p><a href="#"><?=Yii::t('menu', 'ADVERTISING ON THE WEBSITE')?></a></p>
-            <p><a href="#"><?=Yii::t('menu', 'COLLABORATION')?></a></p>
-            <p><a href="#"><?=Yii::t('menu', 'OUR OTHER PROJECTS')?></a></p>
+            <p><a href="<?=Url::to(['/articles/news/footer-view', 'name' => 'advertising'])?>"><?= Yii::t('menu', 'ADVERTISING ON THE WEBSITE') ?></a></p>
+            <p><a href="<?=Url::to(['/articles/news/footer-view', 'name' => 'collaborate'])?>"><?= Yii::t('menu', 'COLLABORATION') ?></a></p>
+            <p><a href="<?=Url::to(['/articles/news/footer-view', 'name' => 'other'])?>"><?= Yii::t('menu', 'OUR OTHER PROJECTS') ?></a></p>
         </div>
     </section>
 </footer>

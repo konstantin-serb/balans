@@ -48,7 +48,7 @@ class CommentViewForm
             <div class="dataBlock">
                 <div class="name-info">
                     <div class="name"><a class="" ';
-            if ($comment->user->id == $post->user->id) {
+            if ($comment->user->id == $currentUser->id) {
                 $value .= 'style="color:#FF7B00;"';
             }
             $value .= 'href="'.Url::to(['/user/profile/view',
@@ -56,7 +56,9 @@ class CommentViewForm
                             '.Html::encode($comment->user->username).':</a></div>
                     <div class="info">
                         <div class="posts">'.$comment->user->rating.' '.Yii::t('my page', 'posts').'</div>
+                        |
                         <div class="followers"><a href="#">'.$comment->user->countFollowers() .' '.Yii::t('my page', 'subscribers').' </a></div>
+                        |
                         <div class="subscriber"><a href="#"> '.
                 Yii::t('my page', 'subscribed to {followers} users',[
                         'followers' => $comment->user->countSubscribers()
@@ -93,27 +95,6 @@ class CommentViewForm
         ';
         }
 
-//        $value .= '
-//            <div class="pagination">
-//                <div class="paginationWrap">
-//                    <a href="#" class="yellow">
-//                        <div class="box left">&lt;</div>
-//                    </a>
-//                    <a href="#" class="yellow">
-//                        <div class="box pageNumber">1</div>
-//                    </a>
-//                    <a href="#" class="yellow">
-//                        <div class="box active pageNumber">2</div>
-//                    </a>
-//                    <a href="#" class="yellow">
-//                        <div class="box pageNumber">3</div>
-//                    </a>
-//                    <a href="#" class="yellow">
-//                        <div class="box right">&gt;</div>
-//                    </a>
-//                </div>
-//            </div>
-//                ';
 
         return $value;
 

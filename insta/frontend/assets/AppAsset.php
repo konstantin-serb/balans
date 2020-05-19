@@ -15,6 +15,7 @@ class AppAsset extends AssetBundle
         'fonts/roboto/roboto.css',
         'css/style.css',
         'css/media.css',
+//        'css/modal.css',
     ];
     public $js = [
     ];

@@ -5,11 +5,13 @@
  * @var $currentUser \frontend\models\User
  * @var $modelPicture \frontend\models\forms\PictureForm
  * @var $posts \frontend\models\Post
+ * @var $post \frontend\models\Post
  * @var $pagination \frontend\models\Post
  * @var $color \frontend\modules\user\controllers\ProfileController
  * @var $title \frontend\modules\user\controllers\ProfileController
  */
 
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Url;
@@ -30,31 +32,89 @@ $this->registerJsFile('@web/js/script.js', [
 
 <section class="about">
     <div class="aboutWrap">
-        <h2>СТРАНИЦА ПОЛЬЗОВАТЕЛЯ: <?= Html::encode($user->username) ?></h2>
+        <h2><?=Yii::t('my page', '{username}\'s USER PAGE', [
+                'username' => Html::encode($user->username)
+            ]);?></h2>
         <div class="top">
             <div class="left">
                 <div class="photo">
                     <img src="<?= $user->getPicture() ?>">
                 </div>
                 <div class="info">
-                    <div class="name"><b>Name:</b> <?= Html::encode($user->username) ?></div>
+                    <div class="name"><b><?=Yii::t('my page', 'Name')?>:</b> <?= Html::encode($user->username) ?></div>
                     <div class="nickname"><b>nickname:</b> <?= Html::encode($user->nickname) ?></div>
-                    <div class="infoTime"><b>на сайте с:</b> <?=Yii::$app->formatter->asDate($user->created_at)?></div>
-                    <div class="counts"><b><?=$user->rating?> постов |
-                            <a href="#" data-toggle="modal" data-target="#myModal2">
-                                <?= $user->countFollowers() ?> подписчиков
-                            </a>
+                    <div class="infoTime"><b><?=Yii::t('my page', 'On site, with')?>:</b> <?= Yii::$app->formatter->asDate($user->created_at) ?>
+                    </div>
+                    <div class="counts"><b><?= $user->rating ?> <?=Yii::t('my page', 'posts')?> |
+                            <?php
+                            Modal::begin([
+                                'size' => 'modal-lg',
+                                'header' => '<h2>Followers</h2>',
+                                'toggleButton' => [
+                                    'label' => $user->countFollowers() . ' ' . Yii::t('my page', 'subscribers'),
+                                    'tag' => 'a',
+                                    'style' => 'cursor:pointer;'
+                                ],
+//                                            'footer' => 'Bottom window',
+                            ]);
+                            foreach ($user->getFollowers() as $follower) {
+                                echo '<a href="' .
+                                    Url::to(['/user/profile/view', 'nickname' => $follower['id']])
+                                    . '">' . Html::encode($follower['username']) . '</a>' . '<br>';
+                            }
+
+                            Modal::end();
+                            ?>
+
                             |
                             <a href="#" data-toggle="modal" data-target="#myModal">
-                                на <?= $user->countSubscribers() ?> подписан
+                                <?php
+                                Modal::begin([
+                                    'size' => 'modal-lg',
+                                    'header' => '<h2>Subscribers</h2>',
+                                    'toggleButton' => [
+                                        'label' => Yii::t('my page', 'subscribed to {followers} users', [
+                                            'followers' => $user->countSubscribers()
+                                        ]),
+                                        'tag' => 'a',
+                                        'style' => 'cursor:pointer;'
+                                    ],
+//                                            'footer' => 'Bottom window',
+                                ]);
+                                foreach ($user->getSubscriptions() as $subscriber) {
+                                    echo '<a href="' .
+                                        Url::to(['/user/profile/view', 'nickname' => $subscriber['id']])
+                                        . '">' . Html::encode($subscriber['username']) . '</a>' . '<br>';
+                                }
+
+                                Modal::end();
+                                ?>
                             </a>
                             |
-                            <a href="#" data-toggle="modal" data-target="#myModal3">
-                                <?php if ($currentUser && $currentUser->getMutualSubscriptionsTo($user) != null): ?>
-                                    <?= $currentUser->countMutualFriends($user) ?>
-                                <?php endif; ?>
-                                общих друзей</b>
-                        </a>
+                            <?php if ($currentUser && $currentUser->getMutualSubscriptionsTo($user) != null): ?>
+                                <?= $currentUser->countMutualFriends($user) ?>
+                            <?php endif; ?>
+                            <?php
+                            Modal::begin([
+                                'size' => 'modal-lg',
+                                'header' => Yii::t('my page', 'Mutual friends').':',
+                                'toggleButton' => [
+                                    'label' => Yii::t('my page', 'mutual friends'),
+                                    'tag' => 'a',
+                                    'style' => 'cursor:pointer;'
+                                ],
+
+                            ]);
+                            if ($currentUser && $currentUser->getMutualSubscriptionsTo($user) != null) {
+                                foreach ($currentUser->getMutualSubscriptionsTo($user) as $item) {
+                                    echo '<a href="' . Url::to(['/user/profile/view', 'nickname' => ($item['nickname']) ? $item['nickname'] : $item['id']]) . '">';
+                                    echo Html::encode($item['username']);
+                                    echo '</a>'.'<br>';
+                                }
+                            }
+                            Modal::end();
+                            ?>
+                        </b>
                     </div>
                 </div>
             </div>
@@ -65,10 +125,10 @@ $this->registerJsFile('@web/js/script.js', [
 
                             <?php if ($currentUser->isFollowers($user)) : ?>
                                 <a href="<?= Url::to(['/user/profile/unsubscribe', 'id' => $user->getId()]) ?>"
-                                   class="<?= $color ?>">ОТПИСАТЬСЯ</a>
+                                   class="<?= $color ?>"><?=Yii::t('my page', 'UNSUBSCRIBE')?></a>
                             <?php else: ?>
                                 <a href="<?= Url::to(['/user/profile/subscrire', 'id' => $user->getId()]) ?>"
-                                   class="<?= $color ?>">ПОДПИСАТЬСЯ</a>
+                                   class="<?= $color ?>"><?=Yii::t('my page', 'SUBSCRIBE')?></a>
                             <?php endif; ?>
                         <?php endif; ?>
                     <?php endif; ?>
@@ -89,17 +149,20 @@ $this->registerJsFile('@web/js/script.js', [
 </section>
 <section class="newsFeed">
     <div class="wrap">
-        <h2>POSTS</h2>
+        <h2><?=Yii::t('my page', 'POSTS')?></h2>
         <br><br>
         <div class="posts">
             <?php foreach ($posts as $post): ?>
                 <div class="item-wrap">
                     <div class="item">
-                        <div class="top">
+                        <div class="top userTop">
                             <div class="authorPhoto">
                                 <img class="autPhoto" src="<?= $user->getPicture() ?>">
                             </div>
                             <span class="autopName">&nbsp;&nbsp;<?= $post->user->username ?></span>
+                            <?php if($post->status ==2):?>
+                            <i class="fas fa-user-friends userPage" ></i>
+                            <?php endif;?>
                         </div>
                         <div class="photo">
                             <a href="<?= Url::to(['/post/default/view', 'id' => $post->id, '#' => 'photoPost']) ?>">
@@ -127,12 +190,12 @@ $this->registerJsFile('@web/js/script.js', [
                                 </a>
 
 
-                                <span id="count1" class="likes-count"                                                                                    data-id="<?php echo $post->id; ?>">
+                                <span id="count1" class="likes-count" data-id="<?php echo $post->id; ?>">
                                             <?= $post->countLikes() ?>
                                         </span>
                             </div>
                             <div class="comments">
-                                <i class="far fa-comment-alt"></i> <?=$post->countComments?>
+                                <i class="far fa-comment-alt"></i> <?= $post->countComments ?>
                             </div>
                             <div class="date">
                                 2020 15mart
@@ -158,68 +221,6 @@ $this->registerJsFile('@web/js/script.js', [
 
 
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Subscriptions</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    <?php if ($user->getSubscriptions() != null): ?>
-                        <?php foreach ($user->getSubscriptions() as $subscription): ?>
-                            <a href="<?= Url::to(['/user/profile/view', 'nickname' => ($subscription['nickname']) ? $subscription['nickname'] : $subscription['id']]) ?>"><?= Html::encode($subscription['username']) ?>
-                            </a>
-                            <br>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                <h5>Ни на одного не подписан</h5>
-                <?php endif; ?>
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-
-<!-- Modal -->
-<div id="myModal2" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Followers</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    <?php if ($user->getFollowers() != null): ?>
-                        <?php foreach ($user->getFollowers() as $follower): ?>
-                            <a href="<?= Url::to(['/user/profile/view', 'nickname' => ($follower['nickname']) ? $follower['nickname'] : $follower['id']]) ?>"><?= Html::encode($follower['username']) ?>
-                            </a>
-                            <br>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                <h5>На него никто не подписан</h5>
-                <?php endif; ?>
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Modal -->
 <div id="myModal3" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -230,15 +231,7 @@ $this->registerJsFile('@web/js/script.js', [
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <?php if ($currentUser && $currentUser->getMutualSubscriptionsTo($user) != null): ?>
-                        <?php foreach ($currentUser->getMutualSubscriptionsTo($user) as $item): ?>
-                            <div class="col-md-12">
-                                <a href="<?= Url::to(['/user/profile/view', 'nickname' => ($item['nickname']) ? $item['nickname'] : $item['id']]) ?>">
-                                    <?= Html::encode($item['username']) ?>
-                                </a>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+
                 </div>
             </div>
             <div class="modal-footer">

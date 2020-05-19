@@ -3,7 +3,9 @@
 namespace backend\controllers;
 
 
+use backend\models\forms\ArticlesPictureForm;
 use backend\models\forms\ArticlesUpdateForm;
+use backend\models\PostsImage;
 use Yii;
 use backend\models\Articles;
 use backend\models\ArticlesSearch;
@@ -12,7 +14,9 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 use yii\web\UploadedFile;
+use frontend\models\forms\PictureForm;
 
 /**
  * ArticlesController implements the CRUD actions for Articles model.
@@ -36,7 +40,7 @@ class ArticlesController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'uploadimages', 'delete-photo'],
                         'roles' => ['admin', 'moderator'],
                     ],
                 ],
@@ -68,8 +72,11 @@ class ArticlesController extends Controller
      */
     public function actionView($id)
     {
+        $articlesPicture = PostsImage::find()->where(['post_id' => $id])->orderBy('id desc')->all();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'articlePicture' => $articlesPicture,
         ]);
     }
 
@@ -106,6 +113,8 @@ class ArticlesController extends Controller
         $model = $this->findModel($id);
         $modelUpdate = new ArticlesUpdateForm();
         $modelUpdate->id = $model->id;
+        $modelPicture = new PictureForm();
+        $articlesPicture = PostsImage::find()->where(['post_id' => $id])->orderBy('id desc')->all();
 
         if ($modelUpdate->load(Yii::$app->request->post())) {
             $modelUpdate->picture = UploadedFile::getInstance($modelUpdate, 'picture');
@@ -117,8 +126,58 @@ class ArticlesController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'modelUpdate' => $modelUpdate
+            'modelUpdate' => $modelUpdate,
+            'modelPicture' => $modelPicture,
+            'articlesPicture' => $articlesPicture,
         ]);
+    }
+
+    public function actionUploadimages($postId)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $model = new PictureForm();
+        $model->picture = UploadedFile::getInstance($model, 'picture');
+        if ($model->validate()){
+            $newPicture = new PostsImage();
+            $newPicture->post_id = $postId;
+            $newPicture->status = 1;
+            $newPicture->path = Yii::$app->storagePostPicture->saveUploadedFile($model->picture,
+                Yii::$app->params['ordinareParamsForArticles']);
+            if ($newPicture->save()) {
+                $pictureForm = new ArticlesPictureForm();
+                $value = $pictureForm->view($postId);
+                return [
+                    'success' => true,
+                    'html' => $value,
+                ];
+            }
+             return [
+                 'success' => false,
+             ];
+        }
+    }
+
+    public function actionDeletePhoto()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $postId = $_POST['postId'];
+        $photoId = $_POST['photoId'];
+
+        $photo = PostsImage::findOne($photoId);
+        $photoPath = substr($photo->getImage(),1);
+        if (file_exists($photoPath)){
+            if (unlink($photoPath)) {
+                $photo->delete();
+            }
+        }
+
+        $pictureForm = new ArticlesPictureForm();
+        $value = $pictureForm->view($postId);
+        return [
+            'success' => true,
+            'html' => $value,
+        ];
     }
 
     /**

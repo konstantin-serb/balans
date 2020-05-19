@@ -87,6 +87,11 @@ footer.blue {
     color: #78BF04;
 }
 
+.mainBlog h2 a,
+.newsList h2 a{
+    color: #78BF04;
+}
+
 menu .active.green {
     border-bottom: 2px solid #78BF04;
 }
@@ -242,25 +247,25 @@ footer.lightBlue {
 
 
 .black {
-    color: #000;
+    color: #555;
 }
 
 menu .active.black {
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid #555;
 }
 
 menu a.black:hover {
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid #555;
 
 }
 
 .wrap-menu.black {
-    border-color: #000;
+    border-color: #555;
 
 }
 
 footer.black {
-    background-color: #000;
+    background-color: #555;
 }
 
 
@@ -304,6 +309,15 @@ footer.black {
 .form-group {
     text-align:center;
     width:720px;
+}
+
+.signup .form-group {
+    width:720px;
+}
+
+.form-group {
+    text-align:center;
+    width:100%;
 }
 
 #login-form label {
@@ -397,6 +411,10 @@ footer.black {
     background-color:#E90E0E;
 }
 
+.cancel.green{
+    background-color:#78BF04;
+}
+
 .cancel.magenta{
     background-color:#A408EE;
 }
@@ -416,7 +434,7 @@ footer.black {
 .modal {
     display: none;
     position:fixed;
-    z-index: 1;
+    /*z-index: 1;*/
     left:0;
     top:0;
     width:100%;
@@ -442,6 +460,7 @@ footer.black {
     font-weight: bold;
     cursor:pointer;
 }
+
 
 /*---------------------------PAGINATION-------------------------------------*/
 .pagination {
@@ -682,6 +701,22 @@ menu a {
     position: relative;
 }
 
+.posts .friends {
+    background-color: #ABF3FC;
+}
+
+.posts .friends:hover {
+    background-color: #ABF3FC;
+}
+
+.posts .onlyMe {
+    background-color: #F4BABA;
+}
+
+.posts .onlyMe:hover {
+    background-color: #F4BABA;
+}
+
 .autopName {
     position: absolute;
     top: 33%;
@@ -699,6 +734,18 @@ menu a {
     text-align: center;
     border:1px solid #ba8b00;
     padding:5px;
+}
+
+.userTop {
+    position:relative;
+}
+
+.userPage {
+    position:absolute;
+    right:0;
+    top:21%;
+    font-size:30px;
+    color:#00D500;
 }
 
 .tools a{
@@ -759,7 +806,7 @@ section.newsFeed h2{
 }
 
 .newsBlock .leftBlock p{
-    max-height: 201px;
+    max-height: 227px;
     overflow: hidden;
     padding-top: 9px;
 }
@@ -829,7 +876,8 @@ section.newsFeed h2{
     margin:0 5px;
 }
 
-.news .rightBlock a{
+.news .rightBlock a,
+.news .leftBlock a{
     color:#666;
 }
 
@@ -1260,7 +1308,18 @@ section.newsFeed h2{
     background-color: #D4D4D4;
     padding: 9px;
     border-radius: 200px;
+    position:relative;
 }
+
+.commentInfo .deleteCommentButton {
+    position:absolute;
+    font-size:40px;
+    right: 30px;
+    top:22%;
+    color:red;
+}
+
+
 
 .commentInfo .dataBlock {
     display: flex;
@@ -1314,6 +1373,11 @@ section.newsFeed h2{
     border-bottom: none;
 }
 
+.articles .comment hr {
+    border: 1px solid #78BF04;
+    border-bottom: none;
+}
+
 .form-group.field-commentaddform-comment{
     width:auto;
 }
@@ -1364,7 +1428,53 @@ footer .right {
 }
 
 
+/*---------------------------------------news-----------------------------------------*/
+.newsList .top a{
+    color: #666;
+}
 
+.newsList h4{
+    display: block;
+    text-align: center;
+}
+
+.newsList .posts .item {
+    padding-top: 8px;
+}
+
+.newsList .item .photo {
+    padding-top:3px;
+}
+
+.newsList .posts .top {
+    min-height: 63px;
+}
+
+.newsList .text {
+    padding-top: 7px;
+    min-height: 68px;
+}
+
+.single .content {
+    color: #555;
+    padding: 25px 50px;
+    font-size: 18px;
+}
+
+.single h2{
+    color: #555;
+}
+
+.central {
+    text-align:center;
+    margin:20px 0;
+}
+
+
+
+.modal .modal-body  a{
+    padding: 7px 0;
+}
 
 
 

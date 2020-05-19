@@ -54,6 +54,7 @@ class SiteController extends Controller
     {
         $color = 'green';
         $title = 'Balance | main';
+        $this->view->params['pageActive'] = 'home';
         $bestPosts = Post::getBestPosts();
         $articles = Articles::find()->where('status = 1')->orderBy('id desc')->limit(4)->all();
         $articleFirst = Articles::find()->where('status = 1')->orderBy('id desc')->limit(1)->one();
@@ -86,7 +87,7 @@ class SiteController extends Controller
             return $this->redirect(['/user/default/login']);
         }
         $this->view->params['countMessage'] = CommentReport::countReports(Yii::$app->user->identity->getId());
-
+        $this->view->params['pageActive'] = 'newsFeed';
         $color = 'blue';
 
         $users = User::find()->orderBy('id desc')->all();

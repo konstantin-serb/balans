@@ -24,7 +24,8 @@ $this->color = $color;
 
         <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
         <?= $form->field($model, 'password')->passwordInput() ?>
-        <?= $form->field($model, 'rememberMe')->checkbox() ?>
+<!--        --><?//= $form->field($model, 'rememberMe')->checkbox() ?>
+        <br>
         <?= Html::submitButton('LOGIN', ['class' => 'submit', 'name' => 'login-button']) ?>
 
         <?php ActiveForm::end(); ?>

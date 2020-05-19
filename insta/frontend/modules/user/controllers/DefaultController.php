@@ -15,6 +15,7 @@ use frontend\modules\user\models\SignupForm;
 use frontend\modules\user\models\VerifyEmailForm;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
+use frontend\modules\user\models\UpdateForm;
 
 /**
  * Default controller for the `user` module
@@ -59,6 +60,7 @@ class DefaultController extends Controller
     public function actionLogin()
     {
         $color = 'grey';
+        $this->view->params['pageActive'] = 'login';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -96,6 +98,7 @@ class DefaultController extends Controller
     public function actionSignup()
     {
         $color = "grey";
+        $this->view->params['pageActive'] = 'signup';
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $user = $model->signup()) {
             Yii::$app->user->login($user);
@@ -109,6 +112,58 @@ class DefaultController extends Controller
             'color' => $color,
             'model' => $model,
         ]);
+    }
+
+    public function actionUpdate($nickname)
+    {
+        $currentUser = Yii::$app->user->identity;
+        $this->view->params['pageActive'] = 'myPage';
+        if($currentUser->getNickname() != $nickname) {
+            return $this->redirect(['/user/profile/my-page', 'nickname' => $currentUser->getNickname()]);
+        }
+
+        $model = User::findOne($currentUser->getId());
+        $updateForm = new UpdateForm();
+
+
+        if ($updateForm->load(Yii::$app->request->post()))
+        {
+
+            $update = new UpdateForm();
+            $update->username = $updateForm->username;
+            if ($updateForm->nickname === $model->nickname) {
+                $update->nickname = '';
+            } else {
+            $update->nickname = $updateForm->nickname;
+            }
+
+            $update->about = $updateForm->about;
+
+
+            if (!empty($updateForm->currentPassword)){
+                if ($model->validatePassword($updateForm->currentPassword)) {
+                    $update->password = $updateForm->password;
+                }
+            } else {
+                $update->password = '';
+            }
+
+
+            $update->currentUserId = $currentUser->getId();
+
+            if($update->update()) {
+                return $this->redirect(['/user/profile/my-page', 'nickname' => $currentUser->getId()]);
+            }
+
+        }
+
+        return $this->render('update', [
+            'color' => 'brown',
+            'model' => $model,
+            'updateForm' => $updateForm,
+        ]);
+
+
     }
 
     /**

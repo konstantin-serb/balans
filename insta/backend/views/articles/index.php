@@ -17,6 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Articles', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <p>
+        <?= Html::a('Footer articles', ['/footer/info/index'], ['class' => 'btn btn-default']) ?>
+    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -30,15 +33,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
 //            'text:ntext',
             [
-                'attribute' => 'text',
+                'attribute' => 'description',
                 'format' => 'raw',
                 'value' => function($article) {
-                    if (strlen($article->text) > 251) {
+                    if (strlen($article->description) > 100) {
                         $points = '...';
                     } else {
                         $points = '';
                     }
-                    return Yii::$app->stringHelper->getShort($article->text, 250) . $points;
+                    return Yii::$app->stringHelper->getShort($article->description, 100) . $points;
                 },
             ],
             //            'image',

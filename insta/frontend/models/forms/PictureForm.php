@@ -14,7 +14,7 @@ class PictureForm extends Model
     {
         return [
             [['picture'], 'file',
-                'extensions' => ['jpg', 'jpeg'],
+                'extensions' => ['jpg', 'jpeg','png','gif'],
                 'checkExtensionByMimeType' => true,
             ],
         ];

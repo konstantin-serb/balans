@@ -5,6 +5,9 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Articles */
+/* @var $articlesPicture \backend\models\PostsImage */
+/* @var $picture \backend\models\PostsImage */
+
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['index']];
@@ -12,8 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="articles-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -25,25 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'title',
-            'text:ntext',
-//            'image',
-            [
-                'attribute' => 'image',
-                'format' => 'raw',
-                'value' => function ($article) {
-                    return Html::img($article->getImage());
-                },
-            ],
             'date:datetime',
-//            'likes:ntext',
-//            'likes_count',
-            //'status',
             [
                     'attribute' => 'status',
                 'format' => 'raw',
@@ -58,5 +45,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
+<!--    <div class="titlePhoto">-->
+<!--        <img src="--><?//=$model->getImage()?><!--" class="photo">-->
+<!--    </div>-->
+    <div class="articleView">
+        <h1><?=$model->title?></h1>
+
+        <p>
+            <?=$model->text?>
+        </p>
+        <br><br><hr>
+        <h3>Описание к статье</h3>
+        <p>
+            <?=$model->description?>
+        </p>
+    </div>
 
 </div>

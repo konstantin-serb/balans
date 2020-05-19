@@ -10,6 +10,7 @@
  */
 
 
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -166,31 +167,78 @@ $this->registerJsFile('@web/js/postComments.js', [
                         </div>
                         <div class="dataBlock">
                             <div class="name-info">
-                                <div class="name"><a class="" <?php
-                                    if($comment->user->id == $post->user->id){
-                                        echo 'style="color:#FF7B00;"';
+                                <div class="name"><a class="" style="
+                                    <?php
+                                    if ($comment->user_id == $currentUser->id) {
+                                        echo 'color:#FF7B00;';
                                     }
-                                    ?> href="<?=Url::to(['/user/profile/view',
-                                        'nickname' => $comment->user->getNickname()])?>">
-                                        <?=Html::encode($comment->user->username)?>:</a></div>
+                                    ?>
+                                            " href="<?= Url::to(['/user/profile/view',
+                                        'nickname' => $comment->user->getNickname()]) ?>">
+                                        <?= Html::encode($comment->user->username) ?>:</a></div>
                                 <div class="info">
-                                    <div class="posts"><?=$comment->user->rating?> <?=Yii::t('my page', 'posts')?></div>
-                                    <div class="followers"><a href="#"><?=$comment->user->countFollowers()?> <?=Yii::t('my page', 'subscribers')?></a></div>
+                                    <div class="posts"><?= $comment->user->rating ?> <?= Yii::t('my page', 'posts') ?> </div>
+                                    |
+                                    <div class="followers">
+                                        <a class="btnFollowers" data-toggle="modal" data-target="#myModal"
+                                           style="cursor:pointer;">
+                                            <?php
+                                            Modal::begin([
+                                                'size' => 'modal-lg',
+                                                'header' => '<h2>Followers</h2>',
+                                                'toggleButton' => [
+                                                    'label' => $comment->user->countFollowers() . ' ' . Yii::t('my page', 'subscribers'),
+                                                    'tag' => 'a',
+                                                    'style' => 'cursor:pointer;'
+                                                ],
+//                                            'footer' => 'Bottom window',
+                                            ]);
+                                            foreach ($comment->user->getFollowers() as $follower){
+                                                echo '<a href="'.
+                                                    Url::to(['/user/profile/view', 'nickname' => $follower['id']])
+                                                    .'">'. Html::encode($follower['username']) .'</a>' . '<br>';
+                                            }
+
+                                            Modal::end();
+                                            ?>
+
+                                        </a></div>
+                                    |
                                     <div class="subscriber"><a href="#">
-                                            <?=Yii::t('my page', 'subscribed to {followers} users',[
-                                                'followers' => $comment->user->countSubscribers()
-                                            ])?>
+                                            <?php
+                                            Modal::begin([
+                                                'size' => 'modal-lg',
+                                                'header' => '<h2>Subscribers</h2>',
+                                                'toggleButton' => [
+                                                    'label' =>Yii::t('my page', 'subscribed to {followers} users', [
+                                                        'followers' => $comment->user->countSubscribers()
+                                                    ]),
+                                                    'tag' => 'a',
+                                                    'style' => 'cursor:pointer;'
+                                                ],
+//                                            'footer' => 'Bottom window',
+                                            ]);
+                                            foreach ($comment->user->getSubscriptions() as $subscriber){
+                                                echo '<a href="'.
+                                                    Url::to(['/user/profile/view', 'nickname' => $subscriber['id']])
+                                                    .'">'.Html::encode($subscriber['username']) .'</a>' . '<br>';
+                                            }
+
+                                            Modal::end();
+                                            ?>
+
                                         </a></div>
                                     <!--                            <div class="friends"><a href="#"> общих друзей</a></div>-->
                                 </div>
                             </div>
                             <div class="nickname">
-                                <b><?=Yii::t('post', 'nickname')?>:</b> <?=Html::encode(($comment->user->nickname) ? $comment->user->nickname : Yii::t('post', 'No nickname'))?>
+                                <b><?= Yii::t('post', 'nickname') ?>:</b> <?= Html::encode(($comment->user->nickname) ? $comment->user->nickname : Yii::t('post', 'No nickname')) ?>
                             </div>
                             <div class="userDate">
-                                <b><?=Yii::t('post', 'Comment added')?>:</b> <?=Yii::$app->formatter->asDatetime($comment->created_at)?>
+                                <b><?= Yii::t('post', 'Comment added') ?>:</b> <?= Yii::$app->formatter->asDatetime($comment->created_at) ?>
                             </div>
                         </div>
+                        <a href="#" class="deleteCommentButton" title="delete comment">&times;</a>
                     </div>
                     <!--            <hr>-->
                     <div class="commentText">

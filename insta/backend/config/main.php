@@ -21,6 +21,9 @@ return [
         'user' => [
             'class' => 'backend\modules\user\Module',
         ],
+        'footer' => [
+            'class' => 'backend\modules\footer\Module',
+        ],
     ],
     'components' => [
         'request' => [

@@ -11,10 +11,12 @@
  * @var $message \frontend\models\CommentReport
  */
 
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Url;
 use dosamigos\fileupload\FileUpload;
+use yii\widgets\LinkPager;
 
 $this->color = $color;
 $this->title = $title;
@@ -56,15 +58,47 @@ $this->registerJsFile('@web/js/likes.js', [
                     <div class="nickname"><b>nickname:</b> <?= Html::encode($currentUser->nickname) ?></div>
                     <div class="infoTime"><b><?=Yii::t('my page', 'On site, with')?>:</b> <?= Html::encode(Yii::$app->formatter->asDate($currentUser->created_at)) ?></div>
                     <div class="counts"><b><?=$currentUser->rating?> <?=Yii::t('my page', 'posts')?> |
-                            <a href="#" data-toggle="modal" data-target="#myModal2">
-                                <?= $user->countFollowers() ?> <?=Yii::t('my page', 'subscribers')?>
-                            </a>
+                            <?php
+                            Modal::begin([
+                                'size' => 'modal-lg',
+                                'header' => '<h2>Followers</h2>',
+                                'toggleButton' => [
+                                    'label' => $user->countFollowers() . ' ' . Yii::t('my page', 'subscribers'),
+                                    'tag' => 'a',
+                                    'style' => 'cursor:pointer;'
+                                ],
+
+                            ]);
+                            foreach ($user->getFollowers() as $follower) {
+                                echo '<a href="' .
+                                    Url::to(['/user/profile/view', 'nickname' => $follower['id']])
+                                    . '">' . Html::encode($follower['username']) . '</a>' . '<br>';
+                            }
+
+                            Modal::end();
+                            ?>
                             |
-                            <a href="#" data-toggle="modal" data-target="#myModal">
-                            <?=Yii::t('my page', 'subscribed to {followers} users',[
-                                    'followers' => $user->countSubscribers()
-                            ])?>
-                            </a>
+                            <?php
+                            Modal::begin([
+                                'size' => 'modal-lg',
+                                'header' => '<h2>Subscribers</h2>',
+                                'toggleButton' => [
+                                    'label' => Yii::t('my page', 'subscribed to {followers} users', [
+                                        'followers' => $user->countSubscribers()
+                                    ]),
+                                    'tag' => 'a',
+                                    'style' => 'cursor:pointer;'
+                                ],
+//                                            'footer' => 'Bottom window',
+                            ]);
+                            foreach ($user->getSubscriptions() as $subscriber) {
+                                echo '<a href="' .
+                                    Url::to(['/user/profile/view', 'nickname' => $subscriber['id']])
+                                    . '">' . Html::encode($subscriber['username']) . '</a>' . '<br>';
+                            }
+
+                            Modal::end();
+                            ?>
                         </b></div>
                 </div>
             </div>
@@ -99,7 +133,7 @@ $this->registerJsFile('@web/js/likes.js', [
                     </a>
                 </div>
                 <div class="rectangularButton button">
-                    <a class="<?= $color; ?>" href="#"><?=Yii::t('my page', 'To change the data')?></a>
+                    <a class="<?= $color; ?>" href="<?=Url::to(['/user/default/update','nickname' => $currentUser->getNickname()])?>"><?=Yii::t('my page', 'To change the data')?></a>
                 </div>
             </div>
         </div>
@@ -130,7 +164,13 @@ $this->registerJsFile('@web/js/likes.js', [
         <div class="posts" id="currentUserPosts">
             <?php foreach ($posts as $post):?>
             <div class="item-wrap">
-                <div class="item">
+                <div class="item <?php
+                if ($post->status == 2){
+                    echo 'friends';
+                } elseif($post->status == 3){
+                    echo 'onlyMe';
+                }
+                ?>">
                     <div class="top">
                         <div class="tools">
                             <?php if($post->status == 1):?>
@@ -187,23 +227,13 @@ $this->registerJsFile('@web/js/likes.js', [
             </div>
             <?endforeach;?>
         </div>
-        <div class="pagination">
+        <div class="myPageView pagination">
             <div class="paginationWrap">
-                <a href="#" class="<?= $color; ?>">
-                    <div class="box left">&lt;</div>
-                </a>
-                <a href="#" class="<?= $color; ?>">
-                    <div class="box pageNumber">1</div>
-                </a>
-                <a href="#" class="<?= $color; ?>">
-                    <div class="box active pageNumber">2</div>
-                </a>
-                <a href="#" class="<?= $color; ?>">
-                    <div class="box pageNumber">3</div>
-                </a>
-                <a href="#" class="<?= $color; ?>">
-                    <div class="box right">&gt;</div>
-                </a>
+                <?php // display pagination
+                echo LinkPager::widget([
+                    'pagination' => $pagination,
+                ]);
+                ?>
             </div>
         </div>
     </div>

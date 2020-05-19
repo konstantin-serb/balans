@@ -21,7 +21,7 @@ class CommentAddForm extends Model
     {
         return [
             [['comment'], 'required'],
-            [['comment'], 'string', 'min' => 5, 'max' => 500],
+            [['comment'], 'string', 'min' => 3, 'max' => 500],
             [['user_id', 'post_id'], 'integer'],
         ];
     }

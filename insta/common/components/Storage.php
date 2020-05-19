@@ -12,7 +12,7 @@ class Storage extends Component implements StorageInterface
 {
     private $filename;
 
-    public function saveUploadedFile(UploadedFile $file)
+    public function saveUploadedFile(UploadedFile $file, $params)
     {
         $path = $this->preparePath($file);
         $resize = new Resize($file->tempName);

@@ -32,12 +32,15 @@ $this->color = $color;
                     <?php foreach($feedItems as $feedItem):?>
                         <div class="item-wrap">
                             <div class="item">
-                                <div class="top">
+                                <div class="top userTop">
                                     <a href="<?= Url::to(['/user/profile/view', 'nickname' => ($feedItem->user_id)]) ?>">
                                         <div class="authorPhoto">
                                             <img class="autPhoto" src="<?= $feedItem->authorPhoto($feedItem->user_id) ?>">
                                         </div>
                                         <span class="autopName"><?= $feedItem->authorName($feedItem->user_id) ?></span>
+                                        <?php if($feedItem->status ==2):?>
+                                            <i class="fas fa-user-friends userPage" ></i>
+                                        <?php endif;?>
                                     </a>
                                 </div>
                                 <div class="photo">

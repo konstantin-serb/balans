@@ -123,3 +123,37 @@ a.desc:after {
 img {
     max-width:100%;
 }
+
+.images {
+    margin-top:14px;
+}
+
+.addedPictures {
+    width:200px;
+    padding-right:15px;
+    float:left;
+}
+
+.btnDelete {
+    margin-top:15px;
+}
+
+.pictureAdd {
+    margin-bottom:10px;
+}
+
+.titlePhoto {
+    text-align:center;
+    padding:20px 0;
+    max-width: 200px;
+}
+
+.articleView h1,
+.articleView h2 {
+    text-align:center;
+}
+
+.central {
+    text-align:center;
+    margin:20px 0;
+}

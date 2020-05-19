@@ -29,15 +29,19 @@ $this->title = $title;
     <?php if(!empty($articles)):?>
     <section class="mainBlog">
         <div class="news">
-            <h2><?=Yii::t('home', 'NEWS')?></h2>
+            <h2><a href="<?=Url::to(['/articles/news/index'])?>"><?=Yii::t('home', 'NEWS')?></a></h2>
             <div class="Blogwrap">
                 <div class="newsBlock">
                     <div class="leftBlock">
-                        <h3><?= $articleFirst->title ?></h3>
+                        <h3>
+                            <a href="<?=Url::to(['/articles/news/view', 'id' => $articleFirst->id])?>">
+                            <?= $articleFirst->title ?>
+                            </a>
+                        </h3>
 
                         <div class="firstArticlePhoto">
                             <div class="wrap-image">
-                                <a href="#">
+                                <a href="<?=Url::to(['/articles/news/view', 'id' => $articleFirst->id])?>">
                                     <img class="contentPhoto" src="<?= $articleFirst->getImage($articleFirst->image) ?>"
                                          alt=""
                                          title="">
@@ -48,15 +52,34 @@ $this->title = $title;
                         </div>
 
                         <p>
-                            <?= $articleFirst->text ?>
+                            <?= $articleFirst->description ?>
                         </p>
                         <hr>
                         <div class="bottom">
                             <div class="likes">
-                                <i class="fas fa-heart active"></i> 0<?=$articleFirst->likes_count?>
+                                <?php if(!Yii::$app->user->isGuest):?>
+                                <a
+                                        class="button-like <?php echo $articleFirst->isLikesBy(Yii::$app->user->identity->getId()) ? "display-none" : ""; ?>"
+                                        data-id="<?=$articleFirst->id?>">
+                                    <i class="far fa-heart"></i>&nbsp;
+                                </a>
+                                <a
+                                        class="button-unlike <?php echo $articleFirst->isLikesBy(Yii::$app->user->identity->getId()) ? "" : "display-none"; ?>"
+                                        data-id="<?= '' ?>">
+                                    <i class="fas fa-heart"></i>&nbsp;
+                                </a>
+                                <?php endif;?>
+                                <?php if(Yii::$app->user->isGuest):?>
+                                    <i class="far fa-heart"></i>&nbsp;
+                                <?php endif;?>
+                                <span id="count1" class="likes-count"                                                                                    data-id="<?php echo '' ?>">
+                                            <?php echo $articleFirst->likes_count ? $articleFirst->likes_count : 0?>
+                                        </span>
                             </div>
                             <div class="comments">
-                                <i class="far fa-comment-alt"></i> 0
+                                <a href="<?=Url::to(['/articles/news/view', 'id'=>$articleFirst->id, '#' => 'comments'])?>">
+                                <i class="far fa-comment-alt"></i> <?=\frontend\modules\articles\models\MainComments::CommentCount($articleFirst->id)?>
+                                </a>
                             </div>
                             <div class="date">
                                 <?=Yii::$app->formatter->asDatetime($articleFirst->date)?>
@@ -67,24 +90,48 @@ $this->title = $title;
                     <div class="rightBlock">
                         <?php foreach ($articles as $article): ?>
                             <div class="blogsItem">
-                                <h3><?= $article->title ?></h3>
-                                <a href="#">
+                                <h3>
+                                    <a href="<?=Url::to(['/articles/news/view', 'id' => $articleFirst->id])?>">
+                                    <?= $article->title ?>
+                                    </a>
+                                </h3>
+                                <a href="<?=Url::to(['/articles/news/view', 'id' => $article->id])?>">
                                     <div class="wrap">
                                         <div class="innerPhoto">
                                             <img src="<?= $article->getImage($article->image) ?>" alt="" title="">
                                         </div>
                                         <div class="innerText">
-                                            <?= $article->text ?>
+                                            <?= $article->description ?>
                                         </div>
                                     </div>
                                 </a>
                                 <hr>
                                 <div class="bottom">
                                     <div class="likes">
-                                        <i class="far fa-heart"></i> 0
+                                        <?php if(!Yii::$app->user->isGuest):?>
+                                        <a
+                                                class="button-like <?php echo $article->isLikesBy(Yii::$app->user->identity->getId()) ? "display-none" : ""; ?>"
+                                                data-id="<?=$article->id?>">
+                                            <i class="far fa-heart"></i>&nbsp;
+                                        </a>
+                                        <a
+                                                class="button-unlike <?php echo $article->isLikesBy(Yii::$app->user->identity->getId()) ? "" : "display-none"; ?>"
+                                                data-id="<?= '' ?>">
+                                            <i class="fas fa-heart"></i>&nbsp;
+                                        </a>
+                                        <?php endif;?>
+                                        <?php if(Yii::$app->user->isGuest):?>
+                                        <i class="far fa-heart"></i>&nbsp;
+                                        <?php endif;?>
+                                        <span id="count1" class="likes-count"                                                                                    data-id="<?php echo '' ?>">
+                                            <?php echo $article->likes_count ? $article->likes_count : 0?>
+                                        </span>
                                     </div>
                                     <div class="comments">
-                                        <i class="far fa-comment-alt"></i> 0
+
+                                        <a href="<?=Url::to(['/articles/news/view', 'id'=>$article->id, '#' => 'comments'])?>">
+                                            <i class="far fa-comment-alt"></i> <?=\frontend\modules\articles\models\MainComments::CommentCount($article->id)?>
+                                        </a>
                                     </div>
                                     <div class="date">
                                         <?=Yii::$app->formatter->asDatetime($article->date)?>

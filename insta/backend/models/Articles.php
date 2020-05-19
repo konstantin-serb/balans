@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $title
  * @property string $text
+ * @property string $description
  * @property string|null $image
  * @property int|null $date
  * @property string|null $likes
@@ -36,6 +37,7 @@ class Articles extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Title',
             'text' => 'Text',
+            'description' => 'Description',
             'image' => 'Image',
             'date' => 'Date',
             'likes' => 'Likes',

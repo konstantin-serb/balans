@@ -7,13 +7,10 @@ use Yii;
 use yii\base\Model;
 use frontend\models\Post;
 use frontend\models\User;
-use Intervention\Image\ImageManager;
 use frontend\models\events\PostCreatedEvent;
-
 
 class PostForm extends Model
 {
-
     const MAX_DESCRIPTIONS_LENGHT = 1000;
     const EVENT_POST_CREATED = 'post_created';
 
@@ -43,21 +40,7 @@ class PostForm extends Model
         $this->on(self::EVENT_POST_CREATED, [Yii::$app->feedService, 'addToFeeds']);
     }
 
-    public function resizePicture()
-    {
-        $width = Yii::$app->params['postPicture']['maxWidth'];
-        $height = Yii::$app->params['postPicture']['maxHeight'];
 
-        $manager = new ImageManager(array('driver' => 'imagick'));
-
-        $image = $manager->make($this->picture->tempName);     //    /tmp/11ro51
-
-
-        $image->resize($width, $height, function ($constraint) {
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        })->save();        //    /tmp/11ro51
-    }
 
     public function save()
     {
@@ -66,7 +49,9 @@ class PostForm extends Model
             $post->description = $this->description;
             $post->status = $this->status;
             $post->created_at = time();
-            $post->filename = Yii::$app->storagePostPicture->saveUploadedFile($this->picture);
+
+            $params = self::getResizeParams();
+            $post->filename = Yii::$app->storagePostPicture->saveUploadedFile($this->picture, $params);
             $post->user_id = $this->user->getId();
 
             if ($post->save(false)) {
@@ -106,6 +91,11 @@ class PostForm extends Model
     private function getMaxFileSize()
     {
         return Yii::$app->params['maxFileSize'];
+    }
+
+    private function getResizeParams()
+    {
+        return Yii::$app->params['paramsUploadPictureFromUserPosts'];
     }
 
 }

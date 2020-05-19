@@ -13,18 +13,22 @@ class StoragePostPicture extends Component implements StorageInterface
 {
     private $filename;
 
-    public function saveUploadedFile(UploadedFile $file)
+    public function saveUploadedFile(UploadedFile $file, $params)
     {
         $path = $this->preparePath($file);
 
         $resize = new Resize($file->tempName);
         $size = getimagesize($file->tempName);
 
-        $resize->resize(600,500, 'width');
+        $width = $params['width'];
+        $height = $params['height'];
+        $method = $params['method'];
+
+        $resize->resize($width,$height, $method);
 
         if ($path) {
-            if($size[0] > 600){
-                $resize->save($path, 85);
+            if($size[0] > $width || $size[1] > $height){
+                $resize->save($path, $params['quality']);
             } else {
                 $file->saveAs($path);
             }

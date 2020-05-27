@@ -19,6 +19,9 @@ class ProfileController extends Controller
 
     public function actionView($nickname)
     {
+        if(Yii::$app->user->isGuest) {
+            return $this->redirect(['/']);
+        }
         $color = 'lightBlue';
 
         $user = $this->findUser($nickname);
@@ -146,6 +149,27 @@ class ProfileController extends Controller
         $currentUser->followUser($user);
 
         return $this->redirect(['/user/profile/view', 'nickname' => $user->getNickname()]);
+    }
+
+    public function actionAjaxSubscribe()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
+        }
+        $data = Yii::$app->request->post();
+
+        $id = $data['id'];
+        // Получаем экземпляр пользователя, который выполнил вход
+        $currentUser = Yii::$app->user->identity;
+        // получаем екземляр пользователя, на которого нужно подписаться
+        $user = $this->findUserById($id);
+
+        if (!$currentUser->isFollowersId($id)) {
+        $currentUser->followUser($user);
+
+        }
+        return true;
     }
 
     public function actionUnsubscribe($id)

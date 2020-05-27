@@ -87,9 +87,9 @@ class DefaultController extends Controller
         $color = 'red';
         $model = $this->findPost($id);
         if ($model->user_id == Yii::$app->user->identity->getId()) {
-            if(Yii::$app->request->isPost) {
+            if (Yii::$app->request->isPost) {
                 $model->status = '6';
-                if ($model->save()){
+                if ($model->save()) {
                     return $this->redirect(['/user/profile/my-page', 'nickname' => Yii::$app->user->identity->getNickname(),
                         '#' => 'currentUserPosts']);
                 }
@@ -155,7 +155,7 @@ class DefaultController extends Controller
         $currentUser = Yii::$app->user->identity;
         $this->view->params['countMessage'] = CommentReport::countReports(Yii::$app->user->identity->getId());
         $post = $this->findPost($id);
-        if($post->status == 6){
+        if ($post->status == 6) {
             throw new NotFoundHttpException();
         }
         $comments = Comment::find()->where(['post_id' => $id])->andWhere(['status' => 10])
@@ -194,6 +194,28 @@ class DefaultController extends Controller
         if ($commentModel->validate() && $commentModel->save()) {
             return [
                 'success' => true,
+            ];
+        }
+    }
+
+    public function actionDeleteComment()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $request = Yii::$app->request->post('params');
+        $model = new CommentAddForm();
+
+        $model->commentId = $request['id'];
+        $model->user_id = $request['userId'];
+        $model->commentAuthorId = $request['commentAuthorId'];
+
+        if ($model->delete()) {
+            return [
+                'success' => true,
+                'message' => '',
+            ];
+        } else {
+            return [
+                'success' => false,
             ];
         }
     }

@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\footer\models\InfoFooter */
@@ -21,9 +20,5 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <div>
         <p><?=$model->text?></p>
-        <p><?=$model->description?></p>
     </div>
-
-
-
 </div>

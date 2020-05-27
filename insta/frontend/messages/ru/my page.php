@@ -13,6 +13,7 @@ return [
     'subscribed to {followers} users' => 'на {followers} подписан',
     'posts' => 'постов',
     'Mutual friends' => 'Общие друзья',
+    'MUTUAL FRIENDS' => 'ОБЩИЕ ДРУЗЬЯ',
     'mutual friends' => 'общих друзей',
     'Information about me' => 'Информация обо мне',
     'Would you like to add a new post' => 'Не хотите ли добавить новый пост',
@@ -20,8 +21,11 @@ return [
     'MY POSTS' => 'МОИ ПОСТЫ',
     'POSTS' => 'ПОСТЫ',
     'SUBSCRIBE' => 'ПОДПИСАТЬСЯ',
+    'Subscribe' => 'Подписаться',
     'UNSUBSCRIBE' => 'ОТПИСАТЬСЯ',
     '{username}\'s USER PAGE' => 'СТРАНИЦА ПОЛЬЗОВАТЕЛЯ: {username}',
+    'SUBSCRIBED TO' => 'ПОДПИСАН НА',
+    'FOLLOWED TO' => 'ПОДПИСЧИКИ',
 
     //create
     'CANCEL' => 'НАЗАД',

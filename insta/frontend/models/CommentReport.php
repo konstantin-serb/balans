@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "comment_report".
  *
  * @property int $id
+ * @property int $comment_id
  * @property int|null $recipient
  * @property int|null $post_id
  * @property int|null $commentator

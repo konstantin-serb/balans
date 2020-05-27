@@ -74,7 +74,10 @@ $this->color = $color;
                                         </span>
                                     </div>
                                     <div class="comments">
+                                        <a href="<?=Url::to(['/post/default/view', 'id' => $feedItem->id,'#' => 'comments'])?>"
+                                           style="color:#555;">
                                         <i class="far fa-comment-alt"></i> <?=$feedItem->countComments?>
+                                        </a>
                                     </div>
                                     <div class="date">
                                         <?= Yii::$app->formatter->asDate($feedItem->created_at) ?>
@@ -88,25 +91,7 @@ $this->color = $color;
         </div>
     </section>
 
-    <section>
-        <div class="main-page">
-
-
-
-            <div class="row">
-                <div class="col-md-12">
-                    <h4>Чтобы получать ленту друзей, подпишитесь на пользователей: </h4>
-                    <?php foreach ($users as $user): ?>
-                        <a style="color:black;"
-                           href="<?= Url::to(['/user/profile/view', 'nickname' => ($user->nickname) ? $user->nickname : $user->getId()]) ?>">
-                            <?= $user->username ?>&nbsp;&nbsp;&nbsp;&nbsp;
-                        </a>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    
 
 <?php
 $this->registerJsFile('@web/js/likes.js', [

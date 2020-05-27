@@ -14,6 +14,8 @@ use common\widgets\Alert;
 FontAwesomeAsset::register($this);
 AppAsset::register($this);
 
+
+
 if (!empty($this->color)) {
     $color = $this->color;
 } else {
@@ -63,6 +65,10 @@ if (empty($this->params['pageActive'])) {
         <p class="slogan"><?= Yii::t('menu', 'Photograph and lay out!') ?></p>
         <div class="forma">
             <?= Html::beginForm(['/site/language']) ?>
+            <a href="<?=Url::to(['/site/search'])?>" class="searchIcon"
+               style="color:<?=$color?>; margin-right: 8px;font-size:20px;">
+                <i class="fas fa-search-plus"></i>
+            </a>
             <?= Html::dropDownList('language', Yii::$app->language, [
                 'en-US' => 'English',
                 'ru-RU' => 'Русский',
@@ -75,6 +81,10 @@ if (empty($this->params['pageActive'])) {
 
     <hr class="hruka">
 </section>
+
+
+
+
 <section class="main-menu">
     <div class="wrap-menu <?= $color ?>">
         <menu>

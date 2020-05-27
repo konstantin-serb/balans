@@ -5,6 +5,7 @@ namespace frontend\controllers;
 
 use frontend\models\Comment;
 use frontend\models\CommentReport;
+use frontend\models\forms\SearchForm;
 use frontend\models\User;
 use Yii;
 use frontend\models\Post;
@@ -105,6 +106,24 @@ class SiteController extends Controller
             'feedItems' => $posts,
             'currentUser' => $currentUser,
             'users' => $users,
+        ]);
+    }
+
+
+    public function actionSearch()
+    {
+        $color = 'black';
+        $model = new SearchForm();
+        $result = null;
+
+        if($model->load(Yii::$app->request->post())) {
+            $result = $model->search();
+        }
+
+        return $this->render('search', [
+            'color' => $color,
+            'model' => $model,
+            'result' => $result,
         ]);
     }
 

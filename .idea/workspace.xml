@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdef52fd-1ecc-45a5-a0ae-a151439a30db" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/insta/frontend/models/SearchUser.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/frontend/models/forms/SearchForm.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/insta/frontend/views/site/search.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/controllers/SiteController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/models/forms/CommentViewForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/models/forms/CommentViewForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/articles/views/news/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/articles/views/news/footer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/controllers/ProfileController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/userprofile.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/userprofile.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/layouts/main.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/alternative.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/site/alternative.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/insta/web/css/style.css" afterDir="false" />
     </list>
@@ -134,7 +139,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/admin.insta/js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/insta/web/js" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -150,11 +155,11 @@
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\user\views\default" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\web\js" />
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\admin.insta\js" />
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\backend\modules\footer\models\forms" />
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\articles\models\forms" />
       <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\articles\views\news" />
-      <recent name="C:\vb\Open Server 5.3.5\OSPanel\domains\project3\insta\frontend\modules\post\views\default" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -210,7 +215,8 @@
       <workItem from="1589718830848" duration="57076000" />
       <workItem from="1590135825426" duration="19277000" />
       <workItem from="1590298071462" duration="5358000" />
-      <workItem from="1590304435972" duration="9978000" />
+      <workItem from="1590304435972" duration="60823000" />
+      <workItem from="1590813770590" duration="20069000" />
     </task>
     <servers />
   </component>
@@ -229,5 +235,51 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/insta/frontend/modules/user/views/profile/userprofile.php</url>
+          <line>262</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/insta/frontend/modules/user/views/profile/userprofile.php</url>
+          <line>154</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/insta/frontend/modules/user/views/profile/userprofile.php</url>
+          <line>105</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/insta/frontend/views/site/alternative.php</url>
+          <line>76</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/insta/frontend/modules/user/views/profile/userprofile.php</url>
+          <line>305</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php</url>
+          <line>346</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php</url>
+          <line>348</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php</url>
+          <line>68</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

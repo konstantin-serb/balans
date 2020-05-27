@@ -14,6 +14,7 @@ class CommentReportForm extends Model
     public $commentator;
     public $comment;
     public $created_at;
+    public $comment_id;
 
 
     public function save()
@@ -23,6 +24,7 @@ class CommentReportForm extends Model
         $report->recipient = $this->recipient;
         $report->commentator = $this->commentator;
         $report->comment = $this->comment;
+        $report->comment_id = $this->comment_id;
         $report->created_at = $this->created_at;
         $report->status = 10;
         if($report->save()) {

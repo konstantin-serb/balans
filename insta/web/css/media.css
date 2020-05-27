@@ -149,9 +149,9 @@ a.addUserPhoto {
     cursor: pointer;
 }
 
-.commentInfo .dataBlock .name-info .info div {
-    padding: 0 10px;
-    border-left: none;
+.commentInfo .dataBlock .name-info .info {
+    padding: 0 5px;
+    /*border-left: none;*/
 }
 
 
@@ -477,6 +477,10 @@ a.addUserPhoto {
 
 /*-------------------------------------------------------*/
 @media (max-width: 885px) {
+
+
+
+
     .item-wrap {
         max-width: 880px;
     }
@@ -544,6 +548,10 @@ a.addUserPhoto {
         margin: 15px auto;
     }
 
+    .aboutWrap .myModal-dialog {
+        margin: 15px 5px;
+    }
+
     .onePost .authorInfo .name {
         width: auto;
     }
@@ -553,7 +561,7 @@ a.addUserPhoto {
         margin-bottom: 10px;
     }
 
-    .commentInfo .dataBlock .name-info .info div:first-child {
+    .commentInfo .dataBlock .name-info .info:first-child {
         padding-left: 0;
     }
 
@@ -589,6 +597,16 @@ a.addUserPhoto {
 
         padding: 25px 0;
         font-size: 17px;
+    }
+
+
+    .myModal-body {
+        width: 100%;
+    }
+
+    .UserBlock {
+        width: 100%;
+        display: flex;
     }
 }
 
@@ -731,5 +749,18 @@ a.addUserPhoto {
         padding: 0 30px;
     }
 
+    .subscribeButton {
+        display: block;
+        float:none;
+        margin-top:2px;
+    }
+
+    .myModal-content {
+        padding:0;
+    }
+
+    .myModal-body {
+        padding:10px 0;
+    }
 
 }

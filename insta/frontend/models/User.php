@@ -347,9 +347,6 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getSubscriptions()
     {
-//        $redis = Yii::$app->redis;
-//        $key = "user:{$this->getId()}:subscriptions";
-//        return $redis->smembers($key);
         $subscriber = new Subscriptions();
         if ($subscr = $subscriber->find()->where(['user_id' => $this->getId()])->one()) {
             $arrayDown = $subscr->subscribe;
@@ -487,6 +484,24 @@ class User extends ActiveRecord implements IdentityInterface
         return false;
     }
 
+    public function isFollowersId($userId)
+    {
+        $currentUserId = $this->getId();
+        $userFollows = Followers::find()->where(['user_id' => $userId])->one();
+
+        if ($userFollows) {
+            $asArray = unserialize($userFollows->followers);
+            if($userFollows){
+                if (in_array($currentUserId, $asArray)){
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+        return false;
+    }
+
     public function isUserYourSubscriber($user){
         $youId = $this->getId();
         $userId = $user->id;
@@ -526,6 +541,18 @@ class User extends ActiveRecord implements IdentityInterface
         }
         return self::DEFAULT_IMAGE;
     }
+
+
+    public static function getUserPhoto2($id)
+    {
+        $user = User::findOne($id);
+        $filename = $user->picture;
+        if($filename) {
+            return Yii::$app->storage->getFile($filename);
+        }
+        return self::DEFAULT_IMAGE;
+    }
+
 
     public function getFeed($limit)
     {

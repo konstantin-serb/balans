@@ -31,13 +31,18 @@ $this->registerJsFile('@web/js/modal.js', [
     'depends' => \yii\web\JqueryAsset::class,
 ]);
 
-//$this->registerJsFile('@web/js/modalInfo.js', [
-//    'depends' => \yii\web\JqueryAsset::class,
-//]);
-
 $this->registerJsFile('@web/js/articlesComment.js', [
     'depends' => \yii\web\JqueryAsset::class,
 ]);
+
+$this->registerJsFile('@web/js/myModal.js', [
+    'depends' => \yii\web\JqueryAsset::class,
+]);
+
+$this->registerJsFile('@web/js/ajaxSubscribe.js', [
+    'depends' => \yii\web\JqueryAsset::class,
+]);
+
 ?>
 
 <section>
@@ -121,54 +126,14 @@ $this->registerJsFile('@web/js/articlesComment.js', [
                                 <div class="posts"><?= $comment->user->rating ?> <?= Yii::t('my page', 'posts') ?> </div>
                                 |
                                 <div class="followers">
-                                    <a class="btnFollowers" data-toggle="modal" data-target="#myModal"
-                                       style="cursor:pointer;">
-                                        <?php
-                                        Modal::begin([
-                                            'size' => 'modal-lg',
-                                            'header' => '<h2>Followers</h2>',
-                                            'toggleButton' => [
-                                                'label' => $comment->user->countFollowers() . ' ' . Yii::t('my page', 'subscribers'),
-                                                'tag' => 'a',
-                                                'style' => 'cursor:pointer;'
-                                            ],
-//                                            'footer' => 'Bottom window',
-                                        ]);
-                                        foreach ($comment->user->getFollowers() as $follower){
-                                            echo '<a href="'.
-                                                Url::to(['/user/profile/view', 'nickname' => $follower['id']])
-                                                .'">'. Html::encode($follower['username']) .'</a>' . '<br>';
-                                        }
-
-                                        Modal::end();
-                                        ?>
-
-                                    </a></div>
+                                    <a href="myModalFollower-<?=$comment->user->id?>" style="cursor:pointer;" data-toggle="myModal" data-target="#myModalFollower-<?=$comment->user->id?>"><?=$comment->user->countFollowers().' '.Yii::t('my page', 'subscribers')?></a>
+                                </div>
                                 |
-                                <div class="subscriber"><a href="#">
-                                        <?php
-                                        Modal::begin([
-                                            'size' => 'modal-lg',
-                                            'header' => '<h2>Subscribers</h2>',
-                                            'toggleButton' => [
-                                                'label' =>Yii::t('my page', 'subscribed to {followers} users', [
-                                                'followers' => $comment->user->countSubscribers()
-                                            ]),
-                                                'tag' => 'a',
-                                                'style' => 'cursor:pointer;'
-                                            ],
-//                                            'footer' => 'Bottom window',
-                                        ]);
-                                        foreach ($comment->user->getSubscriptions() as $subscriber){
-                                            echo '<a href="'.
-                                                Url::to(['/user/profile/view', 'nickname' => $subscriber['id']])
-                                                .'">'.Html::encode($subscriber['username']) .'</a>' . '<br>';
-                                        }
-
-                                        Modal::end();
-                                        ?>
-
-                                    </a></div>
+                                <div class="subscriber">
+                                    <a href="myModalUser-<?=$comment->user->id?>" style="cursor:pointer;" data-toggle="myModal" data-target="#myModalUser-<?=$comment->user->id?>"><?=Yii::t('my page', 'subscribed to {followers} users', [
+                                            'followers' => $comment->user->countSubscribers()
+                                        ])?></a>
+                                </div>
                                 <!--                            <div class="friends"><a href="#"> общих друзей</a></div>-->
                             </div>
                         </div>
@@ -182,7 +147,6 @@ $this->registerJsFile('@web/js/articlesComment.js', [
                         </div>
                     </div>
                 </div>
-                <!--            <hr>-->
                 <div class="commentText">
                     <p style="
                     <?php if ($comment->user_id == $currentUser->id) {
@@ -195,6 +159,110 @@ $this->registerJsFile('@web/js/articlesComment.js', [
                 </div>
                 <hr>
             </div>
+        <div class="myModal-section">
+
+            <!---------------------------------modalSubscribers--------------------------------------->
+            <div id="myModalUser-<?=$comment->user->id?>" class="myModal">
+                <div class="myModal-dialog">
+                    <div class="myModal-content">
+                        <div class="myModal-header">
+                            <h3 class="myModal-title" >
+                                <?=Yii::t('my page' , 'SUBSCRIBED TO')?>:</h3>
+                            <a href="#" title="Закрыть" class="modalClose" data-close="myModal">
+                                &times;
+                            </a>
+                        </div>
+                        <div class="myModal-body" style="padding: 15px 10px;">
+                            <?php foreach($comment->user->getSubscriptions() as $subscriber):?>
+                                <a href="
+                                                            <?=Url::to(['/user/profile/view', 'nickname' => $subscriber['id']])?>">
+                                    <div class="UserBlock">
+                                        <div class="minAvatar" style="padding:0;">
+                                            <img class="mimiatiura" src="
+                                                                    <?=\frontend\models\User::getUserPhoto2($subscriber['id'])?>"
+                                                 style=""
+                                            >
+                                        </div>
+                                        <p style="padding-top:10px;">
+                                            <?=Html::encode($subscriber['username'])?>
+                                        </p>
+                                    </div>
+
+                                    <?php if (!$currentUser->isFollowersId($subscriber['id'])) : ?>
+                                        <div class="subscribeButton">
+                                            <a style="cursor:pointer" data-id="<?=$subscriber['id']?>" class="btnSubscribe btn btn-default">
+                                                <?=Yii::t('my page', 'Subscribe')?>
+                                            </a>
+                                        </div>
+                                    <?php endif;?>
+
+
+                                </a>
+                                <hr>
+                            <?php endforeach;?>
+                            <br>
+                            <a href="#" title="Закрыть" class="btn btn-default" data-close="myModal">
+                                <?=Yii::t('my page', 'CANCEL')?>
+                            </a>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--------------------------------endModalSubscribers------------------------------------->
+
+
+            <!---------------------------------modalFollowers--------------------------------------->
+            <div id="myModalFollower-<?=$comment->user->id?>" class="myModal">
+                <div class="myModal-dialog">
+                    <div class="myModal-content">
+                        <div class="myModal-header">
+                            <h3 class="myModal-title" >
+                                <?=Yii::t('my page' , 'FOLLOWED TO')?>:</h3>
+                            <a href="#" title="Закрыть" class="modalClose" data-close="myModal">
+                                &times;
+                            </a>
+                        </div>
+                        <div class="myModal-body" style="padding: 15px 10px;">
+                            <?php foreach($comment->user->getFollowers() as $subscriber):?>
+                                <a href="
+                                                            <?=Url::to(['/user/profile/view', 'nickname' => $subscriber['id']])?>">
+                                    <div class="UserBlock">
+                                        <div class="minAvatar" style="padding:0;">
+                                            <img class="mimiatiura" src="
+                                                                    <?=\frontend\models\User::getUserPhoto2($subscriber['id'])?>"
+                                                 style=""
+                                            >
+                                        </div>
+                                        <p style="padding-top:10px;">
+                                            <?=Html::encode($subscriber['username'])?>
+                                        </p>
+                                    </div>
+
+                                    <?php if (!$currentUser->isFollowersId($subscriber['id'])) : ?>
+                                        <div class="subscribeButton">
+                                            <a style="cursor:pointer" data-id="<?=$subscriber['id']?>" class="btnSubscribe btn btn-default">
+                                                <?=Yii::t('my page', 'Subscribe')?>
+                                            </a>
+                                        </div>
+                                    <?php endif;?>
+
+
+                                </a>
+                                <hr>
+                            <?php endforeach;?>
+                            <br>
+                            <a href="#" title="Закрыть" class="btn btn-default" data-close="myModal">
+                                <?=Yii::t('my page', 'CANCEL')?>
+                            </a>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--------------------------------endModalFollowers------------------------------------->
+
+        </div>
         <?php endforeach; ?>
 
         </div>
@@ -239,12 +307,6 @@ $this->registerJsFile('@web/js/articlesComment.js', [
     </div>
 </div>
 <!--------------------------------endModal1------------------------------------->
-
-
-<!-------------------------------------modal bootstrap--------------------------------->
-
-
-<!-----------------------------------end modal bootstrap------------------------------->
 
 <section class="main-content newsList">
     <div class="wrap">

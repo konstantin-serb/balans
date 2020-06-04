@@ -288,6 +288,10 @@ a.addUserPhoto {
     .news .wrap-image {
         max-height: none;
     }
+
+    .vertical-horizontal {
+        display: none;
+    }
 }
 
 /*----------------------------------------------------*/
@@ -395,6 +399,9 @@ a.addUserPhoto {
         overflow: hidden;
     }
 
+    .blurb.vertical {
+        display: none;
+    }
 
 }
 
@@ -762,5 +769,18 @@ a.addUserPhoto {
     .myModal-body {
         padding:10px 0;
     }
+
+    .blurb h1{
+        font-size: 45px;
+    }
+
+    .blurb h2{
+        font-size: 35px;
+    }
+
+    .blurb h3{
+        font-size: 25px;
+    }
+
 
 }

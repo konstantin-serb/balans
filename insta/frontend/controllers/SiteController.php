@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 
+use frontend\models\Blurb;
 use frontend\models\Comment;
 use frontend\models\CommentReport;
 use frontend\models\forms\SearchForm;
@@ -55,6 +56,10 @@ class SiteController extends Controller
     {
         $color = 'green';
         $title = 'Balance | main';
+        $horizontalBlurb = Blurb::find()->where(['insert' => 'home-horizont', 'sort' => 100])->one();
+        $verticalBlurb = Blurb::find()->where(['insert' => 'home-vert-vert', 'sort' => 100])->one();
+        $verticalHorizontalBlurb = Blurb::find()->where(['insert' => 'home-vert-horizont', 'sort' => 100])->one();
+
         $this->view->params['pageActive'] = 'home';
         $bestPosts = Post::getBestPosts();
         $articles = Articles::find()->where('status = 1')->orderBy('id desc')->limit(4)->all();
@@ -78,6 +83,9 @@ class SiteController extends Controller
             'bestAuthors' => $bestAuthors,
             'newbiesAuthors' => $newbiesAuthors,
             'articleFirst' => $articleFirst,
+            'horizontalBlurb' => $horizontalBlurb,
+            'verticalBlurb' => $verticalBlurb,
+            'verticalHorizontalBlurb' => $verticalHorizontalBlurb,
         ]);
     }
 
@@ -90,6 +98,7 @@ class SiteController extends Controller
         $this->view->params['countMessage'] = CommentReport::countReports(Yii::$app->user->identity->getId());
         $this->view->params['pageActive'] = 'newsFeed';
         $color = 'blue';
+        $horizontalBlurb = Blurb::find()->where(['insert' => 'newsFeed', 'sort' => 100])->one();
 
         $users = User::find()->orderBy('id desc')->all();
         $currentUser = Yii::$app->user->identity;
@@ -106,6 +115,7 @@ class SiteController extends Controller
             'feedItems' => $posts,
             'currentUser' => $currentUser,
             'users' => $users,
+            'horizontalBlurb' => $horizontalBlurb,
         ]);
     }
 

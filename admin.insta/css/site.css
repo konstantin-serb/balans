@@ -134,6 +134,13 @@ img {
     float:left;
 }
 
+.addedPicturesVert{
+    height:200px;
+    width: auto;
+    padding-right:15px;
+    float:left;
+}
+
 .btnDelete {
     margin-top:15px;
 }

@@ -32,4 +32,7 @@ return [
     'adminWeb' => 'http://admin.insta.com/',
 //    'adminWeb' => 'http://admin.insta.i-des.net/',
 
+    'blurb' => 'http://admin.insta.com/uploads/',
+//    'blurb' => 'http://admin.insta.i-des.net/uploads/',
+
 ];

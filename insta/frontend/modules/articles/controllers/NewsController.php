@@ -4,6 +4,7 @@
 namespace frontend\modules\articles\controllers;
 
 
+use frontend\models\Blurb;
 use frontend\modules\articles\models\forms\MainCommentForm;
 use frontend\modules\articles\models\forms\MainCommentsViewForm;
 use frontend\modules\articles\models\MainComments;
@@ -23,11 +24,13 @@ class NewsController extends Controller
         if (Yii::$app->user->isGuest){
             return $this->redirect(['/user/default/login']);
         }
+        $horizontalBlurb = Blurb::find()->where(['insert' => 'home-horizont', 'sort' => 100])->one();
         $articles = Articles::find()->where(['status' => 1])->orderBy('id desc')->all();
 
         return $this->render('index',[
             'color' => 'green',
             'articles' => $articles,
+            'horizontalBlurb' => $horizontalBlurb,
         ]);
     }
 
@@ -37,7 +40,7 @@ class NewsController extends Controller
         if (Yii::$app->user->isGuest){
             return $this->redirect(['/user/default/login']);
         }
-
+        $horizontalBlurb = Blurb::find()->where(['insert' => 'post', 'sort' => 100])->one();
         $article = Articles::findOne($id);
         $articles = Articles::find()->where(['status' => 1])->orderBy('id desc')->limit(8)->all();
 
@@ -54,6 +57,7 @@ class NewsController extends Controller
             'pagination' => $data['pagination'],
             'currentUser' => Yii::$app->user->identity,
             'commentCount' => $commentCount,
+            'horizontalBlurb' => $horizontalBlurb
         ]);
     }
 

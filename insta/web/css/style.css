@@ -774,15 +774,76 @@ menu a {
 .blurb.horizontal {
     margin-top: 30px;
     min-height: 120px;
+    max-height: 200px;
+    overflow: hidden;
     background-color: #F0F0F0;;
     border-radius: 10px;
     text-align: center;
+
+}
+
+.blurb.horizontal a {
+    display: block;
+}
+
+.blurb.horizontal .fig{
+    display:flex;
+    justify-content: center; /*центрируем элемент по горизонтали */
+    align-items: center; /* и вертикали */
+    height: 200px;
+    overflow: hidden; /* если элемент больше блока-родителя – обрезаем лишнее */
+
+
+}
+
+
+
+.blurb.horizontal img {
+    width: 100%;
+    min-width: 850px;
+}
+
+.blurb.vertical img {
+    height: auto;
+    max-width: fit-content;
 }
 
 .blurb h4 {
     padding-top:10px;
     color:#666;
 }
+
+.blurb-content {
+    position: relative;
+
+}
+
+.vertical .blurb-content {
+    position: relative;
+    max-width: 330px;
+    max-height: 700px;
+}
+
+.blurb .text {
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    color:#E90E0E;
+}
+
+.blurb h1{
+    font-size: 55px;
+}
+
+.blurb h2{
+    font-size: 45px;
+}
+
+.blurb h3{
+    font-size: 35px;
+}
+
+
 
 /*----------------------------HOME----------------------------*/
 
@@ -845,9 +906,10 @@ section.newsFeed h2{
 .blurb.vertical{
     flex:1;
     margin-left:5px;
-    padding:15px;
+    /*padding:15px;*/
     background-color: #F0F0F0;
     border-radius:10px;
+    overflow: hidden;
 }
 
 .news .leftBlock {

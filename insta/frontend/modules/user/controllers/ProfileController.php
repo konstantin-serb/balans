@@ -3,6 +3,7 @@
 
 namespace frontend\modules\user\controllers;
 
+use frontend\models\Blurb;
 use frontend\models\CommentReport;
 use frontend\models\forms\MessagesReportView;
 use frontend\models\Post;
@@ -23,6 +24,7 @@ class ProfileController extends Controller
             return $this->redirect(['/']);
         }
         $color = 'lightBlue';
+        $horizontalBlurb = Blurb::find()->where(['insert' => 'newsFeed', 'sort' => 100])->one();
 
         $user = $this->findUser($nickname);
         $userId = $user->getId();
@@ -51,6 +53,7 @@ class ProfileController extends Controller
             'modelPicture' => $modelPicture,
             'posts' => $data['posts'],
             'pagination' => $data['pagination'],
+            'horizontalBlurb' => $horizontalBlurb
         ]);
     }
 
@@ -58,6 +61,7 @@ class ProfileController extends Controller
     {
         $color = 'brown';
 
+        $horizontalBlurb = Blurb::find()->where(['insert' => 'newsFeed', 'sort' => 100])->one();
         $this->view->params['countMessage'] = $message = CommentReport::countReports(Yii::$app->user->identity->getId());
         $this->view->params['pageActive'] = 'myPage';
         $user = $this->findUser($nickname);
@@ -79,16 +83,19 @@ class ProfileController extends Controller
             'posts' => $data['posts'],
             'pagination' => $data['pagination'],
             'message' => $message,
+            'horizontalBlurb' => $horizontalBlurb
         ]);
     }
 
     public function actionMyMessages($id)
     {
+        $horizontalBlurb = Blurb::find()->where(['insert' => 'home-horizont', 'sort' => 100])->one();
         $this->view->params['pageActive'] = 'myPage';
         if ($id != Yii::$app->user->identity->getId()) {
             return $this->redirect(['/user/profile/my-messages/', 'id' => Yii::$app->user->identity->getId()]);
         }
         $color = 'brown';
+
         $currentUser = Yii::$app->user->identity->getId();
         $this->view->params['countMessage'] = CommentReport::countReports(Yii::$app->user->identity->getId());
         $messages = CommentReport::find()->where(['recipient' => $currentUser])->orderBy('created_at desc')->all();
@@ -97,6 +104,7 @@ class ProfileController extends Controller
         return $this->render('my-message', [
             'color' => $color,
             'messages' => $messages,
+            'horizontalBlurb' => $horizontalBlurb
         ]);
     }
 

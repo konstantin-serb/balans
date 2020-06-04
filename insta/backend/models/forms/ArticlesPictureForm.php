@@ -59,5 +59,51 @@ class ArticlesPictureForm extends Model
         return $value;
     }
 
+    public function blurb($name)
+    {
+        $photos = PostsImage::find()->where(['title' => $name])->orderBy('id desc')->all();
+        $value = '';
+        $value .= '
+            <br>
+            <div class="row">';
+        foreach ($photos as $picture) {
+            $value .= '<div class="col-md-12 pictureAdd">
+                            <img class="addedPictures" src="'.$picture->getImage().'">
+                           
+                            '.$picture->path.'
+                            <br>
+                            <a class="btn btn-danger btnDelete" post-id="'.$name.'" data-id="'.$picture->id.'">Удалить</a>
+                        </div>
+                    <hr>';
+        }
+        $value .= '</div>';
+
+        return $value;
+    }
+
+    public function blurbVert($name)
+    {
+        $photos = PostsImage::find()->where(['title' => $name])
+            ->andWhere(['status' => 4])
+            ->orderBy('id desc')->all();
+        $value = '';
+        $value .= '
+            <br>
+            <div class="row">';
+        foreach ($photos as $picture) {
+            $value .= '<div class="col-md-12 pictureAdd">
+                            <img class="addedPicturesVert" src="'.$picture->getImage().'">
+                           
+                            '.$picture->path.'
+                            <br>
+                            <a class="btn btn-danger btnDeleteVert" post-id="'.$name.'" data-id="'.$picture->id.'">Удалить</a>
+                        </div>
+                    <hr>';
+        }
+        $value .= '</div>';
+
+        return $value;
+    }
+
 
 }

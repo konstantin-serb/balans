@@ -24,6 +24,10 @@ return [
         'footer' => [
             'class' => 'backend\modules\footer\Module',
         ],
+        'blurb' => [
+            'class' => 'backend\modules\blurb\Module',
+        ],
+
     ],
     'components' => [
         'request' => [
@@ -55,6 +59,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/blurb/index' => '/blurb/blurb/index',
             ],
         ],
 

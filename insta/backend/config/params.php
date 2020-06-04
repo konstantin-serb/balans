@@ -21,4 +21,20 @@ return [
         'method' => 'auto',
         'quality' => 90,
     ],
+
+    //Горизонтальная реклама
+    'blurbHorizontal' => [
+        'width' => 1200,
+        'height' => 300,
+        'method' => 'crop',
+        'quality' => 90,
+    ],
+
+    //Вертикальная реклама
+    'blurbVertical' => [
+        'width' => 330,
+        'height' => 840,
+        'method' => 'crop',
+        'quality' => 90,
+    ],
 ];

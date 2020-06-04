@@ -3,6 +3,7 @@
 namespace frontend\modules\post\controllers;
 
 
+use frontend\models\Blurb;
 use frontend\models\Comment;
 use frontend\models\CommentReport;
 use frontend\models\forms\CommentViewForm;
@@ -25,6 +26,7 @@ class DefaultController extends Controller
 {
     public function actionCreate()
     {
+        $horizontalBlurb = Blurb::find()->where(['insert' => 'home-horizont', 'sort' => 100])->one();
         $color = 'red';
         $this->view->params['pageActive'] = 'myPage';
         if (Yii::$app->user->isGuest) {
@@ -44,6 +46,7 @@ class DefaultController extends Controller
         return $this->render('create', [
             'model' => $model,
             'color' => $color,
+            'horizontalBlurb' => $horizontalBlurb
         ]);
     }
 
@@ -151,6 +154,7 @@ class DefaultController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['/user/default/login']);
         }
+        $horizontalBlurb = Blurb::find()->where(['insert' => 'post', 'sort' => 100])->one();
         $color = 'yellow';
         $currentUser = Yii::$app->user->identity;
         $this->view->params['countMessage'] = CommentReport::countReports(Yii::$app->user->identity->getId());
@@ -179,6 +183,7 @@ class DefaultController extends Controller
             'commentModel' => $commentModel,
             'comments' => $comments,
             'commentsCount' => $commentsCount,
+            'horizontalBlurb' => $horizontalBlurb,
         ]);
     }
 

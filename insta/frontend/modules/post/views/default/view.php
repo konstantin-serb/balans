@@ -134,11 +134,26 @@ $this->registerJsFile('@web/js/myModal.js', [
             <hr>
         </div>
     </section>
-    <section class="blurbHoriz">
+<?php if(!empty($horizontalBlurb)):?>
+    <section>
         <div class="blurb horizontal">
-            <h4>Здесь может быть ваша реклама</h4>
+            <a href="http:\\<?=$horizontalBlurb->url?>" target="_blank">
+                <div class="blurb-content">
+                    <p class="fig">
+                        <img src="<?=Yii::$app->params['blurb'].$horizontalBlurb->photo?>">
+
+                    </p>
+                    <div class="text">
+                        <?=$horizontalBlurb->text?>
+                    </div>
+
+                </div>
+
+            </a>
         </div>
     </section>
+<?php endif;?>
+
 
     <!---------------------------------modal1--------------------------------------->
     <div class="modalWindow">

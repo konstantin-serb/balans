@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'image',
                 'format' => 'raw',
                 'value' => function ($article) {
-                    return Html::img($article->getImage(), ['width' => '150px']);
+                    return Html::img($article->getImage(), ['width' => '100%']);
                 },
             ],
             'date:datetime',

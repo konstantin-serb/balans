@@ -32,32 +32,33 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'date:datetime',
             [
-                    'attribute' => 'status',
+                'attribute' => 'status',
                 'format' => 'raw',
                 'value' => function ($model) {
-                if($model->status == 0) {
-                    return 'Не видно на сайте';
-                } else if($model->status == 1) {
-                    return 'Видно на сайте';
-                }
+                    if ($model->status == 0) {
+                        return 'Не видно на сайте';
+                    } else if ($model->status == 1) {
+                        return 'Видно на сайте';
+                    }
 
                 }
             ],
         ],
     ]) ?>
-<!--    <div class="titlePhoto">-->
-<!--        <img src="--><?//=$model->getImage()?><!--" class="photo">-->
-<!--    </div>-->
+    <!--    <div class="titlePhoto">-->
+    <!--        <img src="--><? //=$model->getImage()?><!--" class="photo">-->
+    <!--    </div>-->
     <div class="articleView">
-        <h1><?=$model->title?></h1>
+        <h1><?= $model->title ?></h1>
 
         <p>
-            <?=$model->text?>
+            <?= $model->text ?>
         </p>
-        <br><br><hr>
+        <br><br>
+        <hr>
         <h3>Описание к статье</h3>
         <p>
-            <?=$model->description?>
+            <?= $model->description ?>
         </p>
     </div>
 

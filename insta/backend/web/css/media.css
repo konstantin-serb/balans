@@ -1,106 +1,36 @@
-body {
-    font-size: 16px;
-}
 
-h1, h2 {
-    font-weight: bold;
-}
-
-textarea.form-control {
-    display: inline;
-}
-
-.btn-success {
-    color: #7A391D;
-    background-color: transparent;
-    border-color: transparent;
-}
-
-.btn-success:hover {
-    color: #7A391D;
-    background-color: transparent;
-    border-color: transparent;
-}
-
-.about .glyphicon {
-    display: none;
-}
-
-a.addUserPhoto {
-    position: relative;
-}
-
-.about .top .right a span {
-    color: transparent;
-    width: 100%;
-    height: 50px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border: 1px solid;
-}
-
-.about p {
-    margin: 20px 0;
-    font-size: 16px;
-}
-
-.about .top .right a span:active {
-    color: transparent;
-    background-color: transparent;
-    box-shadow: none;
-}
-
-.pagination {
-    display: block;
-}
-
-.reportPost{
-    padding-top:-7px;
-}
-
-.reportPost a{
-    color:#fff;
-}
-/*----------------------------------media--------------------------*/
 
 @media (max-width: 2559px) {
     .item-wrap {
         width: 468px;
     }
-
-    hr {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        border: 0;
-        border-top: 1px solid #A6A6A6;
-    }
-
 }
 
 @media (min-width: 2560px) {
     .newsFeed .item-wrap,
     .main-content .item-wrap,
     .newBies .item-wrap,
-    .hallOfFame .item-wrap {
-        width: 348px;
+    .hallOfFame .item-wrap{
+        width:348px;
     }
 
     .newsFeed .item-wrap:last-child,
     .hallOfFame .item-wrap:last-child,
     .newBies .item-wrap:last-child {
-        display: none;
+        display:none;
     }
 }
 
 /*--------------------------------------------------*/
-@media (max-width: 1991px) {
+
+@media (max-width: 1991px){
     .item-wrap {
         width: 405px;
     }
 }
 
 /*---------------------------------------------------------*/
+
 @media (min-width: 1500px) {
     .news .wrap-image {
         max-height: none;
@@ -108,6 +38,8 @@ a.addUserPhoto {
 }
 
 /*----------------------------------------------------*/
+
+
 @media (max-width: 1500px) {
 
     .news .Blogwrap {
@@ -115,7 +47,7 @@ a.addUserPhoto {
     }
 
     .blurb.vertical {
-        margin: 10px 0;
+        margin:10px 0;
     }
 
     .news .rightBlock {
@@ -148,7 +80,7 @@ a.addUserPhoto {
     }
 
     menu {
-        margin: 5px;
+        margin:5px;
     }
 
     .main-menu {
@@ -157,7 +89,7 @@ a.addUserPhoto {
 
     h2 {
         font-size: 28px;
-        margin: 10px auto;
+        margin:10px auto;
     }
 
     section.newsFeed {
@@ -169,7 +101,7 @@ a.addUserPhoto {
     }
 
     #login-form input,
-    .signup input {
+    .signup input{
         width: 100%;
         height: 44px;
     }
@@ -184,8 +116,8 @@ a.addUserPhoto {
     }
 
     section.login,
-    section.signup {
-        margin-top: 25px;
+    section.signup{
+        margin-top:25px;
     }
 
     .login .checkbox {
@@ -193,11 +125,11 @@ a.addUserPhoto {
     }
 
     .addPostsWrap {
-        margin-top: 25px;
+        margin-top:25px;
     }
 
     .aboutWrap {
-        margin-top: 25px;
+        margin-top:25px;
     }
 
 }
@@ -210,6 +142,8 @@ a.addUserPhoto {
 
 
 /*-------------------------------------------------------*/
+
+
 @media (max-width: 1300px) {
     section {
         padding: 10px;
@@ -222,27 +156,30 @@ a.addUserPhoto {
 
 
 /*---------------------------------------------------------*/
+
+
 @media (max-width: 1124px) {
 
-    .news .leftBlock {
-        display: none;
+    .news .leftBlock{
+        display:none;
     }
 
-    .news .rightBlock .wrap {
+    .news .rightBlock .wrap{
 
         flex-direction: column;
-        margin: 0 auto;
+        margin:0 auto;
     }
 
-    .news .blogsItem:first-child {
+    .news .blogsItem:first-child{
         display: block;
     }
 
-    .news .blogsItem:nth-child(2) {
-        margin-top: 10px;
+    .news .blogsItem:nth-child(2)
+    {
+        margin-top:10px;
     }
 
-    .innerPhoto img {
+    .innerPhoto img{
         max-height: 250px;
 
     }
@@ -260,12 +197,12 @@ a.addUserPhoto {
     }
 
     .innerText {
-        margin: 10px 0;
+        margin:10px 0;
     }
 
     .aboutWrap .top,
     .aboutWrap .right {
-        display: block;
+        display:block;
     }
 
     .aboutWrap .right .button {
@@ -273,13 +210,14 @@ a.addUserPhoto {
     }
 
     .addPost textarea,
-    .addComment textarea {
-        width: 100%;
-    }
+    .addComment textarea{
+    width:100%;
+}
 
 }
 
 /*-------------------------------------------------------*/
+
 @media (max-width: 885px) {
     .item-wrap {
         max-width: 880px;
@@ -323,29 +261,29 @@ a.addUserPhoto {
     }
 
     .aboutWrap .left {
-        display: block;
+        display:block;
     }
 
-    .about .photo {
-        text-align: center;
+    .about .photo{
+        text-align:center;
         height: auto;
-        margin: auto;
+        margin:auto;
     }
 
     .about .photo img {
-        width: 300px;
+        width:300px;
         height: auto;
         max-height: none;
-    }
+}
 
     .aboutWrap .info {
-        display: block;
-        text-align: center;
-        margin: 25px auto;
+    display:block;
+    text-align: center;
+        margin:25px auto;
     }
 
     .aboutWrap .info div {
-        margin: 15px auto;
+        margin:15px auto;
     }
 
     .onePost .authorInfo .name {
@@ -353,7 +291,7 @@ a.addUserPhoto {
     }
 
     .commentInfo .dataBlock .name-info {
-        display: block;
+         display: block;
         margin-bottom: 10px;
     }
 
@@ -363,36 +301,34 @@ a.addUserPhoto {
 
     .commentInfo .userPhoto {
         min-width: 110px;
-        min-height: 110px;
+        min-height:110px;
     }
 
     .formBody {
-        width: 100%;
+        width:100%;
     }
 
-    .addPost #postform-status {
+    .addPost #postform-status{
         display: flex;
         flex-direction: column;
         margin-top: 19px;
     }
-
+    
     .updatePost img {
-        max-width: 100%;
+    max-width:100%;
     }
 }
 
 /*--------------------------------------------------------*/
+
 @media (max-width: 677px) {
     .item-wrap {
         width: 586px;
     }
-    
-    .commentInfo {    
-     border-radius: 2px; 
-}
 }
 
 /*--------------------------------------------------------*/
+
 @media (max-width: 473px) {
     .logoType {
         display: flex;
@@ -466,34 +402,34 @@ a.addUserPhoto {
     .author {
         display: flex;
         /*flex-direction:column;*/
-        flex-wrap: wrap;
+        flex-wrap:wrap;
         justify-content: center;
     }
 
     .author .box {
         display: flex;
-        flex-wrap: wrap;
+        flex-wrap:wrap;
         justify-content: center;
-        margin-top: 20px;
+        margin-top:20px;
     }
 
     .onePost .authorInfo .name {
-        margin-left: 10px;
-        text-align: center;
+        margin-left:10px;
+        text-align:center;
     }
 
     .commentInfo {
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-wrap:wrap;
+        justify-content:center;
     }
 
     .commentInfo .dataBlock .name-info {
-        margin-top: 20px;
+        margin-top:20px;
     }
 
     .commentInfo .userPhoto {
         min-width: 70px;
-        min-height: 70px;
+        min-height:70px;
     }
 
     .addPost .form-group {
@@ -501,7 +437,7 @@ a.addUserPhoto {
     }
 
     .addPost .control-label {
-        padding: 0 30px;
+         padding: 0 30px;
     }
 
 

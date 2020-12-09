@@ -2,40 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdef52fd-1ecc-45a5-a0ae-a151439a30db" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/admin.insta/js/uploadPhotoBlurb.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/backend/modules/blurb/Module.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/backend/modules/blurb/controllers/BlurbController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/backend/modules/blurb/models/Blurb.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/backend/modules/blurb/models/forms/BlurbCreateForm.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/backend/modules/blurb/models/forms/BlurbUpdateForm.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/backend/modules/blurb/models/forms/VerticalPictureForm.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/backend/modules/blurb/views/blurb/_form.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/backend/modules/blurb/views/blurb/create.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/backend/modules/blurb/views/blurb/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/backend/modules/blurb/views/blurb/update.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/insta/backend/modules/blurb/views/blurb/view.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin.insta/css/site.css" beforeDir="false" afterPath="$PROJECT_DIR$/admin.insta/css/site.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/backend/config/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/config/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/backend/config/params.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/config/params.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/backend/models/forms/ArticlesPictureForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/models/forms/ArticlesPictureForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/backend/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/views/layouts/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/backend/views/articles/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/views/articles/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/backend/views/articles/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/backend/views/articles/view.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insta/frontend/config/params.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/config/params.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/controllers/SiteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/articles/controllers/NewsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/articles/controllers/NewsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/articles/views/news/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/articles/views/news/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/articles/views/news/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/articles/views/news/view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/post/controllers/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/post/controllers/DefaultController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/create.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/post/views/default/view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/controllers/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/my-message.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/my-message.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/userprofile.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/userprofile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/modules/user/views/profile/view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/alternative.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/site/alternative.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/frontend/views/site/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/site/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/web/css/media.css" beforeDir="false" afterPath="$PROJECT_DIR$/insta/web/css/media.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insta/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/insta/web/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insta/frontend/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/insta/frontend/views/layouts/main.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -237,7 +208,21 @@
       <workItem from="1590135825426" duration="19277000" />
       <workItem from="1590298071462" duration="5358000" />
       <workItem from="1590304435972" duration="60823000" />
-      <workItem from="1590813770590" duration="68732000" />
+      <workItem from="1590813770590" duration="70092000" />
+      <workItem from="1593667328395" duration="48000" />
+      <workItem from="1594617798720" duration="14547000" />
+      <workItem from="1595586347490" duration="650000" />
+      <workItem from="1596778695852" duration="1814000" />
+      <workItem from="1596806815442" duration="4273000" />
+      <workItem from="1597120391849" duration="21000" />
+      <workItem from="1597293181929" duration="2546000" />
+      <workItem from="1598003258602" duration="1835000" />
+      <workItem from="1598536760767" duration="242000" />
+      <workItem from="1598956679748" duration="9064000" />
+      <workItem from="1600674219053" duration="3764000" />
+      <workItem from="1600836746519" duration="1612000" />
+      <workItem from="1601099161545" duration="612000" />
+      <workItem from="1601300780589" duration="617000" />
     </task>
     <servers />
   </component>
@@ -274,11 +259,6 @@
           <url>file://$PROJECT_DIR$/insta/frontend/modules/user/views/profile/userprofile.php</url>
           <line>105</line>
           <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/insta/frontend/views/site/alternative.php</url>
-          <line>90</line>
-          <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/insta/frontend/modules/user/views/profile/userprofile.php</url>

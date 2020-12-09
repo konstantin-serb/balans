@@ -38,7 +38,7 @@ if (empty($this->params['pageActive'])) {
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Rancho&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Rancho|Roboto&display=swap" rel="stylesheet">
